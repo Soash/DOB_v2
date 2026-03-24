@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Chittagong Branch | Dawn of Bioinformatics{% endblock %}
+
+{% block content %}
+<div class="bg-gradient-to-r from-blue-900 to-blue-700 pb-24 pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl tracking-tight">Chittagong Branch</h1>
+        <p class="mt-4 max-w-2xl mx-auto text-xl text-blue-100">
+            Expanding our bioinformatics excellence and training across Bangladesh from Chittagong.
+        </p>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-20 relative z-10">
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-gray-100">
+        
+        <!-- Contact Information -->
+        <div class="w-full lg:w-1/3 bg-gray-50 p-10 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col justify-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-8 border-b border-gray-200 pb-4">Contact Details</h3>
+            
+            <div class="space-y-6">
+                <!-- Using same styling for consistency. Address is a placeholder based on general info. -->
+                <div class="flex items-start">
+                    <div class="shrink-0">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="text-lg font-semibold text-gray-900">Address</h4>
+                        <p class="mt-1 text-gray-600">Dawn of Bioinformatics Ltd. Chittagong Branch.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="shrink-0">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="text-lg font-semibold text-gray-900">Phone</h4>
+                        <p class="mt-1 text-gray-600">(+880) 151 783 1136</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="shrink-0">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="text-lg font-semibold text-gray-900">Email</h4>
+                        <p class="mt-1 text-gray-600">dawn.of.bioinformatics@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10">
+                <a href="https://maps.app.goo.gl/ZoMcCe1LNCVqrzMN9" target="_blank" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition duration-150 shadow-md group">
+                    Open in Maps App
+                    <svg class="ml-2 -mr-1 w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Google Map Embed -->
+        <div class="w-full lg:w-2/3 min-h-[500px] h-96 lg:h-auto">
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.5875124832814!2d91.82831457498587!3d22.369198740395085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30ad270054539b7b%3A0x50c593e0507fd4ef!2sDawn%20of%20Bioinformatics%20Ltd.%20Chittagong%20Branch!5e0!3m2!1sen!2sbd!4v1773735027488!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+{% endblock %}

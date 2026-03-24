@@ -1,0 +1,31 @@
+# Python/Django
+*.pyc
+*~
+__pycache__/
+*.sqlite3
+db.sqlite3
+.env
+venv/
+env/
+.venv/
+staticfiles/
+media/
+*.log
+.antigravity/
+
+# Tailwind/Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDEs/OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+load_bsds_data.py
+load_demo_data.py
+load_real_data.py
+load_services_data.py

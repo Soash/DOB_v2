@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/**
+  * A catch-all path to Django template files, JavaScript, and Python files
+  * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
+  *
+  * If your final CSS file is not being updated after code changes, you may want to broaden or narrow
+  * the scope of this path.
+  */
+@source "../../../**/*.{html,py,js}";
+
+@theme {
+  --color-dob-blue: #27A2D4;
+  --color-dob-yellow: #F1B006;
+  --color-dob-dark-yellow: #ECB43E; /* Warm Light Gold */
+  --color-dob-dark-blue: #274A51;   /* Deep Teal / Dark Blue */
+  --color-dob-light-gray: #DEE2E2;
+}

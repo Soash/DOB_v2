@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BSDS | Dawn of Bioinformatics{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16">
+            <span class="text-blue-600 font-semibold tracking-wide uppercase text-sm mb-4 block">Bioinformatics Skill Development Scheme</span>
+            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">BSDS Sub Departments</h1>
+            <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600">
+                Empowering learners and professionals to contribute to impactful bioinformatics research and skill development.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for item in bsds_items %}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group flex flex-col h-full overflow-hidden">
+                
+                <div class="w-full h-56 overflow-hidden bg-gray-100 relative">
+                    {% if item.thumbnail %}
+                        <img src="{{ item.thumbnail.url }}" alt="{{ item.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    {% else %}
+                        <img src="{% static 'images/default.jpeg' %}" alt="{{ item.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    {% endif %}
+                    
+                    <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div class="p-8 flex flex-col grow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                        {{ item.title }}
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed grow text-sm">
+                        {{ item.description }}
+                    </p>
+                    
+                    <div class="mt-6 pt-6 border-t border-gray-50">
+                        {% if item.details_url %}
+                            <a href="{{ item.details_url }}" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
+                                Details
+                                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </a>
+                        {% else %}
+                            <span class="inline-flex items-center text-gray-400 font-medium cursor-not-allowed text-sm">
+                                Details coming soon
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-gray-500 py-12">
+                    <p>No BSDS items are currently available. Please check back later.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
