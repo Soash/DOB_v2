@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Latest News and Blogs Section -->
 <section class="py-24 bg-gray-50 border-t border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,8 +10,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
              <!-- Blog/News Card Placeholder -->
              <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group">
-                <div class="h-48 bg-blue-50 relative overflow-hidden flex items-center justify-center">
-                     <span class="text-blue-300 font-bold tracking-widest text-lg uppercase group-hover:scale-105 transition-transform">NEWS PHOTO</span>
+                <div class="h-48 relative overflow-hidden">
+                     <img src="{% static 'images/news.jpg' %}" alt="News" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <span class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2 block">Announcement</span>
@@ -22,8 +23,8 @@
 
              <!-- Blog/News Card Placeholder -->
              <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group">
-                <div class="h-48 bg-indigo-50 relative overflow-hidden flex items-center justify-center">
-                     <span class="text-indigo-300 font-bold tracking-widest text-lg uppercase group-hover:scale-105 transition-transform">BLOG PHOTO</span>
+                <div class="h-48 relative overflow-hidden">
+                     <img src="{% static 'images/news.jpg' %}" alt="Blog" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-2 block">Education</span>
@@ -35,8 +36,8 @@
 
              <!-- Blog/News Card Placeholder -->
              <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group">
-                <div class="h-48 bg-purple-50 relative overflow-hidden flex items-center justify-center">
-                     <span class="text-purple-300 font-bold tracking-widest text-lg uppercase group-hover:scale-105 transition-transform">NEWS PHOTO</span>
+                <div class="h-48 relative overflow-hidden">
+                     <img src="{% static 'images/news.jpg' %}" alt="News" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <span class="text-xs font-bold uppercase tracking-wider text-purple-600 mb-2 block">Media</span>
