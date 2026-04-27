@@ -1,19 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db import models
-from .models import BSDSItem
-from service.models import ServiceCategory
+from .models import BSDSItem, ResearchPaper, BlogPost
+from service.models import ServiceCategory, Service
 from django.contrib.auth import get_user_model
 
 def home(request):
     User = get_user_model()
     
-    # Fetch some featured services (e.g., top 4 from the first few categories)
-    # This is just an example of grabbing a subset of services to highlight
-    categories = ServiceCategory.objects.prefetch_related('services')[:3]
-    featured_services = []
-    for cat in categories:
-        featured_services.extend(list(cat.services.all()[:2]))
-    featured_services = featured_services[:6] # Limit to 6
+    # Fetch the top services directly using the new is_top flag
+    featured_services = Service.objects.select_related('category').filter(is_active=True, is_top=True).order_by('order')[:5]
     
     # Fetch some active BSDS items (top 3)
     bsds_items = BSDSItem.objects.filter(is_active=True).order_by('order')[:3]
@@ -22,11 +17,17 @@ def home(request):
     team_count = User.objects.filter(is_active=True, is_staff=True).count()
     services_count = ServiceCategory.objects.aggregate(total=models.Count('services'))['total'] or 30
     
+    # Recent Research and Blog Posts
+    recent_papers = ResearchPaper.objects.all()[:5]
+    recent_blogs = BlogPost.objects.filter(published=True)[:5]
+    
     context = {
         'featured_services': featured_services,
         'bsds_items': bsds_items,
         'team_count': team_count,
         'services_count': services_count,
+        'recent_papers': recent_papers,
+        'recent_blogs': recent_blogs,
     }
     return render(request, 'core/home.html', context)
 
@@ -72,3 +73,15 @@ def team(request):
 
 def coming_soon(request):
     return render(request, 'core/coming_soon.html')
+
+def research_papers(request):
+    papers = ResearchPaper.objects.all()
+    return render(request, 'core/research_papers.html', {'papers': papers})
+
+def blog(request):
+    posts = BlogPost.objects.filter(published=True)
+    return render(request, 'core/blog.html', {'posts': posts})
+
+def blog_detail(request, slug):
+    post = get_object_or_404(BlogPost, slug=slug, published=True)
+    return render(request, 'core/blog_detail.html', {'post': post})

@@ -1,82 +1,100 @@
-{% load static %}
-<!-- Research Section -->
-<section class="py-24 bg-gray-50 relative">
+<section class="py-20 bg-dob-light-gray relative w-full overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end space-y-4 md:space-y-0 text-center md:text-left">
+        <div>
+            <h2 class="text-3xl lg:text-4xl font-extrabold text-dob-dark-blue mb-2">Latest Research Findings</h2>
+            <p class="text-gray-600 max-w-2xl">Explore the cutting-edge papers and articles published by the Dawn of Bioinformatics research wing.</p>
+        </div>
+        <div class="hidden md:flex space-x-3">
+            <button id="research-prev" class="p-3 rounded-full border border-dob-blue text-dob-blue hover:bg-dob-blue hover:text-white transition-colors duration-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button id="research-next" class="p-3 rounded-full border border-dob-blue text-dob-blue hover:bg-dob-blue hover:text-white transition-colors duration-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Horizontal Scroll Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-16">
-            <div>
-                <span class="text-blue-600 font-bold tracking-widest uppercase text-sm block mb-2">Publications & Insights</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">Latest Research</h2>
+        <div id="research-carousel" class="flex overflow-x-auto space-x-6 pb-8 snap-x snap-mandatory hide-scrollbar">
+            {% for paper in recent_papers %}
+            <div class="min-w-[300px] md:min-w-[400px] max-w-[400px] bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col flex-shrink-0 snap-start hover:shadow-xl transition-shadow duration-300">
+                <span class="text-sm font-bold text-dob-blue uppercase tracking-wider mb-2">{{ paper.journal }} | {{ paper.publication_date|date:"M Y" }}</span>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{{ paper.title }}</h3>
+                <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">{{ paper.abstract }}</p>
+                <a href="{{ paper.link }}" target="_blank" class="inline-flex items-center text-dob-blue font-bold hover:text-dob-dark-blue mt-auto">
+                    Read Paper <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
             </div>
-            <a href="#" class="hidden md:inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition-colors">
-                View All Research
-                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Research Card Placeholder 1 -->
-            <div class="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 relative overflow-hidden">
-                    <img src="{% static 'images/research.jpg' %}" alt="Research" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500" />
-                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-600 uppercase tracking-widest">Genomics</div>
-                </div>
-                <div class="p-8">
-                    <div class="text-sm text-gray-500 mb-3 flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        April 12, 2026
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">Identification of novel therapeutic compounds using AI-driven NGS data...</h3>
-                    <p class="text-gray-600 line-clamp-3 mb-6">This research highlights the significant progress made in mapping therapeutic markers across South Asian demography...</p>
-                    <a href="#" class="text-blue-600 font-bold hover:text-blue-800 transition-colors inline-flex items-center">
-                        Read Paper <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Research Card Placeholder 2 -->
-            <div class="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 relative overflow-hidden">
-                    <img src="{% static 'images/research.jpg' %}" alt="Research" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500" />
-                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-purple-600 uppercase tracking-widest">Proteomics</div>
-                </div>
-                <div class="p-8">
-                    <div class="text-sm text-gray-500 mb-3 flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        March 28, 2026
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">Protein-Ligand MD Simulation reveals binding affinities of BMPPD extracts</h3>
-                    <p class="text-gray-600 line-clamp-3 mb-6">Utilizing our proprietary Web App tools and DawniLab R&D, we simulate the interaction dynamics...</p>
-                    <a href="#" class="text-blue-600 font-bold hover:text-blue-800 transition-colors inline-flex items-center">
-                        Read Paper <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Research Card Placeholder 3 -->
-            <div class="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 relative overflow-hidden">
-                    <img src="{% static 'images/research.jpg' %}" alt="Research" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500" />
-                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-sky-600 uppercase tracking-widest">Clinical</div>
-                </div>
-                <div class="p-8">
-                    <div class="text-sm text-gray-500 mb-3 flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        February 10, 2026
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">Cancer Detection Profiles: A Molecular Diagnostic approach using AI</h3>
-                    <p class="text-gray-600 line-clamp-3 mb-6">Evaluating precision markers for accurate early detection in oncological studies and validating clinical results...</p>
-                    <a href="#" class="text-blue-600 font-bold hover:text-blue-800 transition-colors inline-flex items-center">
-                        Read Paper <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </div>
-            
-        </div>
-        
-        <div class="mt-10 md:hidden text-center">
-            <a href="#" class="inline-flex items-center justify-center px-6 py-3 border border-gray-200 text-sm font-bold rounded-xl text-gray-700 bg-white shadow-sm hover:bg-gray-50 transition-all">
-                View All Research
-            </a>
+            {% empty %}
+            <p class="text-center text-gray-500 w-full py-10">No recent papers available.</p>
+            {% endfor %}
         </div>
     </div>
 </section>
+
+<style>
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const scrollContainer = document.getElementById('research-carousel');
+    if (!scrollContainer) return;
+
+    let autoScrollInterval;
+
+    const startAutoScroll = () => {
+        autoScrollInterval = setInterval(() => {
+            if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
+                // If reached the end, smoothly scroll back to start
+                scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                // Scroll by roughly the width of one card + gap
+                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
+            }
+        }, 5000); // 5 seconds interval
+    };
+
+    const stopAutoScroll = () => {
+        clearInterval(autoScrollInterval);
+    };
+
+    // Auto-scroll logic only on desktop/large screens
+    if (window.innerWidth > 768) {
+        startAutoScroll();
+        scrollContainer.addEventListener('mouseenter', stopAutoScroll);
+        scrollContainer.addEventListener('mouseleave', startAutoScroll);
+        scrollContainer.addEventListener('touchstart', stopAutoScroll, {passive: true});
+    }
+
+    const prevBtn = document.getElementById('research-prev');
+    const nextBtn = document.getElementById('research-next');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
+            stopAutoScroll();
+            if (window.innerWidth > 768) startAutoScroll();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+             if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
+                 scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+             } else {
+                 scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
+             }
+             stopAutoScroll();
+             if (window.innerWidth > 768) startAutoScroll();
+        });
+    }
+});
+</script>

@@ -39,6 +39,7 @@ class Service(models.Model):
     
     # Status and Ordering
     is_active = models.BooleanField(default=True)
+    is_top = models.BooleanField(default=False, help_text="Check to display this service on the homepage's top section")
     order = models.PositiveIntegerField(default=0, help_text="Order in which the service appears in its category")
 
     class Meta:

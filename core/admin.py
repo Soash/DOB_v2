@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSItem
+from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper
 
 @admin.register(BSDSItem)
 class BSDSItemAdmin(admin.ModelAdmin):
@@ -20,3 +20,20 @@ class BSDSItemAdmin(admin.ModelAdmin):
             'fields': ('is_active', 'order')
         }),
     )
+
+@admin.register(BlogCategory)
+class BlogCategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'category', 'published', 'created_at')
+    list_filter = ('published', 'category', 'author')
+    search_fields = ('title', 'content')
+    prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(ResearchPaper)
+class ResearchPaperAdmin(admin.ModelAdmin):
+    list_display = ('title', 'journal', 'publication_date')
+    search_fields = ('title', 'authors', 'journal')
+    list_filter = ('publication_date', 'journal')

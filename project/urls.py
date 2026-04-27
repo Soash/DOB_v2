@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('core.urls')),
     path('services/', include('service.urls')),
     path("__reload__/", include("django_browser_reload.urls")), 
+    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

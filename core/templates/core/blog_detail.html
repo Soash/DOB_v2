@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Dawn of Bioinformatics | {{ post.title }}{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-16 bg-dob-light-gray relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+        <span class="inline-block bg-dob-blue text-white font-bold px-3 py-1 rounded mb-4">{{ post.category.name|default:"General" }}</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-dob-dark-blue mb-6">{{ post.title }}</h1>
+        <div class="flex items-center justify-center space-x-4 text-gray-500 mb-8 font-medium">
+            <span>By {{ post.author.get_full_name|default:post.author.username }}</span>
+            <span>&bull;</span>
+            <span>{{ post.created_at|date:"F j, Y" }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if post.image %}
+        <div class="mb-12 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-auto object-cover max-h-[500px]">
+        </div>
+        {% endif %}
+        
+        <article class="prose prose-lg text-gray-800 leading-relaxed max-w-none">
+            {{ post.content|safe }}
+        </article>
+        
+        <div class="mt-16 pt-8 border-t border-gray-100 flex justify-between items-center">
+            <a href="{% url 'core:blog' %}" class="inline-flex items-center font-bold text-dob-blue hover:text-dob-dark-blue transition-colors">
+                <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg> Back to News
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

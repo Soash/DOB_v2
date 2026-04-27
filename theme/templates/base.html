@@ -71,8 +71,8 @@
                         <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             <div class="py-2">
                                 <a href="https://bmppd.dawnilab.org/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-dob-blue">> Plant Database</a>
-                                <a href="{% url 'core:coming_soon' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-dob-blue">> Research Projects</a>
-                                <a href="https://ibaidob.com/research-papers/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-dob-blue">> Published Articles</a>
+                                <a href="{% url 'core:research_papers' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-dob-blue">> Research Projects</a>
+                                <a href="{% url 'core:research_papers' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-dob-blue">> Published Articles</a>
                             </div>
                         </div>
                     </div>
@@ -93,6 +93,7 @@
                     </div>
 
                     <a href="{% url 'core:team' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">Team</a>
+                    <a href="{% url 'core:blog' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">News</a>
                 </nav>
 
                 <div class="lg:hidden flex items-center">
@@ -134,11 +135,11 @@
                 <div class="py-1 border-t border-dob-light-gray">
                     <span class="block px-3 py-2 font-medium text-gray-900">DawniLab</span>
                     <a href="https://bmppd.dawnilab.org/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Plant Database</a>
-                    <a href="{% url 'core:coming_soon' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Research Projects</a>
-                    <a href="https://ibaidob.com/research-papers/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Published Articles</a>
+                    <a href="{% url 'core:research_papers' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Research Projects</a>
+                    <a href="{% url 'core:research_papers' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Published Articles</a>
                 </div>
 
-                <a href="#" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">BSDS</a>
+                <a href="{% url 'core:bsds_page' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">BSDS</a>
 
                 <div class="py-1 border-t border-dob-light-gray">
                     <span class="block px-3 py-2 font-medium text-gray-900">Branch</span>
@@ -147,6 +148,7 @@
                 </div>
 
                 <a href="{% url 'core:team' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">Team</a>
+                <a href="{% url 'core:blog' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">News</a>
             </div>
         </div>
     </header>

@@ -29,3 +29,5 @@ load_bsds_data.py
 load_demo_data.py
 load_real_data.py
 load_services_data.py
+load_content_data.py
+set_top.py
