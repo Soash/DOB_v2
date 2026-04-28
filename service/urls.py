@@ -7,4 +7,5 @@ app_name = 'service'
 urlpatterns = [
     # Route for the main services page
     path('', views.service_list, name='service_list'),
+    path('<slug:slug>/', views.service_detail, name='service_detail'),
 ]

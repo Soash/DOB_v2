@@ -4,102 +4,97 @@
     <div class="absolute -left-32 bottom-10 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
-            <div>
+        
+        <!-- Header & Category Tabs -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+            <div class="shrink-0">
                 <span class="text-blue-600 font-bold uppercase tracking-wider text-sm mb-2 block">Our Core Capabilities</span>
                 <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">
                     General Bioinformatics <br />
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Services</span>
                 </h2>
             </div>
-            <a href="{% url 'service:service_list' %}" class="hidden md:inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition-colors group">
-                See All Services
-                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
+            
+            <div class="flex flex-wrap items-center gap-2 pb-2" id="home-category-tabs">
+                {% for category in categories %}
+                    {% if category.services.exists %}
+                        <button onclick="switchHomeTab('{{ category.slug }}')"
+                                id="home-tab-btn-{{ category.slug }}"
+                                class="home-tab-btn px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 {% if forloop.first %}bg-blue-600 text-white shadow-md{% else %}bg-white text-gray-600 hover:bg-gray-100 border border-gray-200{% endif %}">
+                            {{ category.short_name|default:category.name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+                <a href="{% url 'service:service_list' %}" class="ml-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center group">
+                    See All
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <!-- Genomics -->
-            <a href="{% url 'service:service_list' %}" class="block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer">
-                <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 mb-4 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+        <!-- Dynamic Tab Content (Services Grid) -->
+        <div class="min-h-[400px]">
+            {% for category in categories %}
+                {% if category.services.exists %}
+                <div id="home-tab-content-{{ category.slug }}" class="home-tab-content {% if not forloop.first %}hidden{% endif %} transition-opacity duration-500 ease-in-out">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {% for service in category.services.all %}
+                        <a href="{{ service.get_absolute_url }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group cursor-pointer flex flex-col overflow-hidden transform hover:-translate-y-1 h-full">
+                            <div class="w-full h-48 bg-gray-100 relative overflow-hidden shrink-0">
+                                {% if service.thumbnail %}
+                                    <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                {% else %}
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-50 to-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                                        <svg class="w-12 h-12 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="p-6 flex flex-col grow">
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-3">{{ service.title }}</h3>
+                                <p class="text-gray-600 text-sm line-clamp-3 mb-6 grow">{{ service.description|striptags }}</p>
+                                <div class="mt-auto flex items-center text-blue-600 font-semibold text-sm">
+                                    Explore Service
+                                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Genomics</h3>
-            </a>
-            
-            <!-- Proteomics -->
-            <a href="{% url 'service:service_list' %}" class="block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer delay-75">
-                <div class="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 mb-4 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">Proteomics</h3>
-            </a>
-
-            <!-- Metagenomics -->
-            <a href="{% url 'service:service_list' %}" class="block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer delay-100">
-                <div class="w-12 h-12 rounded-full bg-teal-50 text-teal-600 mb-4 flex items-center justify-center group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors">Metagenomics</h3>
-            </a>
-
-            <!-- Transcriptomics -->
-            <a href="{% url 'service:service_list' %}" class="block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer delay-150">
-                <div class="w-12 h-12 rounded-full bg-purple-50 text-purple-600 mb-4 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">Transcriptomics</h3>
-            </a>
-
-            <!-- ML & AI -->
-            <a href="{% url 'service:service_list' %}" class="block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer delay-200">
-                <div class="w-12 h-12 rounded-full bg-orange-50 text-orange-600 mb-4 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">ML & AI</h3>
-            </a>
+                {% endif %}
+            {% endfor %}
         </div>
         
-        <div class="mt-10 md:hidden text-center">
-            <a href="{% url 'service:service_list' %}" class="inline-flex items-center justify-center px-6 py-3 border border-blue-200 text-sm font-bold rounded-xl text-blue-600 bg-white shadow-sm hover:shadow-md transition-all">
+        <div class="mt-12 text-center">
+            <a href="{% url 'service:service_list' %}" class="inline-flex items-center justify-center px-8 py-3 border border-blue-200 text-base font-bold rounded-xl text-blue-600 bg-white shadow-sm hover:shadow-md hover:bg-blue-50 transition-all">
                 See All Services
             </a>
-        </div>
-
-        <!-- Featured Services -->
-        <div class="mt-20">
-            <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-8 text-center md:text-left">Featured Services</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for service in featured_services %}
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group">
-                    <div class="h-48 bg-gray-100 relative overflow-hidden flex-shrink-0">
-                        {% if service.thumbnail %}
-                        <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        {% else %}
-                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-500 to-indigo-600 opacity-90 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                            <span class="text-white/50 text-6xl font-black">{{ service.title|first|upper }}</span>
-                        </div>
-                        {% endif %}
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-white/90 backdrop-blur-sm text-blue-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">{{ service.category.name }}</span>
-                        </div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">{{ service.title }}</h4>
-                        <p class="text-gray-600 text-sm mb-6 line-clamp-3">{{ service.description|striptags }}</p>
-                        
-                        <div class="mt-auto">
-                            <a href="{% if service.learn_more_url %}{{ service.learn_more_url }}{% else %}{% url 'service:service_list' %}{% endif %}" class="inline-flex items-center justify-center w-full px-4 py-2.5 border border-blue-600 text-sm font-bold rounded-xl text-blue-600 bg-white hover:bg-blue-600 hover:text-white transition-colors duration-300">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <p class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-gray-500 py-10">No featured services registered yet.</p>
-                {% endfor %}
-            </div>
         </div>
     </div>
 </section>
+
+<script>
+    function switchHomeTab(categoryId) {
+        // Hide all contents
+        document.querySelectorAll('.home-tab-content').forEach(el => {
+            el.classList.add('hidden');
+        });
+        
+        // Reset all buttons
+        document.querySelectorAll('.home-tab-btn').forEach(el => {
+            el.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+            el.classList.add('bg-white', 'text-gray-600', 'hover:bg-gray-100', 'border', 'border-gray-200');
+        });
+
+        // Show active content
+        const content = document.getElementById('home-tab-content-' + categoryId);
+        if(content) content.classList.remove('hidden');
+
+        // Highlight active button
+        const btn = document.getElementById('home-tab-btn-' + categoryId);
+        if(btn) {
+            btn.classList.remove('bg-white', 'text-gray-600', 'hover:bg-gray-100', 'border', 'border-gray-200');
+            btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+        }
+    }
+</script>

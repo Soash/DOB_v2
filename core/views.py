@@ -21,6 +21,13 @@ def home(request):
     recent_papers = ResearchPaper.objects.all()[:5]
     recent_blogs = BlogPost.objects.filter(published=True)[:5]
     
+    # Fetch categories and their active services for the tabbed section
+    from django.db.models import Prefetch
+    active_services = Service.objects.filter(is_active=True).order_by('order')
+    categories = ServiceCategory.objects.prefetch_related(
+        Prefetch('services', queryset=active_services)
+    ).all()
+    
     context = {
         'featured_services': featured_services,
         'bsds_items': bsds_items,
@@ -28,6 +35,7 @@ def home(request):
         'services_count': services_count,
         'recent_papers': recent_papers,
         'recent_blogs': recent_blogs,
+        'categories': categories,
     }
     return render(request, 'core/home.html', context)
 

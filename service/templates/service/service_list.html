@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
-{% load static %} {% block title %}Services | Dawn of Bioinformatics{% endblock %}
+{% load static %}
+
+{% block title %}Services | Dawn of Bioinformatics{% endblock %}
 
 {% block content %}
 <div class="bg-gray-50 min-h-screen py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        <!-- Header -->
         <div class="text-center mb-16">
             <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">Our Bioinformatics Services</h1>
             <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600">
@@ -12,59 +15,151 @@
             </p>
         </div>
 
-        {% for category in categories %}
-            {% if category.services.all %}
-                <div class="mb-20">
-                    <h2 class="text-3xl font-bold text-blue-900 mb-8 border-b-2 border-blue-200 pb-3">
-                        {{ category.name }}
-                    </h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {% for service in category.services.all %}
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group flex flex-col h-full overflow-hidden">
-                            
-                            <div class="w-full h-48 overflow-hidden bg-gray-100 relative">
-                                {% if service.thumbnail %}
-                                    <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                {% else %}
-                                    <img src="{% static 'images/service-thumbnail.jpeg' %}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                {% endif %}
-                                
-                                <div class="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </div>
-
-                            <div class="p-8 flex flex-col grow">
-                                <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                                    {{ service.title }}
-                                </h3>
-                                <p class="text-gray-600 leading-relaxed grow">
-                                    {{ service.description }}
-                                </p>
-                                
-                                <div class="mt-6 pt-6 border-t border-gray-50">
-                                    {% if service.learn_more_url %}
-                                        <a href="{{ service.learn_more_url }}" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
-                                            Learn more
-                                            <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                        </a>
-                                    {% else %}
-                                        <span class="inline-flex items-center text-gray-400 font-medium cursor-not-allowed text-sm">
-                                            Details coming soon
-                                        </span>
-                                    {% endif %}
-                                </div>
-                            </div>
+        <!-- Core Services Section (Top Services) -->
+        {% if top_services %}
+        <div class="mb-20">
+            <div class="text-center mb-10">
+                <span class="text-sm font-bold tracking-wider text-blue-600 uppercase">Featured Solutions</span>
+                <h2 class="text-3xl font-bold text-gray-900 mt-2">Core Services</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for service in top_services %}
+                <a href="{{ service.get_absolute_url }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full overflow-hidden transform hover:-translate-y-1">
+                    <div class="w-full h-56 overflow-hidden bg-gray-100 relative">
+                        {% if service.thumbnail %}
+                            <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        {% else %}
+                            <img src="{% static 'images/service-thumbnail.jpeg' %}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        {% endif %}
+                        <div class="absolute inset-0 bg-linear-to-t from-gray-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                            <span class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-md">View Details</span>
                         </div>
-                        {% endfor %}
+                    </div>
+                    <div class="p-8 flex flex-col grow">
+                        <div class="text-sm font-medium text-blue-600 mb-2">{{ service.category.name }}</div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                            {{ service.title }}
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed grow line-clamp-3">
+                            {{ service.description }}
+                        </p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- All Services with Sidebar Tabs -->
+        {% if categories %}
+        <div class="mt-24">
+            <div class="mb-10 text-center md:text-left">
+                <h2 class="text-3xl font-bold text-gray-900">Explore All Services</h2>
+                <p class="text-gray-500 mt-2">Browse our comprehensive list of specialized solutions by category.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-10">
+                <!-- Sidebar -->
+                <div class="w-full md:w-1/4 shrink-0">
+                    <div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-2">
+                        <ul class="flex flex-col gap-1" id="category-tabs">
+                            {% for category in categories %}
+                                {% if category.services.all %}
+                                <li>
+                                    <button 
+                                        onclick="switchTab('{{ category.slug }}')" 
+                                        id="tab-btn-{{ category.slug }}"
+                                        class="tab-btn w-full text-left px-5 py-3 rounded-lg text-sm font-medium transition-colors duration-200 {% if forloop.first %}bg-blue-50 text-blue-700{% else %}text-gray-600 hover:bg-gray-50 hover:text-gray-900{% endif %}">
+                                        {{ category.name }}
+                                        <span class="float-right bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs tab-count">{{ category.services.count }}</span>
+                                    </button>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
-            {% endif %}
-        {% empty %}
+
+                <!-- Content Area -->
+                <div class="w-full md:w-3/4">
+                    {% for category in categories %}
+                        {% if category.services.all %}
+                        <div id="tab-content-{{ category.slug }}" class="tab-content {% if not forloop.first %}hidden{% endif %}">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b border-gray-200">{{ category.name }}</h3>
+                            
+                            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                                {% for service in category.services.all %}
+                                <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row overflow-hidden group">
+                                    <div class="w-full sm:w-2/5 h-48 sm:h-auto shrink-0 bg-gray-100 overflow-hidden relative">
+                                        {% if service.thumbnail %}
+                                            <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                        {% else %}
+                                            <img src="{% static 'images/service-thumbnail.jpeg' %}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                        {% endif %}
+                                    </div>
+                                    <div class="p-6 flex flex-col grow">
+                                        <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                            {{ service.title }}
+                                        </h4>
+                                        <p class="text-gray-600 text-sm mb-4 grow line-clamp-3">
+                                            {{ service.description }}
+                                        </p>
+                                        <div class="mt-auto">
+                                            <a href="{{ service.get_absolute_url }}" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800">
+                                                Explore Service
+                                                <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+            {% if not top_services %}
             <div class="text-center text-gray-500 py-12">
                 <p>No services are currently available. Please check back later.</p>
             </div>
-        {% endfor %}
+            {% endif %}
+        {% endif %}
 
     </div>
 </div>
+
+<script>
+    function switchTab(categoryId) {
+        // Hide all contents
+        document.querySelectorAll('.tab-content').forEach(el => {
+            el.classList.add('hidden');
+        });
+        
+        // Reset all buttons
+        document.querySelectorAll('.tab-btn').forEach(el => {
+            el.classList.remove('bg-blue-50', 'text-blue-700');
+            el.classList.add('text-gray-600', 'hover:bg-gray-50', 'hover:text-gray-900');
+            el.querySelector('.tab-count').classList.remove('bg-blue-100', 'text-blue-700');
+            el.querySelector('.tab-count').classList.add('bg-gray-100', 'text-gray-600');
+        });
+
+        // Show active content
+        const content = document.getElementById('tab-content-' + categoryId);
+        if(content) content.classList.remove('hidden');
+
+        // Highlight active button
+        const btn = document.getElementById('tab-btn-' + categoryId);
+        if(btn) {
+            btn.classList.remove('text-gray-600', 'hover:bg-gray-50', 'hover:text-gray-900');
+            btn.classList.add('bg-blue-50', 'text-blue-700');
+            btn.querySelector('.tab-count').classList.remove('bg-gray-100', 'text-gray-600');
+            btn.querySelector('.tab-count').classList.add('bg-blue-100', 'text-blue-700');
+        }
+    }
+</script>
 {% endblock %}

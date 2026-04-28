@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
-
+from django.urls import reverse
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=200, help_text="e.g., Computer-Aided Drug Design Services")
+    short_name = models.CharField(max_length=50, blank=True, null=True, help_text="e.g., CADD (used for tabs and tight spaces)")
     slug = models.SlugField(unique=True, blank=True)
     order = models.PositiveIntegerField(default=0, help_text="Order in which the category appears")
 
@@ -18,11 +19,19 @@ class ServiceCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class Service(models.Model):
     category = models.ForeignKey(ServiceCategory, related_name='services', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, help_text="e.g., Advanced Molecular Docking")
     slug = models.SlugField(unique=True, blank=True)
+    
+    # Existing description
     description = models.TextField()
+    
+    # New detailed description fields
+    introduction_description = models.TextField(blank=True, null=True, help_text="Introduction content for the service page")
+    features_description = models.TextField(blank=True, null=True, help_text="Details about the service features")
+    demo_description = models.TextField(blank=True, null=True, help_text="Information regarding service demos or examples")
     
     # Image and Link fields
     thumbnail = models.ImageField(
@@ -50,8 +59,41 @@ class Service(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('service:service_detail', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.title
-    
-    
-    
+
+
+# --- NEW: Multiple Image System ---
+class ServiceImage(models.Model):
+    service = models.ForeignKey(Service, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='service/gallery/')
+    caption = models.CharField(max_length=255, blank=True, help_text="Optional caption for the image")
+    order = models.PositiveIntegerField(default=0, help_text="Order in which the image appears in the gallery")
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f"Image for {self.service.title}"
+
+
+# --- NEW: FAQ System ---
+class ServiceFAQ(models.Model):
+    service = models.ForeignKey(Service, related_name='faqs', on_delete=models.CASCADE)
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    order = models.PositiveIntegerField(default=0, help_text="Order in which the FAQ appears")
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Service FAQ"
+        verbose_name_plural = "Service FAQs"
+
+    def __str__(self):
+        return f"FAQ: {self.question} - {self.service.title}"
+
+
+        
