@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 – Page Not Found | Dawn of Bioinformatics{% endblock %}
+
+{% block content %}
+<section class="min-h-[80vh] bg-gray-50 flex items-center justify-center relative overflow-hidden py-20">
+
+    <!-- Soft background blobs -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
+
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+
+        <!-- 404 number -->
+        <div class="relative inline-block mb-6 select-none">
+            <span class="text-[9rem] md:text-[12rem] font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-indigo-400 tracking-tight">
+                404
+            </span>
+            <!-- DNA helix decoration -->
+            <svg class="absolute -right-10 top-4 w-10 h-10 text-blue-300 animate-spin" style="animation-duration:8s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+            <svg class="absolute -left-10 bottom-4 w-10 h-10 text-indigo-300 animate-spin" style="animation-duration:12s;animation-direction:reverse;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+            Sequence not found.
+        </h1>
+        <p class="text-gray-500 text-lg mb-10 leading-relaxed">
+            The page you're looking for doesn't exist or has been moved.<br>
+            Let's get you back to the lab.
+        </p>
+
+        <!-- Action buttons -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/"
+               class="inline-flex items-center justify-center px-7 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/25 transition-all duration-200 hover:-translate-y-0.5">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Back to Home
+            </a>
+            <a href="{% url 'service:service_list' %}"
+               class="inline-flex items-center justify-center px-7 py-3 border border-blue-200 text-blue-600 font-bold rounded-xl bg-white hover:bg-blue-50 transition-all duration-200">
+                Explore Services
+            </a>
+        </div>
+
+        <!-- Subtle breadcrumb hint -->
+        <p class="mt-10 text-xs text-gray-400">
+            Error 404 &mdash; Dawn of Bioinformatics
+        </p>
+
+    </div>
+</section>
+{% endblock %}
