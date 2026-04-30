@@ -6,60 +6,98 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <!-- Header & Category Tabs -->
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
-            <div class="shrink-0">
-                <span class="text-blue-600 font-bold uppercase tracking-wider text-sm mb-2 block">Our Core Capabilities</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-                    General Bioinformatics <br />
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Services</span>
-                </h2>
-            </div>
-            
-            <div class="flex flex-wrap items-center gap-2 pb-2" id="home-category-tabs">
-                {% for category in categories %}
-                    {% if category.services.exists %}
-                        <button onclick="switchHomeTab('{{ category.slug }}')"
-                                id="home-tab-btn-{{ category.slug }}"
-                                class="home-tab-btn px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 {% if forloop.first %}bg-blue-600 text-white shadow-md{% else %}bg-white text-gray-600 hover:bg-gray-100 border border-gray-200{% endif %}">
-                            {{ category.short_name|default:category.name }}
-                        </button>
-                    {% endif %}
-                {% endfor %}
-                <a href="{% url 'service:service_list' %}" class="ml-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center group">
-                    See All
-                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                </a>
+        <div class="mb-12">
+            <span class="text-blue-600 font-bold uppercase tracking-wider text-sm mb-2 block">Our Core Capabilities</span>
+            <p class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">General Bioinformatics</p>
+
+            <!-- "Services" word + tab buttons in the same row -->
+            <div class="flex flex-row flex-wrap items-center gap-4 mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 leading-tight shrink-0 mr-6">Services</h2>
+
+                <div class="flex flex-wrap items-center gap-2" id="home-category-tabs">
+                    {% for category in categories %}
+                        {% if category.services.exists %}
+                            <button onclick="switchHomeTab('{{ category.slug }}')"
+                                    id="home-tab-btn-{{ category.slug }}"
+                                    class="home-tab-btn flex flex-col items-center justify-center gap-1.5 w-30 h-20 rounded-xl text-xs font-bold transition-all duration-300 {% if forloop.first %}bg-blue-600 text-white shadow-md{% else %}bg-white text-gray-600 hover:bg-gray-100 border border-gray-200{% endif %}">
+                                {% if category.icon %}
+                                    <img src="{{ category.icon.url }}" alt="{{ category.name }} icon" class="w-7 h-7 object-contain shrink-0">
+                                {% else %}
+                                    <svg class="w-7 h-7 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                                {% endif %}
+                                <span class="leading-tight text-center px-1">{{ category.short_name|default:category.name }}</span>
+                            </button>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{% url 'service:service_list' %}" class="ml-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center group">
+                        See All
+                        <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Dynamic Tab Content (Services Grid) -->
+        <!-- Dynamic Tab Content (Carousel) -->
         <div class="min-h-[400px]">
             {% for category in categories %}
                 {% if category.services.exists %}
                 <div id="home-tab-content-{{ category.slug }}" class="home-tab-content {% if not forloop.first %}hidden{% endif %} transition-opacity duration-500 ease-in-out">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {% for service in category.services.all %}
-                        <a href="{{ service.get_absolute_url }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group cursor-pointer flex flex-col overflow-hidden transform hover:-translate-y-1 h-full">
-                            <div class="w-full h-48 bg-gray-100 relative overflow-hidden shrink-0">
-                                {% if service.thumbnail %}
-                                    <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                                {% else %}
-                                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-50 to-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                                        <svg class="w-12 h-12 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="p-6 flex flex-col grow">
-                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-3">{{ service.title }}</h3>
-                                <p class="text-gray-600 text-sm line-clamp-3 mb-6 grow">{{ service.description|striptags }}</p>
-                                <div class="mt-auto flex items-center text-blue-600 font-semibold text-sm">
-                                    Explore Service
-                                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+
+                    <!-- Carousel wrapper -->
+                    <div class="relative group/carousel"
+                         data-carousel-id="{{ category.slug }}"
+                         onmouseenter="carouselPause('{{ category.slug }}')"
+                         onmouseleave="carouselResume('{{ category.slug }}')"
+                    >
+                        <!-- Track -->
+                        <div class="overflow-hidden">
+                            <div id="carousel-track-{{ category.slug }}"
+                                 class="flex transition-transform duration-500 ease-in-out"
+                                 style="will-change: transform;">
+                                {% for service in category.services.all %}
+                                <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+                                    <a href="{{ service.get_absolute_url }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group cursor-pointer flex flex-col overflow-hidden transform hover:-translate-y-1 h-full">
+                                        <div class="w-full h-48 bg-gray-100 relative overflow-hidden shrink-0">
+                                            {% if service.thumbnail %}
+                                                <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                            {% else %}
+                                                <div class="absolute inset-0 bg-gradient-to-tr from-blue-50 to-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                                                    <svg class="w-12 h-12 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="p-6 flex flex-col grow">
+                                            <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-3">{{ service.title }}</h3>
+                                            <p class="text-gray-600 text-sm line-clamp-3 mb-6 grow">{{ service.description|striptags }}</p>
+                                            <div class="mt-auto flex items-center text-blue-600 font-semibold text-sm">
+                                                Explore Service
+                                                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
+                                {% endfor %}
                             </div>
-                        </a>
-                        {% endfor %}
+                        </div>
+
+                        <!-- Prev button -->
+                        <button onclick="carouselMove('{{ category.slug }}', -1)"
+                                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+                                aria-label="Previous">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+
+                        <!-- Next button -->
+                        <button onclick="carouselMove('{{ category.slug }}', 1)"
+                                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+                                aria-label="Next">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+
+                        <!-- Dot indicators -->
+                        <div id="carousel-dots-{{ category.slug }}" class="flex justify-center gap-1.5 mt-6"></div>
                     </div>
+
                 </div>
                 {% endif %}
             {% endfor %}
@@ -74,12 +112,105 @@
 </section>
 
 <script>
-    function switchHomeTab(categoryId) {
-        // Hide all contents
-        document.querySelectorAll('.home-tab-content').forEach(el => {
-            el.classList.add('hidden');
+    // ── Carousel state ────────────────────────────────────────────────────────
+    const _carouselState = {};   // { slug: { index, total, visibleCount, timer } }
+
+    function _getVisibleCount() {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 640)  return 2;
+        return 1;
+    }
+
+    function _initCarousel(slug) {
+        const track = document.getElementById('carousel-track-' + slug);
+        if (!track) return;
+        const total = track.children.length;
+        const vis   = _getVisibleCount();
+        _carouselState[slug] = { index: 0, total, visibleCount: vis };
+        _renderTrack(slug);
+        _renderDots(slug);
+        _startTimer(slug);
+    }
+
+    function _renderTrack(slug) {
+        const s     = _carouselState[slug];
+        const track = document.getElementById('carousel-track-' + slug);
+        if (!track || !s) return;
+        const pct = (100 / s.visibleCount) * s.index;
+        track.style.transform = `translateX(-${pct}%)`;
+        // Set each child width
+        Array.from(track.children).forEach(child => {
+            child.style.width = `${100 / s.visibleCount}%`;
         });
-        
+        _renderDots(slug);
+    }
+
+    function _renderDots(slug) {
+        const s    = _carouselState[slug];
+        const wrap = document.getElementById('carousel-dots-' + slug);
+        if (!wrap || !s) return;
+        const pages = Math.ceil(s.total / s.visibleCount);
+        const cur   = Math.floor(s.index / s.visibleCount);
+        wrap.innerHTML = '';
+        if (pages <= 1) return;
+        for (let i = 0; i < pages; i++) {
+            const dot = document.createElement('button');
+            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === cur ? 'bg-blue-600 w-4' : 'bg-gray-300 hover:bg-gray-400'}`;
+            dot.addEventListener('click', () => carouselGoTo(slug, i * s.visibleCount));
+            wrap.appendChild(dot);
+        }
+    }
+
+    function carouselMove(slug, dir) {
+        const s = _carouselState[slug];
+        if (!s) return;
+        const maxIndex = Math.max(0, s.total - s.visibleCount);
+        s.index = Math.min(Math.max(s.index + dir, 0), maxIndex);
+        _renderTrack(slug);
+        _restartTimer(slug);
+    }
+
+    function carouselGoTo(slug, idx) {
+        const s = _carouselState[slug];
+        if (!s) return;
+        const maxIndex = Math.max(0, s.total - s.visibleCount);
+        s.index = Math.min(idx, maxIndex);
+        _renderTrack(slug);
+        _restartTimer(slug);
+    }
+
+    function _autoAdvance(slug) {
+        const s = _carouselState[slug];
+        if (!s) return;
+        const maxIndex = Math.max(0, s.total - s.visibleCount);
+        s.index = s.index >= maxIndex ? 0 : s.index + 1;
+        _renderTrack(slug);
+    }
+
+    function _startTimer(slug) {
+        const s = _carouselState[slug];
+        if (!s) return;
+        s.timer = setInterval(() => _autoAdvance(slug), 3000);
+    }
+
+    function _restartTimer(slug) {
+        const s = _carouselState[slug];
+        if (!s) return;
+        clearInterval(s.timer);
+        _startTimer(slug);
+    }
+
+    function carouselPause(slug)  { clearInterval(_carouselState[slug]?.timer); }
+    function carouselResume(slug) { _restartTimer(slug); }
+
+    // ── Tab switching ─────────────────────────────────────────────────────────
+    function switchHomeTab(categoryId) {
+        // Pause all carousels
+        Object.keys(_carouselState).forEach(slug => carouselPause(slug));
+
+        // Hide all contents
+        document.querySelectorAll('.home-tab-content').forEach(el => el.classList.add('hidden'));
+
         // Reset all buttons
         document.querySelectorAll('.home-tab-btn').forEach(el => {
             el.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
@@ -88,13 +219,32 @@
 
         // Show active content
         const content = document.getElementById('home-tab-content-' + categoryId);
-        if(content) content.classList.remove('hidden');
+        if (content) content.classList.remove('hidden');
 
         // Highlight active button
         const btn = document.getElementById('home-tab-btn-' + categoryId);
-        if(btn) {
+        if (btn) {
             btn.classList.remove('bg-white', 'text-gray-600', 'hover:bg-gray-100', 'border', 'border-gray-200');
             btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
         }
+
+        // Resume the now-visible carousel
+        carouselResume(categoryId);
     }
+
+    // ── Bootstrap ─────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-carousel-id]').forEach(el => {
+            _initCarousel(el.dataset.carouselId);
+        });
+        // Reinitialise on resize
+        window.addEventListener('resize', () => {
+            Object.keys(_carouselState).forEach(slug => {
+                const s = _carouselState[slug];
+                s.visibleCount = _getVisibleCount();
+                s.index = 0;
+                _renderTrack(slug);
+            });
+        });
+    });
 </script>

@@ -1,10 +1,17 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=200, help_text="e.g., Computer-Aided Drug Design Services")
     short_name = models.CharField(max_length=50, blank=True, null=True, help_text="e.g., CADD (used for tabs and tight spaces)")
     slug = models.SlugField(unique=True, blank=True)
+    icon = models.ImageField(
+        upload_to='service/category_icons/',
+        blank=True,
+        null=True,
+        help_text="Upload a small icon for this category (displayed in tab buttons)"
+    )
     order = models.PositiveIntegerField(default=0, help_text="Order in which the category appears")
 
     class Meta:
