@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Latest Research Section -->
 <section class="py-20 bg-gray-50 relative w-full overflow-hidden">
 
@@ -36,10 +37,12 @@
                                 <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-blue-500 mb-3">
                                     {{ paper.journal|default:"Research" }}
                                 </span>
-                                <div class="w-full h-40 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-                                    <svg class="w-20 h-20 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                    </svg>
+                                <div class="w-full h-40 rounded-xl overflow-hidden">
+                                    {% if paper.image %}
+                                        <img src="{{ paper.image.url }}" alt="{{ paper.title }}" class="w-full h-full object-cover">
+                                    {% else %}
+                                        <img src="{% static 'images/research.jpg' %}" alt="Research paper" class="w-full h-full object-cover">
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Body -->
