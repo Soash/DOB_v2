@@ -29,11 +29,12 @@
                             </button>
                         {% endif %}
                     {% endfor %}
-                    <a href="{% url 'service:service_list' %}" class="ml-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center group">
-                        See All
-                        <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
                 </div>
+
+                <a href="{% url 'service:service_list' %}" class="ml-auto text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center group shrink-0">
+                    See All
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
             </div>
         </div>
 

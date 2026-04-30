@@ -1,112 +1,181 @@
+{% load static %}
+<!-- News & Updates Section -->
 <section class="py-20 bg-white relative w-full overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end space-y-4 md:space-y-0">
-        <div class="text-center md:text-left">
-            <h2 class="text-3xl lg:text-4xl font-extrabold text-dob-dark-blue mb-2">News & Updates</h2>
-            <p class="text-gray-600 max-w-xl">Stay tuned with our recent activities, milestones, and blog posts.</p>
-        </div>
-        <div class="flex items-center space-x-6">
-            <div class="hidden md:flex space-x-3">
-                <button id="news-prev" class="p-3 rounded-full border border-dob-blue text-dob-blue hover:bg-dob-blue hover:text-white transition-colors duration-300 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <button id="news-next" class="p-3 rounded-full border border-dob-blue text-dob-blue hover:bg-dob-blue hover:text-white transition-colors duration-300 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header row -->
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs mb-1 block">Latest Updates</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">News &amp; Blogs</h2>
             </div>
-            <a href="{% url 'core:blog' %}" class="hidden md:inline-flex items-center font-bold text-dob-blue hover:text-dob-dark-blue transition-colors whitespace-nowrap">
-                View All <svg class="ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            <a href="{% url 'core:blog' %}" class="hidden md:inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors group shrink-0">
+                View All
+                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </a>
         </div>
-    </div>
 
-    <!-- Horizontal Scroll Container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="news-carousel" class="flex overflow-x-auto space-x-6 pb-8 snap-x snap-mandatory hide-scrollbar">
-            {% for post in recent_blogs %}
-            <div class="min-w-[280px] md:min-w-[350px] max-w-[350px] bg-dob-light-gray rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col flex-shrink-0 snap-start hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="h-40 w-full object-cover">
-                {% else %}
-                <div class="h-40 w-full bg-gradient-to-r from-dob-blue to-indigo-500 flex items-center justify-center">
-                    <span class="text-white font-bold opacity-50 text-xl tracking-widest">NEWS</span>
-                </div>
-                {% endif %}
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex justify-between items-center text-xs text-gray-500 mb-3">
-                        <span class="bg-blue-50 text-dob-blue px-2 py-1 rounded font-semibold">{{ post.category.name|default:"General" }}</span>
-                        <span>{{ post.created_at|date:"M d, Y" }}</span>
+        <!-- Shared carousel (same JS as 05_general_services) -->
+        <div class="relative group/carousel"
+             data-carousel-id="news"
+             onmouseenter="carouselPause('news')"
+             onmouseleave="carouselResume('news')">
+
+            <!-- Track -->
+            <div class="overflow-hidden">
+                <div id="carousel-track-news"
+                     class="flex transition-transform duration-500 ease-in-out"
+                     style="will-change: transform;">
+
+                    {% for post in recent_blogs %}
+                    <!-- News Card -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <!-- Image -->
+                            <div class="w-full h-44 overflow-hidden shrink-0">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                {% else %}
+                                    <img src="{% static 'images/news.jpg' %}" alt="{{ post.title }}"
+                                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                {% endif %}
+                            </div>
+                            <!-- Body -->
+                            <div class="p-5 flex flex-col grow">
+                                <!-- Category + date -->
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-blue-500">
+                                        {{ post.category.name|default:"General" }}
+                                    </span>
+                                    <div class="flex items-center gap-1.5 text-gray-400 text-xs">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        {{ post.created_at|date:"M j, Y" }}
+                                    </div>
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-2 leading-snug">{{ post.title }}</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">{{ post.content|striptags }}</p>
+                                <a href="{% url 'core:blog_detail' post.slug %}"
+                                   class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read More
+                                    <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-dob-blue transition-colors">{{ post.title }}</h3>
-                    <div class="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">{{ post.content|striptags|safe }}</div>
-                    <a href="{% url 'core:blog_detail' post.slug %}" class="inline-block mt-auto text-sm font-bold text-dob-blue hover:text-dob-dark-blue">Read More</a>
-                </div>
+                    {% empty %}
+                    <!-- Demo card 1 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="w-full h-44 overflow-hidden shrink-0">
+                                <img src="{% static 'images/news.jpg' %}" alt="News" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-blue-500">Announcement</span>
+                                    <div class="flex items-center gap-1.5 text-gray-400 text-xs">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        Apr 20, 2026
+                                    </div>
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-2 leading-snug">DOB Launches New Molecular Docking Web Application</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">Dawn of Bioinformatics proudly announces the public release of its cloud-based molecular docking platform, enabling researchers worldwide to run simulations...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read More <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Demo card 2 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="w-full h-44 overflow-hidden shrink-0">
+                                <img src="{% static 'images/news.jpg' %}" alt="News" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-purple-500">Research</span>
+                                    <div class="flex items-center gap-1.5 text-gray-400 text-xs">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        Apr 5, 2026
+                                    </div>
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-2 leading-snug">Team Publishes Breakthrough Paper on AI-Driven NGS Analysis</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">Our research team's latest publication in a peer-reviewed journal demonstrates significant advancements in applying artificial intelligence to next-generation sequencing data...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read More <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Demo card 3 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="w-full h-44 overflow-hidden shrink-0">
+                                <img src="{% static 'images/news.jpg' %}" alt="News" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-teal-500">Event</span>
+                                    <div class="flex items-center gap-1.5 text-gray-400 text-xs">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        Mar 18, 2026
+                                    </div>
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-2 leading-snug">DOB Hosts Inaugural Bioinformatics Workshop at BSDS Campus</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">Over 120 students and faculty members attended our hands-on bioinformatics workshop, gaining practical experience with genomics tools and pipelines...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read More <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Demo card 4 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="w-full h-44 overflow-hidden shrink-0">
+                                <img src="{% static 'images/news.jpg' %}" alt="News" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-rose-500">Partnership</span>
+                                    <div class="flex items-center gap-1.5 text-gray-400 text-xs">
+                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        Feb 27, 2026
+                                    </div>
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-2 leading-snug">Strategic Collaboration Signed with DawniLab for Clinical Research</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">A new MoU formalises the research partnership between DOB and DawniLab, focusing on BMPPD extraction analysis and clinical biomarker discovery initiatives...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read More <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div><!-- /track -->
             </div>
-            {% empty %}
-            <p class="text-center text-gray-500 w-full py-10">No recent news available.</p>
-            {% endfor %}
-        </div>
+
+            <!-- Prev button -->
+            <button onclick="carouselMove('news', -1)"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+                    aria-label="Previous">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+            <!-- Next button -->
+            <button onclick="carouselMove('news', 1)"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+                    aria-label="Next">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Dot indicators -->
+            <div id="carousel-dots-news" class="flex justify-center gap-1.5 mt-6"></div>
+
+        </div><!-- /carousel -->
+
     </div>
 </section>
-
-<style>
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-.hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const scrollContainer = document.getElementById('news-carousel');
-    if (!scrollContainer) return;
-
-    let autoScrollInterval;
-
-    const startAutoScroll = () => {
-        autoScrollInterval = setInterval(() => {
-            if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
-                scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-            }
-        }, 5000); // 5 seconds interval
-    };
-
-    const stopAutoScroll = () => {
-        clearInterval(autoScrollInterval);
-    };
-
-    if (window.innerWidth > 768) {
-        startAutoScroll();
-        scrollContainer.addEventListener('mouseenter', stopAutoScroll);
-        scrollContainer.addEventListener('mouseleave', startAutoScroll);
-        scrollContainer.addEventListener('touchstart', stopAutoScroll, {passive: true});
-    }
-
-    const prevBtn = document.getElementById('news-prev');
-    const nextBtn = document.getElementById('news-next');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
-            stopAutoScroll();
-            if (window.innerWidth > 768) startAutoScroll();
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-             if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
-                 scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-             } else {
-                 scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-             }
-             stopAutoScroll();
-             if (window.innerWidth > 768) startAutoScroll();
-        });
-    }
-});
-</script>

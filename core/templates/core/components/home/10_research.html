@@ -1,100 +1,175 @@
-<section class="py-20 bg-dob-light-gray relative w-full overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex flex-col md:flex-row justify-between items-center md:items-end space-y-4 md:space-y-0 text-center md:text-left">
-        <div>
-            <h2 class="text-3xl lg:text-4xl font-extrabold text-dob-dark-blue mb-2">Latest Research Findings</h2>
-            <p class="text-gray-600 max-w-2xl">Explore the cutting-edge papers and articles published by the Dawn of Bioinformatics research wing.</p>
-        </div>
-        <div class="hidden md:flex space-x-3">
-            <button id="research-prev" class="p-3 rounded-full border border-dob-blue text-dob-blue hover:bg-dob-blue hover:text-white transition-colors duration-300 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            </button>
-            <button id="research-next" class="p-3 rounded-full border border-dob-blue text-dob-blue hover:bg-dob-blue hover:text-white transition-colors duration-300 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-        </div>
-    </div>
-    
-    <!-- Horizontal Scroll Container -->
+<!-- Latest Research Section -->
+<section class="py-20 bg-gray-50 relative w-full overflow-hidden">
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="research-carousel" class="flex overflow-x-auto space-x-6 pb-8 snap-x snap-mandatory hide-scrollbar">
-            {% for paper in recent_papers %}
-            <div class="min-w-[300px] md:min-w-[400px] max-w-[400px] bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col flex-shrink-0 snap-start hover:shadow-xl transition-shadow duration-300">
-                <span class="text-sm font-bold text-dob-blue uppercase tracking-wider mb-2">{{ paper.journal }} | {{ paper.publication_date|date:"M Y" }}</span>
-                <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{{ paper.title }}</h3>
-                <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">{{ paper.abstract }}</p>
-                <a href="{{ paper.link }}" target="_blank" class="inline-flex items-center text-dob-blue font-bold hover:text-dob-dark-blue mt-auto">
-                    Read Paper <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
+
+        <!-- Header row -->
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs mb-1 block">Publications &amp; Insights</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">Latest Research</h2>
             </div>
-            {% empty %}
-            <p class="text-center text-gray-500 w-full py-10">No recent papers available.</p>
-            {% endfor %}
+            <a href="#" class="hidden md:inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors group shrink-0">
+                View All Research
+                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
         </div>
+
+        <!-- Shared carousel (same JS as 05_general_services) -->
+        <div class="relative group/carousel"
+             data-carousel-id="research"
+             onmouseenter="carouselPause('research')"
+             onmouseleave="carouselResume('research')">
+
+            <!-- Track -->
+            <div class="overflow-hidden">
+                <div id="carousel-track-research"
+                     class="flex transition-transform duration-500 ease-in-out"
+                     style="will-change: transform;">
+
+                    {% for paper in recent_papers %}
+                    <!-- Card -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <!-- Category + illustration -->
+                            <div class="bg-gray-50 px-5 pt-5 pb-3">
+                                <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-blue-500 mb-3">
+                                    {{ paper.journal|default:"Research" }}
+                                </span>
+                                <div class="w-full h-40 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                                    <svg class="w-20 h-20 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Body -->
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center gap-1.5 text-gray-400 text-xs mb-3">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    {{ paper.publication_date|date:"F j, Y" }}
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-3 leading-snug">{{ paper.title }}</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">{{ paper.abstract }}</p>
+                                <a href="{{ paper.link }}" target="_blank"
+                                   class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read Paper
+                                    <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <!-- Demo card 1 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="bg-gray-50 px-5 pt-5 pb-3">
+                                <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-blue-500 mb-3">Genomics</span>
+                                <div class="w-full h-40 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                                    <svg class="w-20 h-20 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center gap-1.5 text-gray-400 text-xs mb-3">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    April 12, 2026
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-3 leading-snug">Identification of novel therapeutic compounds using AI-driven NGS data...</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">This research highlights the significant progress made in mapping therapeutic markers across South Asian demography...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read Paper <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Demo card 2 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="bg-gray-50 px-5 pt-5 pb-3">
+                                <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-purple-500 mb-3">Proteomics</span>
+                                <div class="w-full h-40 rounded-xl bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center">
+                                    <svg class="w-20 h-20 text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center gap-1.5 text-gray-400 text-xs mb-3">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    March 28, 2026
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-3 leading-snug">Protein-Ligand MD Simulation reveals binding affinities of BMPPD extracts</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">Utilizing our proprietary Web App tools and DawniLab R&D, we simulate the interaction dynamics...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read Paper <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Demo card 3 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="bg-gray-50 px-5 pt-5 pb-3">
+                                <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-teal-500 mb-3">Clinical</span>
+                                <div class="w-full h-40 rounded-xl bg-gradient-to-br from-teal-50 to-cyan-100 flex items-center justify-center">
+                                    <svg class="w-20 h-20 text-teal-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center gap-1.5 text-gray-400 text-xs mb-3">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    February 10, 2026
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-3 leading-snug">Cancer Detection Profiles: A Molecular Diagnostic approach using AI</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">Evaluating precision markers for accurate early detection in oncological studies and validating clinical results...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read Paper <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Demo card 4 -->
+                    <div class="flex-shrink-0 px-3">
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col overflow-hidden h-full">
+                            <div class="bg-gray-50 px-5 pt-5 pb-3">
+                                <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-rose-500 mb-3">Immunology</span>
+                                <div class="w-full h-40 rounded-xl bg-gradient-to-br from-rose-50 to-pink-100 flex items-center justify-center">
+                                    <svg class="w-20 h-20 text-rose-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <div class="flex items-center gap-1.5 text-gray-400 text-xs mb-3">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    January 5, 2026
+                                </div>
+                                <h3 class="text-base font-extrabold text-gray-900 mb-2 line-clamp-3 leading-snug">Immune Evasion Mechanisms in Triple-Negative Breast Cancer Cell Lines</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 grow mb-4">A comprehensive study examining the molecular pathways exploited by TNBC cells to evade immune surveillance...</p>
+                                <a href="#" class="inline-flex items-center text-blue-600 font-bold text-sm hover:text-blue-800 transition-colors mt-auto group/link">
+                                    Read Paper <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div><!-- /track -->
+            </div>
+
+            <!-- Prev button -->
+            <button onclick="carouselMove('research', -1)"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+                    aria-label="Previous">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+            <!-- Next button -->
+            <button onclick="carouselMove('research', 1)"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+                    aria-label="Next">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Dot indicators -->
+            <div id="carousel-dots-research" class="flex justify-center gap-1.5 mt-6"></div>
+
+        </div><!-- /carousel -->
+
     </div>
 </section>
-
-<style>
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-.hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const scrollContainer = document.getElementById('research-carousel');
-    if (!scrollContainer) return;
-
-    let autoScrollInterval;
-
-    const startAutoScroll = () => {
-        autoScrollInterval = setInterval(() => {
-            if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
-                // If reached the end, smoothly scroll back to start
-                scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                // Scroll by roughly the width of one card + gap
-                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-            }
-        }, 5000); // 5 seconds interval
-    };
-
-    const stopAutoScroll = () => {
-        clearInterval(autoScrollInterval);
-    };
-
-    // Auto-scroll logic only on desktop/large screens
-    if (window.innerWidth > 768) {
-        startAutoScroll();
-        scrollContainer.addEventListener('mouseenter', stopAutoScroll);
-        scrollContainer.addEventListener('mouseleave', startAutoScroll);
-        scrollContainer.addEventListener('touchstart', stopAutoScroll, {passive: true});
-    }
-
-    const prevBtn = document.getElementById('research-prev');
-    const nextBtn = document.getElementById('research-next');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
-            stopAutoScroll();
-            if (window.innerWidth > 768) startAutoScroll();
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-             if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
-                 scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-             } else {
-                 scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-             }
-             stopAutoScroll();
-             if (window.innerWidth > 768) startAutoScroll();
-        });
-    }
-});
-</script>
