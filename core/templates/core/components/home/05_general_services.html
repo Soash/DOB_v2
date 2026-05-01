@@ -166,7 +166,14 @@
         const s = _carouselState[slug];
         if (!s) return;
         const maxIndex = Math.max(0, s.total - s.visibleCount);
-        s.index = Math.min(Math.max(s.index + dir, 0), maxIndex);
+        
+        s.index += dir;
+        if (s.index > maxIndex) {
+            s.index = 0;
+        } else if (s.index < 0) {
+            s.index = maxIndex;
+        }
+        
         _renderTrack(slug);
         _restartTimer(slug);
     }

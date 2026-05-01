@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Dawn of Bioinformatics | Research Papers{% endblock %}
 
@@ -13,11 +14,13 @@
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {% if papers %}
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+        <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
             {% for paper in papers %}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-2xl">
                 {% if paper.image %}
                 <img src="{{ paper.image.url }}" alt="{{ paper.title }}" class="h-64 w-full object-cover">
+                {% else %}
+                <img src="{% static 'images/research.jpg' %}" alt="{{ paper.title }}" class="h-64 w-full object-cover">
                 {% endif %}
                 <div class="p-8 flex-grow flex flex-col">
                     <span class="text-sm font-bold text-dob-blue uppercase tracking-wider mb-2">{{ paper.journal }} | {{ paper.publication_date|date:"F Y" }}</span>
