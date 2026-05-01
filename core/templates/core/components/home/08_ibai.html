@@ -4,47 +4,64 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Header row -->
-        <div class="flex items-end justify-between mb-8">
-            <div>
-                <span class="text-indigo-600 font-bold uppercase tracking-wider text-xs mb-1 block">Education &amp;
-                    Training</span>
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">IBAI Programs</h2>
-                <p class="text-gray-500 text-sm mt-1">Institute of Bioinformatics &amp; Artificial Intelligence</p>
+        <!-- Header row -->
+        <div class="mb-6">
+            <span class="text-indigo-600 font-bold uppercase tracking-wider text-xs mb-1 block">Education &amp; Training</span>
+            <h2 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">IBAI Programs</h2>
+            <p class="text-gray-500 text-sm mt-1">Institute of Bioinformatics &amp; Artificial Intelligence</p>
+        </div>
+
+        <!-- Tabs row + Visit IBAI -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div class="flex flex-wrap items-center gap-2">
+
+                <!-- Short Course -->
+                <button onclick="switchIbaiTab('short_course')" id="ibai-tab-short_course"
+                    class="ibai-tab-btn flex flex-col items-center justify-center gap-1.5 w-28 h-20 rounded-xl text-xs font-bold transition-all duration-300 bg-indigo-600 text-white shadow-md">
+                    <svg class="w-7 h-7 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21a12.083 12.083 0 01-6.16-10.422L12 14z"/></svg>
+                    <span class="leading-tight text-center px-1">Short Course</span>
+                </button>
+
+                <!-- Online Training -->
+                <button onclick="switchIbaiTab('online_training')" id="ibai-tab-online_training"
+                    class="ibai-tab-btn flex flex-col items-center justify-center gap-1.5 w-28 h-20 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">
+                    <svg class="w-7 h-7 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <span class="leading-tight text-center px-1">Online Training</span>
+                </button>
+
+                <!-- Offline Training -->
+                <button onclick="switchIbaiTab('offline_training')" id="ibai-tab-offline_training"
+                    class="ibai-tab-btn flex flex-col items-center justify-center gap-1.5 w-28 h-20 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">
+                    <svg class="w-7 h-7 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span class="leading-tight text-center px-1">Offline Training</span>
+                </button>
+
+                <!-- Internship -->
+                <button onclick="switchIbaiTab('internship')" id="ibai-tab-internship"
+                    class="ibai-tab-btn flex flex-col items-center justify-center gap-1.5 w-28 h-20 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">
+                    <svg class="w-7 h-7 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <span class="leading-tight text-center px-1">Internship</span>
+                </button>
+
+                <!-- Thesis Support -->
+                <button onclick="switchIbaiTab('thesis_support')" id="ibai-tab-thesis_support"
+                    class="ibai-tab-btn flex flex-col items-center justify-center gap-1.5 w-28 h-20 rounded-xl text-xs font-bold transition-all duration-300 bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">
+                    <svg class="w-7 h-7 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span class="leading-tight text-center px-1">Thesis Support</span>
+                </button>
+
             </div>
+
+            <!-- Visit IBAI link — right side of tab row -->
             <a href="https://ibaidob.com/" target="_blank"
-                class="hidden md:inline-flex items-center text-indigo-600 font-bold text-sm hover:text-indigo-800 transition-colors group shrink-0">
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border-2 border-indigo-600 text-indigo-600 font-bold text-sm hover:bg-indigo-600 hover:text-white transition-all duration-200 group shrink-0">
                 Visit IBAI
-                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                 </svg>
             </a>
         </div>
 
-        <!-- Category Tab Buttons -->
-        <div class="flex flex-wrap gap-2 mb-8">
-            <button onclick="switchIbaiTab('short_course')" id="ibai-tab-short_course"
-                class="ibai-tab-btn px-4 py-2 rounded-full text-sm font-bold border transition-all duration-200 bg-indigo-600 text-white border-indigo-600">
-                Short Course
-            </button>
-            <button onclick="switchIbaiTab('online_training')" id="ibai-tab-online_training"
-                class="ibai-tab-btn px-4 py-2 rounded-full text-sm font-bold border transition-all duration-200 text-gray-600 border-gray-200 hover:border-indigo-400 hover:text-indigo-600 bg-white">
-                Online Training
-            </button>
-            <button onclick="switchIbaiTab('offline_training')" id="ibai-tab-offline_training"
-                class="ibai-tab-btn px-4 py-2 rounded-full text-sm font-bold border transition-all duration-200 text-gray-600 border-gray-200 hover:border-indigo-400 hover:text-indigo-600 bg-white">
-                Offline Training
-            </button>
-            <button onclick="switchIbaiTab('internship')" id="ibai-tab-internship"
-                class="ibai-tab-btn px-4 py-2 rounded-full text-sm font-bold border transition-all duration-200 text-gray-600 border-gray-200 hover:border-indigo-400 hover:text-indigo-600 bg-white">
-                Internship
-            </button>
-            <button onclick="switchIbaiTab('thesis_support')" id="ibai-tab-thesis_support"
-                class="ibai-tab-btn px-4 py-2 rounded-full text-sm font-bold border transition-all duration-200 text-gray-600 border-gray-200 hover:border-indigo-400 hover:text-indigo-600 bg-white">
-                Thesis Support
-            </button>
-        </div>
 
         <!-- ── Short Course Carousel (16 images) ────────────────────── -->
         <div id="ibai-panel-short_course" class="relative group/carousel" data-carousel-id="ibai_short_course"
@@ -61,10 +78,6 @@
                             <div class="w-full overflow-hidden">
                                 <img src="{% static img_path %}" alt="Short Course"
                                     class="w-full h-auto block hover:scale-105 transition-transform duration-500">
-                            </div>
-                            <div class="p-4">
-                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-500">Short Course</span>
-                                <p class="text-sm font-bold text-gray-800 mt-1">Bioinformatics Training Session</p>
                             </div>
                         </a>
                     </div>
@@ -101,10 +114,6 @@
                                 <img src="{% static img_path %}" alt="Online Training"
                                     class="w-full h-auto block hover:scale-105 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-500">Online Training</span>
-                                <p class="text-sm font-bold text-gray-800 mt-1">Virtual Bioinformatics Session</p>
-                            </div>
                         </a>
                     </div>
                     {% endwith %}{% endwith %}{% endfor %}
@@ -140,10 +149,6 @@
                                 <img src="{% static img_path %}" alt="Offline Training"
                                     class="w-full h-auto block hover:scale-105 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-500">Offline Training</span>
-                                <p class="text-sm font-bold text-gray-800 mt-1">Campus Bioinformatics Workshop</p>
-                            </div>
                         </a>
                     </div>
                     {% endwith %}{% endwith %}{% endfor %}
@@ -177,10 +182,6 @@
                             <div class="w-full overflow-hidden">
                                 <img src="{% static img_path %}" alt="Internship"
                                     class="w-full h-auto block hover:scale-105 transition-transform duration-500">
-                            </div>
-                            <div class="p-4">
-                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-500">Internship</span>
-                                <p class="text-sm font-bold text-gray-800 mt-1">Research Internship Program</p>
                             </div>
                         </a>
                     </div>
@@ -217,10 +218,6 @@
                                 <img src="{% static img_path %}" alt="Thesis Support"
                                     class="w-full h-auto block hover:scale-105 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <span class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-500">Thesis Support</span>
-                                <p class="text-sm font-bold text-gray-800 mt-1">Research Project Mentoring</p>
-                            </div>
                         </a>
                     </div>
                     {% endwith %}{% endwith %}{% endfor %}
@@ -252,15 +249,15 @@
             if (!panel || !btn) return;
             if (t === tab) {
                 panel.classList.remove('hidden');
-                btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-                btn.classList.remove('text-gray-600', 'border-gray-200', 'bg-white');
+                btn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                btn.classList.remove('text-gray-600', 'border', 'border-gray-200', 'bg-white', 'hover:bg-gray-100');
                 if (window._carouselState && !window._carouselState['ibai_' + t]) {
                     _initCarousel('ibai_' + t);
                 }
             } else {
                 panel.classList.add('hidden');
-                btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-                btn.classList.add('text-gray-600', 'border-gray-200', 'bg-white');
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-gray-600', 'border', 'border-gray-200', 'bg-white', 'hover:bg-gray-100');
             }
         });
     }
