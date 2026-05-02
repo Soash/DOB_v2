@@ -158,6 +158,7 @@ if not DEBUG:
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
+    MEDIA_ROOT = '/home/dawnofbi/v2.dawnofbioinformatics.com/media'
 else:
     # Use standard Django storage in development to prevent missing manifest errors
     STORAGES = {
