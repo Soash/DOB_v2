@@ -1207,6 +1207,9 @@
     border-left-style: var(--tw-border-style);
     border-left-width: 3px;
   }
+  .border-\[\#245c98\] {
+    border-color: #245c98;
+  }
   .border-\[\#a2bd79\]\/30 {
     border-color: color-mix(in oklab, #a2bd79 30%, transparent);
   }
@@ -1278,6 +1281,9 @@
   }
   .bg-\[\#2d3136\] {
     background-color: #2d3136;
+  }
+  .bg-\[\#245c98\] {
+    background-color: #245c98;
   }
   .bg-\[\#a2bd79\] {
     background-color: #a2bd79;
@@ -2280,6 +2286,13 @@
       }
     }
   }
+  .group-hover\:bg-\[\#245c98\]\/10 {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        background-color: color-mix(in oklab, #245c98 10%, transparent);
+      }
+    }
+  }
   .group-hover\:bg-green-100 {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -2428,6 +2441,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: #1a1d20;
+      }
+    }
+  }
+  .hover\:bg-\[\#1a4470\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #1a4470;
       }
     }
   }
@@ -2647,6 +2667,16 @@
       @media (hover: hover) {
         --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
         box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+  }
+  .hover\:shadow-\[\#245c98\]\/50 {
+    &:hover {
+      @media (hover: hover) {
+        --tw-shadow-color: color-mix(in srgb, #245c98 50%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, #245c98 50%, transparent) var(--tw-shadow-alpha), transparent);
+        }
       }
     }
   }
