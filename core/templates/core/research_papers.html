@@ -14,15 +14,10 @@
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {% if papers %}
-        <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+        <div class="space-y-10">
             {% for paper in papers %}
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-2xl">
-                {% if paper.image %}
-                <img src="{{ paper.image.url }}" alt="{{ paper.title }}" class="h-64 w-full object-cover">
-                {% else %}
-                <img src="{% static 'images/research.jpg' %}" alt="{{ paper.title }}" class="h-64 w-full object-cover">
-                {% endif %}
-                <div class="p-8 flex-grow flex flex-col">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col-reverse lg:flex-row transition-all duration-300 hover:shadow-2xl">
+                <div class="p-8 flex-grow flex flex-col lg:w-2/3">
                     <span class="text-sm font-bold text-dob-blue uppercase tracking-wider mb-2">{{ paper.journal }} | {{ paper.publication_date|date:"F Y" }}</span>
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ paper.title }}</h2>
                     <p class="text-sm text-gray-600 italic mb-4">By {{ paper.authors }}</p>
@@ -30,6 +25,13 @@
                     <a href="{{ paper.link }}" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm font-bold rounded-lg text-white bg-dob-blue hover:bg-dob-dark-blue transition-colors mt-auto w-max">
                         Read Full Paper <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </a>
+                </div>
+                <div class="lg:w-1/3 shrink-0">
+                    {% if paper.image %}
+                    <img src="{{ paper.image.url }}" alt="{{ paper.title }}" class="h-64 lg:h-full w-full object-cover">
+                    {% else %}
+                    <img src="{% static 'images/research.jpg' %}" alt="{{ paper.title }}" class="h-64 lg:h-full w-full object-cover">
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
