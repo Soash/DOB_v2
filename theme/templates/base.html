@@ -4,6 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Dawn of Bioinformatics (DOB) is the 1st Bioinformatics Company in Bangladesh, offering advanced clinical, genomic, and AI-driven biological analysis services.{% endblock %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}Dawn of Bioinformatics{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Leading bioinformatics and AI solutions in Bangladesh.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/dob-logo.png' %}{% endblock %}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <title>{% block title %}Dawn of Bioinformatics | 1st Bioinformatics Company in Bangladesh{% endblock %}</title>
     {% tailwind_css %}

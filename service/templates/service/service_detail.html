@@ -2,7 +2,13 @@
 {% load static %}
 
 {% block title %}{{ service.title }} | Services | Dawn of Bioinformatics{% endblock %}
+{% block meta_description %}{{ service.description|truncatewords:25 }}{% endblock %}
 
+{% block og_title %}{{ service.title }} | Services{% endblock %}
+{% block og_description %}{{ service.description|truncatewords:25 }}{% endblock %}
+{% if service.thumbnail %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ service.thumbnail.url }}{% endblock %}
+{% endif %}
 {% block content %}
 <!-- Hero Section -->
 <div class="relative bg-white overflow-hidden border-b border-gray-200">
