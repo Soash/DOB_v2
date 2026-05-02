@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block title %}About Us | Dawn of Bioinformatics{% endblock %}
-{% block meta_description %}Learn more about Dawn of Bioinformatics, our journey, mission, vision, core values, and our integrated ecosystem.{% endblock %}
+{% block meta_description %}Discover the story of Dawn of Bioinformatics, Bangladesh's first and leading bioinformatics company. Learn about our mission, vision, core values, and integrated Bio-AI ecosystem.{% endblock %}
+
+{% block og_title %}About Us | Dawn of Bioinformatics{% endblock %}
+{% block og_description %}Discover the story of Dawn of Bioinformatics, Bangladesh's first and leading bioinformatics company. Learn about our mission, vision, core values, and integrated Bio-AI ecosystem.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/about/values.webp' %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
