@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | Dawn of Bioinformatics{% endblock %}
+{% block meta_description %}Learn more about Dawn of Bioinformatics, our journey, mission, vision, core values, and our integrated ecosystem.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-[500px] flex items-center justify-center overflow-hidden bg-gray-100">
+    <div class="absolute inset-0 opacity-10">
+        <img alt="Detailed abstract digital visualization of genetic sequencing"
+            class="w-full h-full object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3SX8Ai5rAivjr5jsPbjccUnCNoUtnZRKWA-tIxNG4ZHvuZqn6DVRNXsTH37nBEkv-vOGWCgM5VaQogpdAqiLpvNpwz12RcI7Bx8rK5mOV6QZU9o96wMeTrJPte1wdi1qOY9BM1hOnbBehJxS_AnGsiyXlVm9DA-r-bxi7GOBeQitySPhxo0JMESCUHuH-SJEazE4vzNhi3c5HSS88YsOUIxKtteA13z9G5wFJjrUzgbcVraiQ56q-UToMMrXo13autE_QuuqVUw" />
+    </div>
+    <div class="relative z-10 text-center px-8">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 tracking-tight">About Us</h1>
+        <p class="text-xl md:text-2xl font-semibold max-w-2xl mx-auto uppercase tracking-widest text-green-700">
+            Pioneering the Future of Computational Biology</p>
+    </div>
+</section>
+
+<!-- Our Story -->
+<section class="py-16 px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="rounded-xl overflow-hidden shadow-xl">
+            <img alt="Scientists collaborating in laboratory" class="w-full h-full object-cover min-h-[400px]"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8aTbeX88fWtNNo32L1b-XOJhRNzaWEY_p8DORIjdC8AA2FfLqhDTknA1SCBdU1nu1FbXgDvS9ZyNS4WpG_z2Z5iUnHSE9Y-lZx5teAGLqE8OwS0IKVaFQalOWDj7fJ_k67S7Tda6WTJT1ADdtP6b5kZ-qeOSDvA_fMZz7nbonZji7Kp2xBeZ9AMNDAnRtVhNmmAicytBVBSg8bGpmd5LOjdeD4Mr7HbfLDBAN51olXwiL8kdqSpzck7tXRffTRMqJgSw3yfpCjQ" />
+        </div>
+        <div class="bg-white p-10 rounded-xl border border-gray-200 shadow-sm">
+            <span class="text-sm font-bold text-green-700 uppercase tracking-widest mb-4 block">Established 2024</span>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Our Journey</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                Dawn of Bioinformatics Limited emerged from a vision to bridge the gap between biological
+                inquiry and computational power. What started as a collective of ambitious data scientists and
+                biologists in South Asia has evolved into a powerhouse of innovation. We specialize in
+                transforming complex biological datasets into actionable insights, providing the infrastructure
+                for the next generation of precision medicine and agricultural breakthroughs.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision (Zig-Zag Layout) -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-8 space-y-16">
+        <!-- Row 1: Mission -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="bg-white p-10 rounded-xl shadow-lg border-t-4 border-green-500">
+                <div class="flex items-center gap-4 mb-4">
+                    <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path></svg>
+                    <h3 class="text-3xl font-bold text-gray-900">Mission</h3>
+                </div>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    Our definitive mission is to establish ourselves as the premier bioinformatics authority in
+                    South Asia within the next five years. We are committed to fostering a culture of
+                    technological rigor and scientific integrity, empowering researchers with the most advanced
+                    computational tools available in the global market.
+                </p>
+            </div>
+            <div class="rounded-xl overflow-hidden shadow-lg h-80">
+                <img alt="Genomic sequencing visualization" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCVC_-X7xNsAHertH4gezjd6h_56xfDCpXCydIED4gDMefFMcwx0iq_PJZAFW3A6jJBx_BqYehnEHKvoP_Wg8wq4koSlRQBbJnbH0t5DvB_LMkIvZtL5mDM5NdiOTZb4cePWxTEUSHLE5P5auAEqz_lL28hfVqkd5NTO5kSpOmXbROjNmRDeCG5aB1jaxP3yltz3lcu28NYlwBni6xl21KLJBonveeSnz3MVJ6nSOeYekmH0SKhs9rf0pdbZHHSSaLzPRtJkIRlA" />
+            </div>
+        </div>
+        <!-- Row 2: Vision -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="rounded-xl overflow-hidden shadow-lg h-80 md:order-1 order-2">
+                <img alt="Future of medicine visualization" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-45ngV96fcT2u121NkOfpc7z9BTJlZqpH89KuRwMfQ7TTcjTLCsTnkJcoBgbuf8hv0whiSxuqytszBpHEywJ7mC2ZtAskyzH4vF6Vxp9zERCnF07X52E9tVRIiHR3CO1QDt4jJV73tAOS9ECm7Cn87KhQ5AV-RoiLGQAGxjfQzBtGoVklvPHRdJzzVypYsH4cdLA_BSw453zxN8yfjtWKxQFzjAe8qLWp9dpGr2dmC0JVwZm-oEs31VSwg1_GHFaMM-lDZcoE1A" />
+            </div>
+            <div class="bg-white p-10 rounded-xl shadow-lg border-t-4 border-gray-900 md:order-2 order-1">
+                <div class="flex items-center gap-4 mb-4">
+                    <svg class="w-10 h-10 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    <h3 class="text-3xl font-bold text-gray-900">Vision</h3>
+                </div>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    We envision a future where innovation is universally accessible and biology is entirely
+                    data-driven. By democratizing high-throughput analysis and machine learning in life
+                    sciences, we aim to accelerate the global transition toward a healthier, more sustainable
+                    bio-economy.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900">Our Core Values</h2>
+            <div class="w-20 h-1 bg-green-500 mx-auto mt-4"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="text-center p-6 group">
+                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors group-hover:bg-green-100">
+                    <svg class="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-900 mb-4">Innovation</h4>
+                <p class="text-gray-600 leading-relaxed">Pushing the boundaries of what's possible at the
+                    intersection of AI and genomics.</p>
+            </div>
+            <div class="text-center p-6 group">
+                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors group-hover:bg-green-100">
+                    <svg class="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-900 mb-4">Data Security</h4>
+                <p class="text-gray-600 leading-relaxed">Upholding the highest standards of data
+                    integrity and ethical protection for biological assets.</p>
+            </div>
+            <div class="text-center p-6 group">
+                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors group-hover:bg-green-100">
+                    <svg class="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-900 mb-4">Excellence</h4>
+                <p class="text-gray-600 leading-relaxed">Delivering precision-engineered solutions that
+                    meet global scientific benchmarks.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ecosystem -->
+<section class="py-16 px-8 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">The Integrated Ecosystem</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-16">
+            <div class="space-y-6">
+                <p class="text-lg text-gray-600 leading-relaxed">At Dawn of Bioinformatics, we
+                    have built a seamless integration of services, education, and research. Our ecosystem
+                    connects theoretical discovery with industrial application, ensuring that biological data
+                    translates directly into real-world progress through our specialized divisions. This
+                    interconnected approach allows us to maintain a closed-loop system where academic insights
+                    fuel industrial tools, and practical challenges from the field inform our next generation of
+                    research.</p>
+                <p class="text-base text-gray-600">By bridging these typically siloed domains, we
+                    ensure that the pace of innovation matches the speed of data generation. Our infrastructure
+                    is designed to handle the petabyte-scale demands of modern genomics while maintaining the
+                    pedagogical focus required to train the next cohort of scientific leaders. Every project we
+                    undertake benefits from this holistic perspective, ensuring that solutions are not just
+                    technically sound, but also ethically grounded and practically applicable.</p>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white"><img
+                    alt="Bioinformatics ecosystem diagram" class="w-full h-auto"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqg6X1CqXWnZwwjvKWeFVHaS6-aeCAagZN9nptF6r4zbsJELOvC7vgHa_n8NTiX0GeBwaH8DnSEuJ2KoRbgiab-Br6_QQIIAB8GuWaOh-1jn4M1ppphgHK398LsojLExMZM83Hy_aBCqdw0w-9yPkI9ZzFJsIs5w9YZ81A2JaO2rZHV5UeOU-q1msWR72jAEuWGoe1d9eaIJFCIPXyaeIexX1y6bd6SH6FQPfa6aSC-WCxIC7EDOjQkPXfl8P-BwHnHitwoq1lFw" />
+            </div>
+        </div>
+        <div class="max-w-4xl mx-auto">
+            <p class="text-base text-gray-600 leading-relaxed text-center">Our ecosystem is further
+                strengthened by strategic partnerships across the globe, allowing us to leverage international
+                standards while focusing on the unique biodiversity and clinical needs of South Asia. Whether
+                through our high-throughput sequencing services or our intensive professional development
+                modules, Dawn of Bioinformatics serves as the central hub for the regional bio-economy, driving
+                efficiency and excellence in every strand of DNA we analyze.</p>
+        </div>
+        
+        <div class="mt-16 space-y-16">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">DOB Services</h3>
+                    <p class="text-base text-gray-600 leading-relaxed">Our specialized division providing
+                        industry-leading computational analysis and genomic pipelines. We offer end-to-end data
+                        processing for research institutions and biotech firms globally, ensuring high-throughput
+                        precision in every analysis.</p>
+                </div>
+                <div class="flex-1 rounded-xl overflow-hidden shadow-md h-64 w-full"><img
+                        alt="Data analysis work" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsFLYZdaDBihKi0FjjM0Wvob_5w3Dtq27_IqXR-JUTIHHSiw9e6e3iKN5HWdItIzRloWOKJpojPQrQKUbsV3GlAosBJ46p2w8GQXldEgY2tXOfWf9NgXGkT3FS3pF1LDZdhrK7mWZ9o4K2AoMEmJHVfCpsgtrgARLFQc5hfq68u873fxdB26ItmbzwJSwI4cYTYsWc9muBwSyHHd_ZK5YwR5yPCH35FuokFkUfx1ycb7DwVqro9KdrwuN8J5GHteIM47rt8yCW-g" />
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                <div class="flex-1">
+                    <h3 class="text-3xl font-bold text-green-700 mb-4">IBAI / DIBAI Training</h3>
+                    <p class="text-base text-gray-600 leading-relaxed">Empowering the next generation through
+                        intensive certifications and practical bioinformatics learning. Our training modules are
+                        designed by industry veterans to bridge the skill gap in the South Asian scientific
+                        community.</p>
+                </div>
+                <div class="flex-1 rounded-xl overflow-hidden shadow-md h-64 w-full"><img
+                        alt="Classroom training session" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCQRWWRYhyGLYe8cygbMvOJmloNFlzbXvmueSeAwWQ182XwSuUG-iAx6Xh09bOATGazb8S_Qovm9ltmq5FwgKe6bAJ7A81rg7e0-HeiLa6O-x6Zz4mM79tYOywVwIlLO7ZaW6aUDjJ6XJWtog4by5e8b4x8YV5PVqRI-88SZeNnD2992xkJICuP5gep_1-qkIQF8boUhrjosJp4avbbEzUJEaZ5qJtiEbzhUSjM3OGY0j3nyPIrs3Xp-S9BZ3K6EY7wd6pTqk89Q" />
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h3 class="text-3xl font-bold text-dob-blue mb-4">DawniLab R&amp;D</h3>
+                    <p class="text-base text-gray-600 leading-relaxed">Our core research laboratory focusing on
+                        proprietary algorithm development and drug discovery. DawniLab is where our most
+                        experimental ideas turn into the technologies of tomorrow.</p>
+                </div>
+                <div class="flex-1 rounded-xl overflow-hidden shadow-md h-64 w-full"><img
+                        alt="Scientific lab work" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSAc2n-aBriTzsMY7ORGpfghsrV60eXo1n0gMjHISIcmbzFeDhXI7l3LpDxhB5kJrJFJanLdlhDwUgVunyvCQIoIJum0P7BtPQJYHsGjkNSN0uqvRm3jimRH1UnPQQGJSR6PGjJsKVSJAgNk4y48ZN8SNBiSciCKvCtNWrKmd70UbYxjFECu2aMojHaxorPeSg4vKqMSLV2qSwN6TVXLgKABKbwHXWbvisjnA9vF9SqD-mvobTtct-9-oIKeIbiBREYOpkbvrkKQ" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Teams -->
+<section class="py-16 px-8 max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold text-gray-900 text-center mb-16">Meet the Minds Behind Dawn</h2>
+    <!-- Founder Profile -->
+    <div class="bg-white p-12 rounded-xl shadow-xl border border-gray-200 mb-16">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="w-64 h-64 rounded-full overflow-hidden flex-shrink-0 border-4 border-green-500">
+                <img alt="Sk. Faisal Ahmed, Founder &amp; CEO" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGtwzs97mSdKtC4Co8tu_y0ABL1LZGeWbcChCi4KXL1f9bA7pUdtuEuCLXFtcWyYqefy8QqbKOBljOo5davq6T0x9a6_7poSr3grbackcd6W_eOHD3C6RxV268EimerXsWWlq3X5M6y0g7SOrmgr_avGGMMIeRPdPePYfQzDkwXo_H6TYiVDQR0y34rs6Oirzt4VKhy8TuRPH-YrDrx-yM1D1rl0BCtM7yVVfykdolqtWNjTE5ZPEV3un3JinefyV18VuDRsBmHQ" />
+            </div>
+            <div>
+                <h3 class="text-4xl font-bold text-gray-900">Sk. Faisal Ahmed</h3>
+                <p class="text-green-700 font-semibold text-xl mb-4">Founder &amp; CEO</p>
+                <p class="text-lg text-gray-600 italic mb-6 leading-relaxed">
+                    "Our goal is not just to analyze data, but to decode the language of life itself. We are
+                    building a future where every biological challenge has a computational solution."
+                </p>
+                <p class="text-base text-gray-600 leading-relaxed">
+                    With over a decade of experience in genomic architecture, Sk. Faisal Ahmed established Dawn
+                    of Bioinformatics Limited to localize world-class research capabilities in South Asia.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-12">
+        <a href="{% url 'core:team' %}" class="inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition text-lg">
+            View All Team Members
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+    </div>
+</section>
+
+<!-- Our Presence -->
+<section class="py-16 px-8 text-gray-900 bg-gray-100">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12">Global Footprint</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-xl border border-blue-100 shadow-sm flex gap-6 items-start">
+                <svg class="w-8 h-8 text-green-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <div>
+                    <h4 class="text-2xl font-bold mb-2 text-gray-900">Dhaka Headquarters</h4>
+                    <p class="text-gray-600">Level 4, Science Tower, CBA Avenue, GEC Circle</p>
+                    <p class="text-gray-600">Dhaka, Bangladesh</p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-xl border border-blue-100 shadow-sm flex gap-6 items-start">
+                <svg class="w-8 h-8 text-green-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                <div>
+                    <h4 class="text-2xl font-bold mb-2 text-gray-900">Chittagong Branch</h4>
+                    <p class="text-gray-600">Block C, Banani Commercial Area</p>
+                    <p class="text-gray-600">Chittagong, Bangladesh</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 text-center px-8 bg-white">
+    <div class="max-w-4xl mx-auto bg-gray-50 p-16 rounded-2xl shadow-xl border border-gray-200">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Ready to lead the bio-revolution?</h2>
+        <p class="text-xl text-gray-600 mb-8">Join our ecosystem of researchers, innovators, and
+            data pioneers.</p>
+        <a href="https://wa.me/8801517831136" target="_blank"
+            class="inline-block px-12 py-4 bg-green-600 text-white font-bold text-lg rounded-full hover:bg-green-700 transition-all shadow-lg hover:shadow-green-500/50 transform hover:-translate-y-1">
+            Join Our Ecosystem
+        </a>
+    </div>
+</section>
+{% endblock %}
