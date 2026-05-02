@@ -9,14 +9,15 @@
     <div class="absolute inset-0 bg-gradient-to-br from-{{ service.icon_color|default:'blue' }}-50 to-indigo-50/30 opacity-50"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-4xl mx-auto">
-            <span class="text-{{ service.icon_color|default:'blue' }}-600 font-bold tracking-wider uppercase text-sm mb-4 block">Clinical Service</span>
+            <!-- <span class="text-{{ service.icon_color|default:'blue' }}-600 font-bold tracking-wider uppercase text-sm mb-4 block">Clinical Service</span> -->
+            <span class="text-blue-600 font-bold tracking-wider uppercase text-sm mb-4 block">Clinical Service</span>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
                 {{ service.title }}
             </h1>
             <p class="text-xl text-gray-600 leading-relaxed mb-10">
                 {{ service.description }}
             </p>
-            <a href="{% url 'core:home' %}#contact" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-{{ service.icon_color|default:'blue' }}-600 hover:bg-{{ service.icon_color|default:'blue' }}-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <a href="https://wa.me/8801517831136?text=Hello!%20I%27m%20interested%20in%20your%20services" target="_blank" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 Consult With Our Experts
             </a>
         </div>
