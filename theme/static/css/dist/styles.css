@@ -332,9 +332,6 @@
   .top-4 {
     top: calc(var(--spacing) * 4);
   }
-  .top-6 {
-    top: calc(var(--spacing) * 6);
-  }
   .top-8 {
     top: calc(var(--spacing) * 8);
   }
@@ -403,9 +400,6 @@
   }
   .left-2\.5 {
     left: calc(var(--spacing) * 2.5);
-  }
-  .left-6 {
-    left: calc(var(--spacing) * 6);
   }
   .left-8 {
     left: calc(var(--spacing) * 8);
@@ -629,9 +623,6 @@
   .h-2 {
     height: calc(var(--spacing) * 2);
   }
-  .h-2\.5 {
-    height: calc(var(--spacing) * 2.5);
-  }
   .h-3 {
     height: calc(var(--spacing) * 3);
   }
@@ -731,9 +722,6 @@
   .min-h-\[80vh\] {
     min-height: 80vh;
   }
-  .min-h-\[160px\] {
-    min-height: 160px;
-  }
   .min-h-\[300px\] {
     min-height: 300px;
   }
@@ -754,9 +742,6 @@
   }
   .w-2 {
     width: calc(var(--spacing) * 2);
-  }
-  .w-2\.5 {
-    width: calc(var(--spacing) * 2.5);
   }
   .w-3 {
     width: calc(var(--spacing) * 3);
@@ -1262,9 +1247,6 @@
   .border-gray-900 {
     border-color: var(--color-gray-900);
   }
-  .border-green-500 {
-    border-color: var(--color-green-500);
-  }
   .border-indigo-200 {
     border-color: var(--color-indigo-200);
   }
@@ -1351,12 +1333,6 @@
   }
   .bg-green-400 {
     background-color: var(--color-green-400);
-  }
-  .bg-green-500 {
-    background-color: var(--color-green-500);
-  }
-  .bg-green-600 {
-    background-color: var(--color-green-600);
   }
   .bg-indigo-50 {
     background-color: var(--color-indigo-50);
@@ -2017,9 +1993,6 @@
   .text-green-600 {
     color: var(--color-green-600);
   }
-  .text-green-700 {
-    color: var(--color-green-700);
-  }
   .text-indigo-300 {
     color: var(--color-indigo-300);
   }
@@ -2314,13 +2287,6 @@
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
         background-color: color-mix(in oklab, #245c98 10%, transparent);
-      }
-    }
-  }
-  .group-hover\:bg-green-100 {
-    &:is(:where(.group):hover *) {
-      @media (hover: hover) {
-        background-color: var(--color-green-100);
       }
     }
   }
@@ -2669,13 +2635,6 @@
       }
     }
   }
-  .hover\:bg-green-700 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-green-700);
-      }
-    }
-  }
   .hover\:bg-indigo-600 {
     &:hover {
       @media (hover: hover) {
@@ -2814,16 +2773,6 @@
         --tw-shadow-color: color-mix(in srgb, #245c98 50%, transparent);
         @supports (color: color-mix(in lab, red, red)) {
           --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, #245c98 50%, transparent) var(--tw-shadow-alpha), transparent);
-        }
-      }
-    }
-  }
-  .hover\:shadow-green-500\/50 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-shadow-color: color-mix(in srgb, oklch(72.3% 0.219 149.579) 50%, transparent);
-        @supports (color: color-mix(in lab, red, red)) {
-          --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-green-500) 50%, transparent) var(--tw-shadow-alpha), transparent);
         }
       }
     }
@@ -2967,16 +2916,6 @@
       line-height: var(--tw-leading, var(--text-lg--line-height));
     }
   }
-  .md\:top-10 {
-    @media (width >= 48rem) {
-      top: calc(var(--spacing) * 10);
-    }
-  }
-  .md\:left-10 {
-    @media (width >= 48rem) {
-      left: calc(var(--spacing) * 10);
-    }
-  }
   .md\:order-1 {
     @media (width >= 48rem) {
       order: 1;
@@ -3017,11 +2956,6 @@
       display: inline-flex;
     }
   }
-  .md\:h-16 {
-    @media (width >= 48rem) {
-      height: calc(var(--spacing) * 16);
-    }
-  }
   .md\:h-96 {
     @media (width >= 48rem) {
       height: calc(var(--spacing) * 96);
@@ -3035,11 +2969,6 @@
   .md\:w-3\/4 {
     @media (width >= 48rem) {
       width: calc(3/4 * 100%);
-    }
-  }
-  .md\:w-16 {
-    @media (width >= 48rem) {
-      width: calc(var(--spacing) * 16);
     }
   }
   .md\:grid-cols-2 {
@@ -3075,11 +3004,6 @@
   .md\:p-10 {
     @media (width >= 48rem) {
       padding: calc(var(--spacing) * 10);
-    }
-  }
-  .md\:p-14 {
-    @media (width >= 48rem) {
-      padding: calc(var(--spacing) * 14);
     }
   }
   .md\:p-16 {

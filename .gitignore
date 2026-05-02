@@ -32,5 +32,6 @@ load_services_data.py
 load_content_data.py
 set_top.py
 seed_clinical_services.py
+load_feedbacks.py
 
 

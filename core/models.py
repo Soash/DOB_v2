@@ -91,3 +91,27 @@ class ResearchPaper(models.Model):
 
     def __str__(self):
         return self.title
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255)
+    comment = models.TextField()
+    star_count = models.PositiveIntegerField(default=5)
+    image = models.ImageField(upload_to='feedback/', blank=True, null=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return f"{self.name} - {self.occupation}"
+
+    @property
+    def get_image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+        from django.templatetags.static import static
+        return static('images/profile.jpg')
+
+    @property
+    def get_star_range(self):
+        return range(self.star_count)

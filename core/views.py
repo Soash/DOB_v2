@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.db import models
-from .models import BSDSItem, ResearchPaper, BlogPost
+from .models import BSDSItem, ResearchPaper, BlogPost, Feedback
 from service.models import ServiceCategory, Service
 from django.contrib.auth import get_user_model
 
@@ -32,6 +32,9 @@ def home(request):
     from service.models import ClinicalService
     clinical_services = ClinicalService.objects.filter(is_active=True).order_by('order')
     
+    # Fetch feedback/testimonials
+    feedbacks = Feedback.objects.all()
+    
     context = {
         'featured_services': featured_services,
         'bsds_items': bsds_items,
@@ -41,6 +44,7 @@ def home(request):
         'recent_blogs': recent_blogs,
         'categories': categories,
         'clinical_services': clinical_services,
+        'feedbacks': feedbacks,
     }
     return render(request, 'core/home.html', context)
 

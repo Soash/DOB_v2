@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper
+from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper, Feedback
 
 @admin.register(BSDSItem)
 class BSDSItemAdmin(admin.ModelAdmin):
@@ -37,3 +37,9 @@ class ResearchPaperAdmin(admin.ModelAdmin):
     list_display = ('title', 'journal', 'publication_date')
     search_fields = ('title', 'authors', 'journal')
     list_filter = ('publication_date', 'journal')
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('name', 'occupation', 'star_count')
+    search_fields = ('name', 'occupation', 'comment')
+    list_filter = ('star_count',)
