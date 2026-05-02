@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.title }} | Clinical Services | DOB{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gray-50 border-b border-gray-200">
+    <div class="absolute inset-0 bg-gradient-to-br from-{{ service.icon_color|default:'blue' }}-50 to-indigo-50/30 opacity-50"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+            <span class="text-{{ service.icon_color|default:'blue' }}-600 font-bold tracking-wider uppercase text-sm mb-4 block">Clinical Service</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
+                {{ service.title }}
+            </h1>
+            <p class="text-xl text-gray-600 leading-relaxed mb-10">
+                {{ service.description }}
+            </p>
+            <a href="{% url 'core:home' %}#contact" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-{{ service.icon_color|default:'blue' }}-600 hover:bg-{{ service.icon_color|default:'blue' }}-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                Consult With Our Experts
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Content Sections -->
+<section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {% if service.thumbnail %}
+        <div class="mb-16 rounded-2xl overflow-hidden shadow-xl border border-gray-100">
+            <img src="{{ service.thumbnail.url }}" alt="{{ service.title }}" class="w-full h-auto object-cover">
+        </div>
+        {% endif %}
+
+        {% if service.introduction_description %}
+        <div class="prose prose-lg prose-{{ service.icon_color|default:'blue' }} max-w-none mb-16 text-gray-700">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
+            {{ service.introduction_description|linebreaks }}
+        </div>
+        {% endif %}
+
+        {% if service.features_description %}
+        <div class="prose prose-lg prose-{{ service.icon_color|default:'blue' }} max-w-none mb-16 text-gray-700">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Key Features</h2>
+            {{ service.features_description|linebreaks }}
+        </div>
+        {% endif %}
+        
+        {% if service.demo_description %}
+        <div class="bg-{{ service.icon_color|default:'blue' }}-50 rounded-2xl p-8 md:p-10 border border-{{ service.icon_color|default:'blue' }}-100 mb-16">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Application & Demo</h2>
+            <div class="prose prose-lg prose-{{ service.icon_color|default:'blue' }} max-w-none text-gray-700">
+                {{ service.demo_description|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Gallery -->
+        {% if service.images.exists %}
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Clinical Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {% for img in service.images.all %}
+                <div class="group rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
+                    <img src="{{ img.image.url }}" alt="{{ img.caption }}" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500">
+                    {% if img.caption %}
+                    <div class="p-4 bg-gray-50 border-t border-gray-200">
+                        <p class="text-sm text-gray-600 font-medium text-center">{{ img.caption }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- FAQs -->
+        {% if service.faqs.exists %}
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                {% for faq in service.faqs.all %}
+                <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                        <h3 class="text-lg font-bold text-gray-900">{{ faq.question }}</h3>
+                        <span class="ml-1.5 shrink-0 rounded-full bg-white p-1.5 text-gray-900 sm:p-3 border border-gray-200 shadow-sm group-open:bg-{{ service.icon_color|default:'blue' }}-600 group-open:text-white group-open:border-{{ service.icon_color|default:'blue' }}-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="p-6 border-t border-gray-200 text-gray-600 leading-relaxed text-lg">
+                        {{ faq.answer|linebreaks }}
+                    </div>
+                </details>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-12 border-t border-gray-200 pt-12">
+            <a href="{% url 'service:clinical_service_list' %}" class="inline-flex items-center text-{{ service.icon_color|default:'blue' }}-600 font-bold hover:text-{{ service.icon_color|default:'blue' }}-800 transition">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Clinical Services
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Prefetch
-from .models import ServiceCategory, Service
+from .models import ServiceCategory, Service, ClinicalService
 
 def service_list(request):
     # Fetch core services (is_top=True)
@@ -32,3 +32,21 @@ def service_detail(request, slug):
         'service': service,
     }
     return render(request, 'service/service_detail.html', context)
+
+def clinical_service_list(request):
+    services = ClinicalService.objects.filter(is_active=True).order_by('order')
+    context = {
+        'services': services,
+    }
+    return render(request, 'service/clinical_service_list.html', context)
+
+def clinical_service_detail(request, slug):
+    service = get_object_or_404(
+        ClinicalService.objects.prefetch_related('images', 'faqs'),
+        slug=slug,
+        is_active=True
+    )
+    context = {
+        'service': service,
+    }
+    return render(request, 'service/clinical_service_detail.html', context)

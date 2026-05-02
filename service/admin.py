@@ -47,4 +47,43 @@ class ServiceAdmin(admin.ModelAdmin):
     # Connects the Image and FAQ models directly to the Service admin page
     inlines = [ServiceImageInline, ServiceFAQInline]
 
+
+from .models import ClinicalService, ClinicalServiceImage, ClinicalServiceFAQ
+
+class ClinicalServiceImageInline(admin.TabularInline):
+    model = ClinicalServiceImage
+    extra = 1
+
+class ClinicalServiceFAQInline(admin.TabularInline):
+    model = ClinicalServiceFAQ
+    extra = 1
+
+@admin.register(ClinicalService)
+class ClinicalServiceAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'order')
+    list_filter = ('is_active',)
+    search_fields = ('title', 'description')
+    prepopulated_fields = {'slug': ('title',)}
+    list_editable = ('is_active', 'order')
     
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('title', 'slug', 'description')
+        }),
+        ('Icon & Styling', {
+            'fields': ('icon_svg', 'icon_color'),
+            'description': 'Provide raw SVG code (using currentColor) and a Tailwind color (e.g. blue, purple, cyan).'
+        }),
+        ('Detailed Content', {
+            'fields': ('introduction_description', 'features_description', 'demo_description'),
+            'classes': ('collapse',),
+        }),
+        ('Media', {
+            'fields': ('thumbnail',)
+        }),
+        ('Status & Ordering', {
+            'fields': ('is_active', 'order')
+        }),
+    )
+    
+    inlines = [ClinicalServiceImageInline, ClinicalServiceFAQInline]

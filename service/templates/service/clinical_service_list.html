@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Clinical Services | Dawn of Bioinformatics{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center mb-16 mt-10">
+            <span class="text-sm font-bold tracking-wider text-blue-600 uppercase">Specialised Healthcare Solutions</span>
+            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl mt-2">Clinical Bioinformatics</h1>
+            <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600">
+                Advanced genetic screening, whole-genome profiling, and AI-driven biomarker discovery for personalized clinical diagnostics and treatment.
+            </p>
+        </div>
+
+        {% if services %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for service in services %}
+            <a href="{{ service.get_absolute_url }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-{{ service.icon_color|default:'blue' }}-200 transition-all duration-300 group flex flex-col overflow-hidden transform hover:-translate-y-1">
+                <div class="w-full h-48 bg-white/5 relative overflow-hidden shrink-0 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-{{ service.icon_color|default:'blue' }}-50 to-indigo-50 group-hover:scale-105 transition-transform duration-500"></div>
+                    {% if service.icon_svg %}
+                        <div class="w-16 h-16 text-{{ service.icon_color|default:'blue' }}-300 relative z-10 flex items-center justify-center">
+                            {{ service.icon_svg|safe }}
+                        </div>
+                    {% else %}
+                        <svg class="w-16 h-16 text-{{ service.icon_color|default:'blue' }}-300 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    {% endif %}
+                </div>
+                <div class="p-8 flex flex-col grow">
+                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-{{ service.icon_color|default:'blue' }}-600 transition-colors mb-4">{{ service.title }}</h3>
+                    <p class="text-gray-600 text-base mb-8 grow">{{ service.description }}</p>
+                    <div class="mt-auto flex items-center text-{{ service.icon_color|default:'blue' }}-600 font-bold text-sm uppercase tracking-wide">
+                        Explore Details <svg class="w-4 h-4 ml-1.5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-20 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-100">
+            No clinical services are currently available. Please check back later.
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

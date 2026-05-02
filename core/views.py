@@ -28,6 +28,10 @@ def home(request):
         Prefetch('services', queryset=active_services)
     ).all()
     
+    # Fetch clinical services for the homepage carousel
+    from service.models import ClinicalService
+    clinical_services = ClinicalService.objects.filter(is_active=True).order_by('order')
+    
     context = {
         'featured_services': featured_services,
         'bsds_items': bsds_items,
@@ -36,6 +40,7 @@ def home(request):
         'recent_papers': recent_papers,
         'recent_blogs': recent_blogs,
         'categories': categories,
+        'clinical_services': clinical_services,
     }
     return render(request, 'core/home.html', context)
 
