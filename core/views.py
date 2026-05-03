@@ -18,8 +18,8 @@ def home(request):
     services_count = ServiceCategory.objects.aggregate(total=models.Count('services'))['total'] or 30
     
     # Recent Research and Blog Posts
-    recent_papers = ResearchPaper.objects.all()[:5]
-    recent_blogs = BlogPost.objects.filter(published=True)[:5]
+    recent_papers = ResearchPaper.objects.all()[:15]
+    recent_blogs = BlogPost.objects.filter(published=True)[:15]
     
     # Fetch categories and their active services for the tabbed section
     from django.db.models import Prefetch
@@ -91,8 +91,15 @@ def team(request):
 def coming_soon(request):
     return render(request, 'core/coming_soon.html')
 
+from django.core.paginator import Paginator
+
 def research_papers(request):
-    papers = ResearchPaper.objects.all()
+    papers_list = ResearchPaper.objects.all()
+    paginator = Paginator(papers_list, 10) # Show 10 papers per page
+    
+    page_number = request.GET.get('page')
+    papers = paginator.get_page(page_number)
+    
     return render(request, 'core/research_papers.html', {'papers': papers})
 
 def blog(request):
