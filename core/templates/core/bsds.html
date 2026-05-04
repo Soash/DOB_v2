@@ -1,63 +1,344 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}BSDS | Dawn of Bioinformatics{% endblock %}
+{% block title %}BSDS - Bioinformatics Skill Development Scheme{% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 min-h-screen py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-16">
-            <span class="text-blue-600 font-semibold tracking-wide uppercase text-sm mb-4 block">Bioinformatics Skill Development Scheme</span>
-            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">BSDS Sub Departments</h1>
-            <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600">
-                Empowering learners and professionals to contribute to impactful bioinformatics research and skill development.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for item in bsds_items %}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group flex flex-col h-full overflow-hidden">
-                
-                <div class="w-full h-56 overflow-hidden bg-gray-100 relative">
-                    {% if item.thumbnail %}
-                        <img src="{{ item.thumbnail.url }}" alt="{{ item.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    {% else %}
-                        <img src="{% static 'images/default.jpeg' %}" alt="{{ item.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    {% endif %}
-                    
-                    <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-
-                <div class="p-8 flex flex-col grow">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                        {{ item.title }}
-                    </h3>
-                    <p class="text-gray-600 leading-relaxed grow text-sm">
-                        {{ item.description }}
-                    </p>
-                    
-                    <!-- <div class="mt-6 pt-6 border-t border-gray-50">
-                        {% if item.details_url %}
-                            <a href="{{ item.details_url }}" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
-                                Details
-                                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </a>
-                        {% else %}
-                            <span class="inline-flex items-center text-gray-400 font-medium cursor-not-allowed text-sm">
-                                Details coming soon
-                            </span>
-                        {% endif %}
-                    </div> -->
-                </div>
-            </div>
-            {% empty %}
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-gray-500 py-12">
-                    <p>No BSDS items are currently available. Please check back later.</p>
-                </div>
-            {% endfor %}
-        </div>
-
-    </div>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@300..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#0F172A",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#1E293B", 
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#fdc425",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#7c839b",
+                    "on-tertiary-fixed": "#0F172A", 
+                    "on-error": "#ffffff",
+                    "surface-tint": "#565e74",
+                    "outline": "#76777d",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#334155", 
+                    "tertiary-container": "#0F172A", 
+                    "tertiary": "#000000",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-surface-variant": "#45464d",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "outline-variant": "#c6c6cd",
+                    "inverse-surface": "#2e3132",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#131b2e",
+                    "secondary-fixed-dim": "#f7be1d",
+                    "primary": "#0F172A",
+                    "on-surface": "#191c1d",
+                    "inverse-on-surface": "#f0f1f2",
+                    "primary-container": "#0F172A",
+                    "background": "#f8f9fa",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container": "#edeeef",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "inverse-primary": "#bec6e0",
+                    "surface-dim": "#d9dadb",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "on-secondary-fixed": "#251a00",
+                    "on-secondary-container": "#6d5200",
+                    "tertiary-fixed": "#cbd5e1", 
+                    "error": "#ba1a1a",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f8f9fa",
+                    "on-error-container": "#93000a",
+                    "secondary": "#785a00",
+                    "on-background": "#191c1d",
+                    "secondary-fixed": "#ffdf9a",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "xl": "40px",
+                    "unit": "8px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "h2": ["Space Grotesk"],
+                    "body-sm": ["Inter"],
+                    "h3": ["Space Grotesk"],
+                    "h1": ["Space Grotesk"],
+                    "label-bold": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h2": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.3", "letterSpacing": "0", "fontWeight": "600"}],
+                    "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            },
+            "animation": {
+                    "marquee": "marquee 30s linear infinite",
+            },
+            "keyframes": {
+                    "marquee": {
+                      "0%": { transform: "translateX(0%)" },
+                      "100%": { transform: "translateX(-50%)" },
+                    }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .biological-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(15, 23, 42, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 24px;
+        }
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 24px;
+        }
+    </style>
+<div class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-white w-full overflow-hidden">
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-white py-24 md:py-32 biological-pattern">
+<div class="absolute inset-0 opacity-10">
+<svg class="h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+<path class="text-primary-container" d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor"></path>
+</svg>
+</div>
+<div class="relative max-w-7xl mx-auto px-6 text-center">
+<h1 class="font-h1 text-h1 text-primary-container mb-6 max-w-4xl mx-auto">Bioinformatics Skill Development Scheme</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">BSDS is a non-profit, voluntary initiative by Dawn of Bioinformatics Limited. Our mission is to democratize computational biology and Bioinformaics in Bangladesh, high-quality workshop, seminars, and mentorship to empower the next generation of researchers.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-primary-container text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:translate-y-[-2px] transition-all">Get Started</button>
+<button class="border border-outline-variant text-on-surface px-8 py-4 rounded-xl font-bold hover:bg-surface-container transition-all">Learn More</button>
+</div>
+</div>
+</section>
+<!-- Running Events -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex items-end justify-between mb-12">
+<div>
+<span class="text-primary-container font-label-bold uppercase tracking-widest">Active Opportunities</span>
+<h2 class="font-h2 text-h2 text-primary-container mt-2">Running Events</h2>
+</div>
+<a class="text-primary-container font-bold flex items-center gap-2 hover:underline" href="#">
+                        View All <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+{% for event in events %}
+<!-- Event Card -->
+<div class="bg-white rounded-xl overflow-hidden shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] group hover:-translate-y-2 transition-transform duration-300">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ event.title }}" src="{{ event.get_image_url }}">
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 text-on-primary-container mb-3 font-body-sm">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span class="">{{ event.date_text }}</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary-container mb-4">{{ event.title }}</h3>
+{% if event.url %}
+<a href="{{ event.url }}" target="_blank" class="block w-full text-center bg-primary-container text-white py-3 rounded-lg font-bold hover:brightness-110 transition-all">Apply Now</a>
+{% else %}
+<button class="w-full bg-primary-container text-white py-3 rounded-lg font-bold transition-all cursor-not-allowed opacity-50">Apply Now</button>
+{% endif %}
+</div>
+</div>
+{% empty %}
+<div class="col-span-full text-center py-12 text-slate-500">No active events found.</div>
+{% endfor %}
+</div>
+</div>
+</section>
+<!-- Event Gallery Section -->
+<!-- About BSDS -->
+<section class="py-24 bg-white overflow-hidden">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<span class="text-primary-container font-label-bold uppercase tracking-widest">Our Mission</span>
+<h2 class="font-h2 text-h2 text-primary-container mt-2 mb-6">Fostering Excellence in Bioinformatics</h2>
+<div class="space-y-4 text-on-surface-variant font-body-lg">
+<p class=""> The Bioinformatics Skill Development Scheme (BSDS) stands as the proud philanthropic wing of Dawn of Bioinformatics Limited. We believe that access to advanced scientific education is a fundamental right, not a privilege. Our core objective is profound yet simple: to pave a seamless, accessible path for every aspiring bioinformatician in Bangladesh. In this dedicated voluntary space, we strictly step away from promoting our commercial services. Instead, backed by our dedicated core team of highly skilled experts, we pour our resources into grassroots community growth. We offer entirely free intensive workshops, a rigorous campus coordinator training program, and nationwide intellectual competitions. By entirely removing financial constraints, we are cultivating a vibrant, collaborative ecosystem where raw talent meets world-class computational biology training, ensuring the future of research in Bangladesh remains exceptionally bright.</p>
+<p class="">Through our network of mentors and partners, we offer unparalleled access to high-performance computing resources and specialized workshops tailored for professionals at all career stages.</p>
+</div>
+<div class="mt-8 flex gap-8">
+<div>
+<div class="text-h3 font-h3 text-primary-container">1200+</div>
+<div class="text-body-sm text-on-surface-variant">Active Learners</div>
+</div>
+<div>
+<div class="text-h3 font-h3 text-primary-container">45+</div>
+<div class="text-body-sm text-on-surface-variant">University Partners</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-4 -right-4 w-full h-full bg-primary-container rounded-xl translate-x-4 translate-y-4 z-0"></div>
+<img class="relative z-10 w-full rounded-xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" alt="A wide-angle, high-end corporate office interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCli66Xt1IjarqhKvZal-csS4Z5f9z-T_N6ttGHsPUuLbfJCrpYDOCUVQx84xOjZ_fpQUaEZnzyyr9h5LAIaNqeLwAi172aYoHaFBNPYTaB4Xn-gaBXD3eFjFF-VaJcRnmuIw1P9t1VwCbmNFVIIMk-EIrAt-4KuRaClH7TCQ3JsN1Z8L8oWikdu-i5neKGL5J1OspK1olwtxX1AvOrXmOYmTmVf2rRTdzXIsiBg4eq7GEPSdcCiTYosYPC_bv35AAIZjF8WsrlRw">
+</div>
+</div>
+</div>
+</section>
+<!-- Core Initiatives (Zigzag) -->
+<section class="py-24 bg-white">
+<div class="max-w-7xl mx-auto px-6 mb-16">
+<h2 class="font-h2 text-h2 text-primary-container text-center">Core Initiatives</h2>
+</div>
+<!-- Segment A: Seminars -->
+<div class="bg-surface-container-low py-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<img class="w-full h-[400px] object-cover rounded-xl shadow-lg" alt="A focused close-up of a professional podium in a sophisticated university lecture hall." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1AbXZMxaQz7LGF6etDjL4pxgydsgb14w7OmCSmjYSeH_0ZKSNWwXQO7xNhANVH7hLaN0JHJSe70WujWjTMXnUe-32ATBdLs2fdehJ9STpYxo7djsgBtd5iTM4D8LsupRKxBfaG_r9ITUWmhG6Na3iJ1djRJP47kAyF2Bk2wM3gzIUMcjB9fzsZ5PwqniwqULFBEWbpqSH1chgPndMOrAdsYxU9zHnx-e3N7QsKBIvC0E-raHRCZweDEwGHyGVp8IxBPJ0WHuArQ">
+</div>
+<div class="order-1 md:order-2">
+<h3 class="font-h3 text-h3 text-primary-container mb-4">On Campus Bioinformatics Seminars</h3>
+<p class="text-on-surface-variant mb-6 font-body-md">We believe that transformative knowledge should be brought directly to the students' doorsteps. Our Founder and expert bioinformaticians voluntarily travel to university campuses across Bangladesh to conduct engaging, fully unpaid seminars. These sessions are designed to ignite curiosity, introduce students to the vast potential of bioinformatics, and provide direct access to industry leaders right within their own academic institutions.</p>
+<a class="inline-flex items-center gap-2 text-primary-container font-bold hover:gap-4 transition-all" href="#">Arrange on your Campus <span class="material-symbols-outlined">arrow_right_alt</span></a>
+</div>
+</div>
+</div>
+<!-- Segment B: Campus Co-ordinators -->
+<div class="bg-white py-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div>
+<h3 class="font-h3 text-h3 text-primary-container mb-4">Bioinformatics Campus Co-ordinators</h3>
+<p class="text-on-surface-variant mb-6 font-body-md">At the heart of our nationwide mission lies our robust Campus Co-ordinator network. We are actively building grassroots leadership by selecting passionate students from over 50 universities across Bangladesh. These dedicated representatives undergo an exclusive, rigorous, six-month training program completely free of charge. Through continuous interactive workshops, practical assignments, and competitive quizzes, we build their foundational skills in computational biology from the ground up. In return, they serve as the vital bridge between BSDS and their local academic communities, bringing the transformative power of bioinformatics to every corner of the country.</p>
+<div class="bg-primary-container/5 p-4 rounded-lg border-l-4 border-primary-container mb-6">
+<span class="text-primary-container font-bold text-lg">40+ Active Hubs</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary-container font-bold hover:gap-4 transition-all" href="#">More Details <span class="material-symbols-outlined">arrow_right_alt</span></a>
+</div>
+<div>
+<img class="w-full h-[400px] object-cover rounded-xl shadow-lg" alt="A candid photograph of university students collaborating." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPyhoSyKPFW1nwtxGX4481nfU9bR9Oo8i_EPlbBXJhuOMf26oPz59TGDyfglPuSalKod8KUtucIzuhVAy5ag6N5fNwbUxQVxwfMT2AMFLfQ-ARscxi4PMHre6xZ4AendOd79Hoas_bdI58pUnA-z4BeAUpZ4sZUO_DQiev1BWIF0-Jx1uMN6RXFH0nRpzRgTeWcf8Xf3qN216Zg8Gt07513-O0rIAIovPDLFRMSQFFGuVXyfyQfnUh5hWFPWyHYx8V0TYAJKtDFA">
+</div>
+</div>
+</div>
+<!-- Segment C: Research Talk -->
+<div class="bg-surface-container-low py-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<img class="w-full h-[400px] object-cover rounded-xl shadow-lg" alt="An abstract visualization of digital data flowing through a network." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0l__aprYKyEe_0rjitzYRanejKS7MoL0HxK209eFbqwpPMwUQoz_4AEVsMaA5yabjofVfgttWedTMFaPcUYZZaKpNbF72bByJSiijBSpD3Aj7TWSCUrXswzXbSwI5f6EUZuHiTi6j4hIwlGIKUgSZ4qtayWvxvSda1ZNdprNooycg9rzDUy2INCfBLMfTHcrCM1ywORpEFtLXrRA7UsUod78__0f3bXDxfBwRfML_FGW39I9OESzTlhlss6Z0iF3AN_GSh28Hkw">
+</div>
+<div class="order-1 md:order-2">
+<h3 class="font-h3 text-h3 text-primary-container mb-4">Bioinformatics Research Talk Series</h3>
+<p class="text-on-surface-variant mb-6 font-body-md">Innovation thrives on continuous dialogue and shared knowledge. 'Dawn's Talk' is our signature monthly research series designed to keep our community at the cutting edge of scientific discovery. Every month, we host highly engaging, 100% free interactive sessions where industry experts and academic leaders dissect real-world biological challenges, review high-impact publications, and explore the evolving landscape of computational biology. It is a collaborative digital space designed to spark intellectual curiosity, foster mentorship, and inspire the next major breakthrough in bioinformatics research.</p>
+<a class="inline-flex items-center gap-2 text-primary-container font-bold hover:gap-4 transition-all" href="#">More Details <span class="material-symbols-outlined">arrow_right_alt</span></a>
+</div>
+</div>
+</div>
+<!-- Segment D: National Competitions -->
+<div class="bg-white py-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div>
+<h3 class="font-h3 text-h3 text-primary-container mb-4">Bioinformatics Challange &amp; Competitions</h3>
+<p class="text-on-surface-variant mb-6 font-body-md">We believe that healthy academic rivalry accelerates intellectual growth. To nurture raw talent and encourage critical thinking, we regularly organize thrilling, national-level scientific competitions. Students from all over Bangladesh can participate—entirely free of charge—in our diverse events, which include comprehensive scientific writing contests, creative biological video-making competitions, and challenging national bioinformatics quizzes. These dynamic platforms not only test their knowledge but also provide a prestigious national stage to showcase their talent, earn nationwide recognition, and push the boundaries of their academic potential.</p>
+<a class="inline-flex items-center gap-2 text-primary-container font-bold hover:gap-4 transition-all" href="#">More Details <span class="material-symbols-outlined">arrow_right_alt</span></a>
+</div>
+<div>
+<img class="w-full h-[400px] object-cover rounded-xl shadow-lg" alt="A trophy cup sitting on a minimalist white pedestal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ-nLUD-_gl1ynkfsnzRhb5otqCeh47Z-E8zf9QSWqAzr5_TBeQOKQNwVKqQeqYnO8d6Uki_1v1rP-wgEUj7kUTZBl1CUZQChO-lJDZvyLwd9-dYRD2yscbJdmfokBTdtBWhM8KCACZvB57FEEBeZeimHQ9YviyhnOL2BID-qKeHvLJE24vSd4ddnkt8W-LuUapZmFW_JQM6dYhh_rhMnSM-DJvahRzLM59lzoanVnAq4YlFOp1K4J1lOJbIbRYrBCzXMz5RAd1g">
+</div>
+</div>
+</div>
+<!-- Segment E: Sponsorships -->
+<div class="bg-surface-container-low py-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<img class="w-full h-[400px] object-cover rounded-xl shadow-lg" alt="Two hands shaking in a firm, professional agreement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8dJ9vjaPJAhW3NE7q1FMjMvO-ihDm_DX5-RwS_gGAisLmrELBqgSrMm4kZcHSp6qX5w6klvpufb0Qs0vX9HB-xHhxZa2swOiclaqnuHZOE-l3_B8EQcrcSc40cAu1rJwURzFwQJ7U3zynB7yjZLzgIJtsHHHo8A_grCAeyjzkFSXvS4X4ITOpUEtRi3tKQV6UTHtkzNszMIKoPDzhjUxpZTkoLBOv9tEA0jfEBD0_v1iVBaDc50rR-3Bwz-xA-zdtpKdqXjwe1A">
+</div>
+<div class="order-1 md:order-2">
+<h3 class="font-h3 text-h3 text-primary-container mb-4">Collaboration &amp; Sponsorships</h3>
+<p class="text-on-surface-variant mb-6 font-body-md">Empowering an entire generation of researchers requires a collective, nationwide effort. While BSDS operates as a strictly voluntary, non-profit initiative, advanced computational research inherently demands high-performance infrastructure and significant resources. We actively seek strategic collaborations and corporate sponsorships from industry leaders, tech innovators, and forward-thinking organizations who share our philanthropic vision. By partnering with us, sponsors directly contribute to providing vital hardware access, event funding, and premium learning resources to deserving students, ensuring that financial limitations never hinder scientific excellence in Bangladesh.</p>
+<a class="inline-flex items-center gap-2 text-primary-container font-bold hover:gap-4 transition-all" href="#">More Details <span class="material-symbols-outlined">arrow_right_alt</span></a>
+</div>
+</div>
+</div><section class="py-20 bg-white overflow-hidden">
+<div class="max-w-7xl mx-auto px-6 mb-12">
+<span class="text-primary-container font-label-bold uppercase tracking-widest">Visual Highlights</span>
+<h2 class="font-h2 text-h2 text-primary-container mt-2">Event Gallery</h2>
+</div>
+<div class="marquee-container">
+<div class="marquee-content animate-marquee">
+<!-- Gallery Image 1 -->
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Modern laboratory workspace" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1AbXZMxaQz7LGF6etDjL4pxgydsgb14w7OmCSmjYSeH_0ZKSNWwXQO7xNhANVH7hLaN0JHJSe70WujWjTMXnUe-32ATBdLs2fdehJ9STpYxo7djsgBtd5iTM4D8LsupRKxBfaG_r9ITUWmhG6Na3iJ1djRJP47kAyF2Bk2wM3gzIUMcjB9fzsZ5PwqniwqULFBEWbpqSH1chgPndMOrAdsYxU9zHnx-e3N7QsKBIvC0E-raHRCZweDEwGHyGVp8IxBPJ0WHuArQ">
+</div>
+<!-- Gallery Image 2 -->
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Scientific visualization screen" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwaWbRWEQDxa3zmJLxOPZ4W_XX9799H4ec1W3Emgy6m2gxXXFsbXkj5sCnMLY9p3CUZSJXIySHIOHc9TnP67VsKdvGbJdkmiiRrZymQKXNfHY0mc7aBvMyoEYllHkbBheo8P5_oeqnYapAOTKG9e6IrzFrS1bOHl7rasspe_m4QWctYepQsExyk6AqcFiBM8lfg-UO1-4yiBVE_rmsa7efZ97P9XDgZvw95Xo-jeSkrN7yFsNrBuFrKpVHf50k2BMWmvaOrZ78gg">
+</div>
+<!-- Gallery Image 3 -->
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Collaboration session" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPyhoSyKPFW1nwtxGX4481nfU9bR9Oo8i_EPlbBXJhuOMf26oPz59TGDyfglPuSalKod8KUtucIzuhVAy5ag6N5fNwbUxQVxwfMT2AMFLfQ-ARscxi4PMHre6xZ4AendOd79Hoas_bdI58pUnA-z4BeAUpZ4sZUO_DQiev1BWIF0-Jx1uMN6RXFH0nRpzRgTeWcf8Xf3qN216Zg8Gt07513-O0rIAIovPDLFRMSQFFGuVXyfyQfnUh5hWFPWyHYx8V0TYAJKtDFA">
+</div>
+<!-- Gallery Image 4 -->
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Research conference hall" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCli66Xt1IjarqhKvZal-csS4Z5f9z-T_N6ttGHsPUuLbfJCrpYDOCUVQx84xOjZ_fpQUaEZnzyyr9h5LAIaNqeLwAi172aYoHaFBNPYTaB4Xn-gaBXD3eFjFF-VaJcRnmuIw1P9t1VwCbmNFVIIMk-EIrAt-4KuRaClH7TCQ3JsN1Z8L8oWikdu-i5neKGL5J1OspK1olwtxX1AvOrXmOYmTmVf2rRTdzXIsiBg4eq7GEPSdcCiTYosYPC_bv35AAIZjF8WsrlRw">
+</div>
+</div>
+<!-- Duplicate for seamless scroll -->
+<div class="marquee-content animate-marquee">
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Modern laboratory workspace" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1AbXZMxaQz7LGF6etDjL4pxgydsgb14w7OmCSmjYSeH_0ZKSNWwXQO7xNhANVH7hLaN0JHJSe70WujWjTMXnUe-32ATBdLs2fdehJ9STpYxo7djsgBtd5iTM4D8LsupRKxBfaG_r9ITUWmhG6Na3iJ1djRJP47kAyF2Bk2wM3gzIUMcjB9fzsZ5PwqniwqULFBEWbpqSH1chgPndMOrAdsYxU9zHnx-e3N7QsKBIvC0E-raHRCZweDEwGHyGVp8IxBPJ0WHuArQ">
+</div>
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Scientific visualization screen" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwaWbRWEQDxa3zmJLxOPZ4W_XX9799H4ec1W3Emgy6m2gxXXFsbXkj5sCnMLY9p3CUZSJXIySHIOHc9TnP67VsKdvGbJdkmiiRrZymQKXNfHY0mc7aBvMyoEYllHkbBheo8P5_oeqnYapAOTKG9e6IrzFrS1bOHl7rasspe_m4QWctYepQsExyk6AqcFiBM8lfg-UO1-4yiBVE_rmsa7efZ97P9XDgZvw95Xo-jeSkrN7yFsNrBuFrKpVHf50k2BMWmvaOrZ78gg">
+</div>
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Collaboration session" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPyhoSyKPFW1nwtxGX4481nfU9bR9Oo8i_EPlbBXJhuOMf26oPz59TGDyfglPuSalKod8KUtucIzuhVAy5ag6N5fNwbUxQVxwfMT2AMFLfQ-ARscxi4PMHre6xZ4AendOd79Hoas_bdI58pUnA-z4BeAUpZ4sZUO_DQiev1BWIF0-Jx1uMN6RXFH0nRpzRgTeWcf8Xf3qN216Zg8Gt07513-O0rIAIovPDLFRMSQFFGuVXyfyQfnUh5hWFPWyHYx8V0TYAJKtDFA">
+</div>
+<div class="w-[300px] md:w-[400px] flex-shrink-0">
+<img alt="Research conference hall" class="w-full h-[250px] object-cover rounded-xl shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCli66Xt1IjarqhKvZal-csS4Z5f9z-T_N6ttGHsPUuLbfJCrpYDOCUVQx84xOjZ_fpQUaEZnzyyr9h5LAIaNqeLwAi172aYoHaFBNPYTaB4Xn-gaBXD3eFjFF-VaJcRnmuIw1P9t1VwCbmNFVIIMk-EIrAt-4KuRaClH7TCQ3JsN1Z8L8oWikdu-i5neKGL5J1OspK1olwtxX1AvOrXmOYmTmVf2rRTdzXIsiBg4eq7GEPSdcCiTYosYPC_bv35AAIZjF8WsrlRw">
+</div>
+</div>
+</div>
+</section>
+</section>
+<!-- Newsletter / CTA Section -->
+<section class="py-24 bg-primary-container text-white">
+<div class="max-w-4xl mx-auto px-6 text-center">
+<h2 class="font-h2 text-h2 mb-6 text-white">Stay Informed on BSDS Updates</h2>
+<p class="font-body-lg text-slate-300 mb-10">Join our newsletter to receive the latest updates on workshops, competitions, and research news delivered straight to your inbox.</p>
+<form class="flex flex-col sm:flex-row gap-4">
+<input class="flex-grow bg-white/10 border border-white/20 rounded-xl px-6 py-4 focus:ring-2 focus:ring-white/50 focus:outline-none placeholder:text-slate-400" placeholder="Enter your academic email" type="email">
+<button class="bg-white text-primary-container px-10 py-4 rounded-xl font-bold hover:bg-slate-100 transition-all">Subscribe Now</button>
+</form>
+</div>
+</section>
 </div>
 {% endblock %}
