@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from core.models import BSDSItem
-from .models import BSDSEvent
+from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig
 
 
 def bsds_page(request):
@@ -12,3 +12,25 @@ def bsds_page(request):
         'events': events,
     }
     return render(request, 'bsds/bsds.html', context)
+
+
+def on_campus_seminar(request):
+    campuses = CampusSeminar.objects.all()
+    # Build JSON-safe list for the JS gallery
+    import json
+    campuses_json = json.dumps([
+        {
+            'name': c.abbreviation,
+            'title': c.university_name,
+            'desc': c.event_description,
+            'img': c.get_image_url,
+        }
+        for c in campuses
+    ])
+    context = {
+        'campuses': campuses,
+        'campuses_json': campuses_json,
+        'cfg': SeminarProgramConfig.objects.first(),
+    }
+    return render(request, 'bsds/on_campus_seminar.html', context)
+
