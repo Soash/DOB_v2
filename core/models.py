@@ -115,3 +115,33 @@ class Feedback(models.Model):
     @property
     def get_star_range(self):
         return range(self.star_count)
+
+class Carrier(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
+    employment_type = models.CharField(max_length=100, help_text="e.g. Full-time, Part-time")
+    location = models.CharField(max_length=100, help_text="e.g. Dhaka, Chittagong")
+    vacancy = models.PositiveIntegerField(default=1)
+    posted_date = models.DateField()
+    deadline = models.DateField()
+    short_description = models.TextField(help_text="Shown in the list view")
+    job_overview = HTMLField(blank=True, null=True)
+    required_profile = HTMLField(blank=True, null=True)
+    role_description = HTMLField(blank=True, null=True)
+    salary_info = HTMLField(blank=True, null=True)
+    apply_url = models.URLField(blank=True, null=True, help_text="Link to external application form (e.g. Google Form). If empty, uses default mailto link.")
+    
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-posted_date']
+        verbose_name = "Career"
+        verbose_name_plural = "Careers"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

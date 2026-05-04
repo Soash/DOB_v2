@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper, Feedback
+from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper, Feedback, Carrier
 
 @admin.register(BSDSItem)
 class BSDSItemAdmin(admin.ModelAdmin):
@@ -43,3 +43,10 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('name', 'occupation', 'star_count')
     search_fields = ('name', 'occupation', 'comment')
     list_filter = ('star_count',)
+
+@admin.register(Carrier)
+class CarrierAdmin(admin.ModelAdmin):
+    list_display = ('title', 'employment_type', 'location', 'posted_date', 'deadline', 'is_active')
+    list_filter = ('is_active', 'employment_type', 'location')
+    search_fields = ('title', 'short_description')
+    prepopulated_fields = {'slug': ('title',)}

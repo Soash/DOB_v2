@@ -109,3 +109,13 @@ def blog(request):
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug, published=True)
     return render(request, 'core/blog_detail.html', {'post': post})
+
+from .models import Carrier
+
+def carrier_list(request):
+    carriers = Carrier.objects.filter(is_active=True).order_by('-posted_date')
+    return render(request, 'core/carrier_list.html', {'carriers': carriers})
+
+def carrier_detail(request, slug):
+    carrier = get_object_or_404(Carrier, slug=slug, is_active=True)
+    return render(request, 'core/carrier_detail.html', {'carrier': carrier})

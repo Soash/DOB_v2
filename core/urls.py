@@ -14,4 +14,6 @@ urlpatterns = [
     path('research/', views.research_papers, name='research_papers'),
     path('blog/', views.blog, name='blog'),
     path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
+    path('carrier/', views.carrier_list, name='carrier_list'),
+    path('carrier/<slug:slug>/', views.carrier_detail, name='carrier_detail'),
 ]
