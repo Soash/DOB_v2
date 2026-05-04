@@ -7,7 +7,7 @@
 <!-- Hero Section -->
 <section class="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDs10eeux5WjPMTPQ_pTM9N35-jAZiOcPXzPVHUzIhyQKWD27WyrlR_ObmU_b0IkqdcK_Qs5c7_U-inhogq_GFHX9DLTyCFRmsR_3hxI8frT26Y8fl5bkWuCKNp4DZFjRfd4l14strs2qXDMvs4-JK-YRVTm9ehoKL6ebz7ro_4mdAqzmq4Qw5DgZYEfrT8ySElUkifDByNSVLp0oq2Ka4a8sjLqRI3br8ZNv4u4h-gZ06Y_AWjN0-wUDfR0GTh8PETEZ4dU7CLyA');"></div>
-    <div class="absolute inset-0 bg-dob-blue/80 backdrop-blur-[2px]"></div>
+    <div class="absolute inset-0 bg-[#131b2e]/80 backdrop-blur-[2px]"></div>
     <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Career Opportunities at Dawn of Bioinformatics Ecosystem</h1>
         <p class="text-gray-200 text-lg max-w-2xl mx-auto opacity-90">
@@ -17,12 +17,12 @@
 </section>
 
 <!-- Job Listings Section -->
-<section class="bg-gray-50 py-16 px-6 md:px-8">
+<section class="bg-[#f8f9fa] py-16 px-6 md:px-8">
     <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-                <span class="text-green-800 bg-green-100 px-3 py-1 rounded-full text-xs font-bold mb-2 inline-block uppercase tracking-widest">Open Positions</span>
-                <h2 class="text-3xl font-bold text-gray-900">Shape the Future of Bioinformatics &amp; AI</h2>
+                <span class="text-[#009844] bg-[#4ae176]/20 px-3 py-1 rounded-full text-xs font-bold mb-2 inline-block uppercase tracking-widest">Open Positions</span>
+                <h2 class="text-3xl font-bold text-[#000000]">Shape the Future of Bioinformatics &amp; AI</h2>
             </div>
             <!--
             <div class="flex gap-2">
@@ -36,32 +36,32 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for carrier in carriers %}
-            <div class="bg-white p-6 shadow-sm hover:shadow-lg rounded-lg border-t-4 border-green-600 transition-transform hover:-translate-y-1 flex flex-col h-full">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ carrier.title }}</h3>
+            <div class="bg-white p-6 shadow-[0_10px_30px_-10px_rgba(19,27,46,0.08)] hover:shadow-[0_10px_30px_-5px_rgba(19,27,46,0.12)] rounded-lg border-t-4 border-[#009844] transition-transform hover:-translate-y-1 flex flex-col h-full">
+                <h3 class="text-2xl font-bold text-[#000000] mb-4">{{ carrier.title }}</h3>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="bg-gray-100 px-2 py-1 rounded text-xs font-bold text-gray-700 flex items-center gap-1">
+                    <span class="bg-[#e7e8e9] px-2 py-1 rounded text-xs font-bold text-[#45464d] flex items-center gap-1">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         {{ carrier.employment_type }}
                     </span>
-                    <span class="bg-gray-100 px-2 py-1 rounded text-xs font-bold text-gray-700 flex items-center gap-1">
+                    <span class="bg-[#e7e8e9] px-2 py-1 rounded text-xs font-bold text-[#45464d] flex items-center gap-1">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         {{ carrier.location }}
                     </span>
-                    <span class="bg-green-50 px-2 py-1 rounded text-xs font-bold text-green-700 flex items-center gap-1">
+                    <span class="bg-[#e7e8e9] px-2 py-1 rounded text-xs font-bold text-[#009844] flex items-center gap-1">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         Vacancy: {{ carrier.vacancy }}
                     </span>
                 </div>
-                <div class="space-y-2 mb-6 border-y border-gray-100 py-4 grow">
-                    <p class="text-sm text-gray-500 flex justify-between">
+                <div class="space-y-2 mb-6 border-y border-[#e7e8e9] py-4 grow">
+                    <p class="text-sm text-[#76777d] flex justify-between">
                         <span>Posted: {{ carrier.posted_date|date:"M d, Y" }}</span>
-                        <span class="text-red-600">Deadline: {{ carrier.deadline|date:"M d, Y" }}</span>
+                        <span class="text-[#ba1a1a]">Deadline: {{ carrier.deadline|date:"M d, Y" }}</span>
                     </p>
-                    <p class="text-sm text-gray-700 line-clamp-3 mt-2">
+                    <p class="text-sm text-[#45464d] line-clamp-3 mt-2">
                         {{ carrier.short_description }}
                     </p>
                 </div>
-                <a href="{% url 'core:carrier_detail' carrier.slug %}" class="w-full block text-center bg-dob-blue text-white py-3 rounded text-sm font-bold hover:bg-gray-900 transition-colors uppercase tracking-wider mt-auto">
+                <a href="{% url 'core:carrier_detail' carrier.slug %}" class="w-full block text-center bg-[#131b2e] hover:bg-black text-white py-3 rounded text-sm font-bold transition-colors uppercase tracking-wider mt-auto">
                     View Details
                 </a>
             </div>
@@ -73,8 +73,8 @@
         </div>
 
         <div class="mt-16 text-center">
-            <p class="text-base text-gray-600 mb-4">Don't see a role that fits? We're always looking for talent.</p>
-            <a href="mailto:careers@dawnofbioinformatics.com" class="text-white bg-dob-blue px-6 py-4 rounded-lg text-sm font-bold inline-flex items-center gap-2 hover:bg-gray-900 transition-colors uppercase">
+            <p class="text-base text-[#45464d] mb-4">Don't see a role that fits? We're always looking for talent.</p>
+            <a href="mailto:careers@dawnofbioinformatics.com" class="text-[#bec6e0] bg-[#131b2e] px-6 py-4 rounded-lg text-sm font-bold inline-flex items-center gap-2 hover:bg-black transition-colors uppercase">
                 Submit Spontaneous Application
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
