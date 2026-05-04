@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'core',
     'service',
+    'bsds',
     'tailwind',
     'theme',
     'django_browser_reload',

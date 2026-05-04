@@ -52,18 +52,6 @@ def about(request):
     return render(request, 'core/about.html')
 
 
-def bsds_page(request):
-    # Fetch all active BSDS items
-    bsds_items = BSDSItem.objects.filter(is_active=True).order_by('order')
-    from .models import BSDSEvent
-    events = BSDSEvent.objects.all()
-    
-    context = {
-        'bsds_items': bsds_items,
-        'events': events,
-    }
-    return render(request, 'core/bsds.html', context)
-
 from django.contrib.auth import get_user_model
 
 def dhaka_branch(request):
