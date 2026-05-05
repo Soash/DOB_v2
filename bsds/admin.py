@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig
+from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinator, Collaboration, Competition, ResearchTalk
 
 
 @admin.register(BSDSEvent)
@@ -31,3 +31,33 @@ class SeminarProgramConfigAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         # Enforce singleton — only allow adding if none exists
         return not SeminarProgramConfig.objects.exists()
+
+
+@admin.register(CampusCoordinator)
+class CampusCoordinatorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'year', 'role_label', 'order')
+    list_editable = ('order',)
+    search_fields = ('name', 'year', 'role_label')
+
+
+@admin.register(Collaboration)
+class CollaborationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'collab_type', 'icon', 'order')
+    list_editable = ('order',)
+    list_filter = ('collab_type',)
+    search_fields = ('name',)
+
+
+@admin.register(Competition)
+class CompetitionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'placement', 'year', 'order')
+    list_editable = ('is_active', 'order')
+    list_filter = ('is_active', 'placement', 'year')
+    search_fields = ('title',)
+
+
+@admin.register(ResearchTalk)
+class ResearchTalkAdmin(admin.ModelAdmin):
+    list_display = ('title', 'duration', 'order')
+    list_editable = ('order',)
+    search_fields = ('title',)
