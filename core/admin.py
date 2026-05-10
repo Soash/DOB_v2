@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper, Feedback, Carrier
+from .models import BSDSItem, BlogCategory, BlogPost, ResearchPaper, Feedback, Carrier, EventAndAchievement
 
 @admin.register(BSDSItem)
 class BSDSItemAdmin(admin.ModelAdmin):
@@ -50,3 +50,9 @@ class CarrierAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'employment_type', 'location')
     search_fields = ('title', 'short_description')
     prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(EventAndAchievement)
+class EventAndAchievementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'branch', 'media_type', 'created_at')
+    list_filter = ('branch', 'media_type')
+    search_fields = ('title',)

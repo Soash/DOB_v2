@@ -1465,6 +1465,9 @@
   .bg-\[\#f8f9fa\] {
     background-color: #f8f9fa;
   }
+  .bg-black {
+    background-color: var(--color-black);
+  }
   .bg-black\/60 {
     background-color: color-mix(in srgb, #000 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1482,6 +1485,9 @@
   }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
+  }
+  .bg-blue-900 {
+    background-color: var(--color-blue-900);
   }
   .bg-dob-blue {
     background-color: var(--color-dob-blue);

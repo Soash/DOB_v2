@@ -72,4 +72,61 @@
         </div>
     </div>
 </div>
+
+<!-- Photo Gallery -->
+{% if photos %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Photo Gallery</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {% for photo in photos %}
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden group">
+            {% if photo.image %}
+            <div class="h-64 overflow-hidden relative">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+            </div>
+            {% endif %}
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900">{{ photo.title }}</h3>
+                <p class="text-sm text-gray-500 mt-1">{{ photo.created_at|date:"F j, Y" }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Video Gallery -->
+{% if videos %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Video Gallery</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {% for video in videos %}
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col group relative">
+            <div class="relative h-64 bg-gray-200 flex items-center justify-center">
+                {% if video.image %}
+                <img src="{{ video.image.url }}" alt="{{ video.title }}" class="absolute inset-0 w-full h-full object-cover">
+                {% else %}
+                <div class="absolute inset-0 bg-blue-900 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </div>
+                {% endif %}
+                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-50 transition duration-300">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition duration-300">
+                        <svg class="w-8 h-8 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                    </div>
+                </div>
+                {% if video.video_url %}
+                <a href="{{ video.video_url }}" target="_blank" class="absolute inset-0 z-10"></a>
+                {% endif %}
+            </div>
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900">{{ video.title }}</h3>
+                <p class="text-sm text-gray-500 mt-1">{{ video.created_at|date:"F j, Y" }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}

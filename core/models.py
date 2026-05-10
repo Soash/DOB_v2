@@ -92,6 +92,31 @@ class ResearchPaper(models.Model):
     def __str__(self):
         return self.title
 
+class EventAndAchievement(models.Model):
+    MEDIA_TYPE_CHOICES = (
+        ('photo', 'Photo'),
+        ('video', 'Video'),
+    )
+    BRANCH_CHOICES = (
+        ('dhaka', 'Dhaka'),
+        ('chittagong', 'Chittagong'),
+    )
+
+    title = models.CharField(max_length=255)
+    media_type = models.CharField(max_length=10, choices=MEDIA_TYPE_CHOICES, default='photo')
+    branch = models.CharField(max_length=20, choices=BRANCH_CHOICES)
+    image = models.ImageField(upload_to='events_achievements/', blank=True, null=True, help_text="Upload image if media type is Photo")
+    video_url = models.URLField(blank=True, null=True, help_text="YouTube or other video URL if media type is Video")
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Event & Achievement"
+        verbose_name_plural = "Events & Achievements"
+
+    def __str__(self):
+        return f"{self.title} ({self.get_branch_display()})"
+
 class Feedback(models.Model):
     name = models.CharField(max_length=255)
     occupation = models.CharField(max_length=255)

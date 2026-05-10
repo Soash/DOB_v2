@@ -93,7 +93,6 @@
                         </div>
                     </div>
 
-                    <a href="{% url 'bsds:bsds_page' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">BSDS</a>
 
                     <div class="relative group py-4">
                         <button class="flex items-center text-gray-700 hover:text-dob-blue font-semibold transition duration-150">
@@ -108,6 +107,7 @@
                         </div>
                     </div>
 
+                    <a href="{% url 'bsds:bsds_page' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">BSDS</a>
                     <a href="{% url 'core:team' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">Team</a>
                     <a href="{% url 'core:about' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">About</a>
                     <a href="{% url 'core:carrier_list' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">Careers</a>
@@ -130,42 +130,66 @@
                 <!-- <a href="{% url 'core:about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-dob-blue hover:bg-dob-light-gray">About Us</a> -->
                 
                 <div class="py-1">
-                    <span class="block px-3 py-2 font-medium text-gray-900">Service</span>
-                    <a href="{% url 'service:service_list' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> General Bioinformatics Service</a>
-                    <a href="{% url 'service:clinical_service_list' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Clinical Bioinformatics Service</a>
+                    <button class="w-full flex items-center justify-between px-3 py-2 font-medium text-gray-900 hover:text-dob-blue focus:outline-none mobile-dropdown-btn">
+                        <span>Service</span>
+                        <svg class="w-4 h-4 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="hidden mobile-dropdown-content">
+                        <a href="{% url 'service:service_list' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> General Bioinformatics Service</a>
+                        <a href="{% url 'service:clinical_service_list' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Clinical Bioinformatics Service</a>
+                    </div>
+                </div>
+                <!-- 
+                <div class="py-1 border-t border-dob-light-gray">
+                    <button class="w-full flex items-center justify-between px-3 py-2 font-medium text-gray-900 hover:text-dob-blue focus:outline-none mobile-dropdown-btn">
+                        <span>Web App</span>
+                        <svg class="w-4 h-4 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="hidden mobile-dropdown-content">
+                        <a href="#" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Docking</a>
+                        <a href="#" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Protein-Protein Simulation</a>
+                        <a href="#" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Protein-Ligand Simulation</a>
+                    </div>
+                </div>
+                -->
+
+                <div class="py-1 border-t border-dob-light-gray">
+                    <button class="w-full flex items-center justify-between px-3 py-2 font-medium text-gray-900 hover:text-dob-blue focus:outline-none mobile-dropdown-btn">
+                        <span>IBAI</span>
+                        <svg class="w-4 h-4 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="hidden mobile-dropdown-content">
+                        <a href="https://ibaidob.com/courses/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Short Course</a>
+                        <a href="https://ibaidob.com/training/online/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Online Training</a>
+                        <a href="https://ibaidob.com/training/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Offline Training</a>
+                        <a href="https://ibaidob.com/intern/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Internship</a>
+                        <a href="https://ibaidob.com/thesis-support/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Thesis Support</a>
+                    </div>
                 </div>
 
                 <div class="py-1 border-t border-dob-light-gray">
-                    <span class="block px-3 py-2 font-medium text-gray-900">Web App</span>
-                    <a href="#" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Docking</a>
-                    <a href="#" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Protein-Protein Simulation</a>
-                    <a href="#" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Protein-Ligand Simulation</a>
+                    <button class="w-full flex items-center justify-between px-3 py-2 font-medium text-gray-900 hover:text-dob-blue focus:outline-none mobile-dropdown-btn">
+                        <span>DawniLab</span>
+                        <svg class="w-4 h-4 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="hidden mobile-dropdown-content">
+                        <a href="https://bmppd.dawnilab.org/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Plant Database</a>
+                        <a href="{% url 'core:research_papers' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Research Projects</a>
+                        <a href="{% url 'core:research_papers' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Published Articles</a>
+                    </div>
                 </div>
 
                 <div class="py-1 border-t border-dob-light-gray">
-                    <span class="block px-3 py-2 font-medium text-gray-900">IBAI</span>
-                    <a href="https://ibaidob.com/courses/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Short Course</a>
-                    <a href="https://ibaidob.com/training/online/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Online Training</a>
-                    <a href="https://ibaidob.com/training/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Offline Training</a>
-                    <a href="https://ibaidob.com/intern/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Internship</a>
-                    <a href="https://ibaidob.com/thesis-support/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Thesis Support</a>
+                    <button class="w-full flex items-center justify-between px-3 py-2 font-medium text-gray-900 hover:text-dob-blue focus:outline-none mobile-dropdown-btn">
+                        <span>Branch</span>
+                        <svg class="w-4 h-4 transition-transform duration-200 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="hidden mobile-dropdown-content">
+                        <a href="{% url 'core:dhaka_branch' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Dhaka</a>
+                        <a href="{% url 'core:chittagong_branch' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Chittagong</a>
+                    </div>
                 </div>
-
-                <div class="py-1 border-t border-dob-light-gray">
-                    <span class="block px-3 py-2 font-medium text-gray-900">DawniLab</span>
-                    <a href="https://bmppd.dawnilab.org/" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Plant Database</a>
-                    <a href="{% url 'core:research_papers' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Research Projects</a>
-                    <a href="{% url 'core:research_papers' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Published Articles</a>
-                </div>
-
                 <a href="{% url 'bsds:bsds_page' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">BSDS</a>
-
-                <div class="py-1 border-t border-dob-light-gray">
-                    <span class="block px-3 py-2 font-medium text-gray-900">Branch</span>
-                    <a href="{% url 'core:dhaka_branch' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Dhaka</a>
-                    <a href="{% url 'core:chittagong_branch' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Chittagong</a>
-                </div>
-
                 <a href="{% url 'core:team' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">Team</a>
                 <a href="{% url 'core:about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-dob-blue hover:bg-dob-light-gray">About</a>
                 <a href="{% url 'core:carrier_list' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">Careers</a>
@@ -230,6 +254,17 @@
             } else {
                 menu.classList.add('hidden');
             }
+        });
+
+        // Mobile dropdown toggles
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/wa-chat-widget@1.0.3/dist/wa-chat-widget.js"></script>

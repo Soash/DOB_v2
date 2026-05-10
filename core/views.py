@@ -54,11 +54,17 @@ def about(request):
 
 from django.contrib.auth import get_user_model
 
+from .models import EventAndAchievement
+
 def dhaka_branch(request):
-    return render(request, 'core/dhaka_branch.html')
+    photos = EventAndAchievement.objects.filter(branch='dhaka', media_type='photo')
+    videos = EventAndAchievement.objects.filter(branch='dhaka', media_type='video')
+    return render(request, 'core/dhaka_branch.html', {'photos': photos, 'videos': videos})
 
 def chittagong_branch(request):
-    return render(request, 'core/chittagong_branch.html')
+    photos = EventAndAchievement.objects.filter(branch='chittagong', media_type='photo')
+    videos = EventAndAchievement.objects.filter(branch='chittagong', media_type='video')
+    return render(request, 'core/chittagong_branch.html', {'photos': photos, 'videos': videos})
 
 from django.db.models import Prefetch
 
