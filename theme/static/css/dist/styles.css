@@ -3392,6 +3392,11 @@
       margin-top: calc(var(--spacing) * 5);
     }
   }
+  .md\:mb-2 {
+    @media (width >= 48rem) {
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+  }
   .md\:ml-12 {
     @media (width >= 48rem) {
       margin-left: calc(var(--spacing) * 12);
@@ -3561,6 +3566,12 @@
     @media (width >= 48rem) {
       font-size: var(--text-7xl);
       line-height: var(--tw-leading, var(--text-7xl--line-height));
+    }
+  }
+  .md\:text-sm {
+    @media (width >= 48rem) {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
     }
   }
   .md\:text-xl {
