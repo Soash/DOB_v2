@@ -167,16 +167,22 @@ tailwind.config = {
 
 <!-- Quiz / Registration Button -->
 {% if cfg and cfg.quiz_url %}
-<div class="bg-white py-10 border-t border-slate-100">
-    <div class="max-w-[1440px] mx-auto px-8 flex flex-col items-center justify-center gap-6 text-center">
+<div class="bg-gradient-to-br from-slate-50 to-white py-20 border-t border-slate-100 overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-8 flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-24">
         {% if cfg.get_quiz_image_url %}
-        <img src="{{ cfg.get_quiz_image_url }}" alt="Quiz Banner" class="w-full max-w-4xl h-auto rounded-xl shadow-md">
+        <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+            <img src="{{ cfg.get_quiz_image_url }}" alt="Quiz Banner" class="w-full max-w-[450px] h-auto object-contain rounded-2xl shadow-xl hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500">
+        </div>
         {% endif %}
-        <a href="{{ cfg.quiz_url }}" target="_blank"
-           class="inline-flex items-center gap-3 bg-[#0F172A] text-white px-xl py-md rounded-xl font-bold text-lg shadow-lg hover:bg-slate-800 active:scale-95 transition-all">
-            <span class="material-symbols-outlined">quiz</span>
-            Take the Seminar Quiz
-        </a>
+        <div class="w-full {% if cfg.get_quiz_image_url %}md:w-1/2 flex justify-center md:justify-start{% else %}flex justify-center{% endif %}">
+            <a href="{{ cfg.quiz_url }}" target="_blank"
+               class="group relative inline-flex items-center gap-4 bg-[#0F172A] text-white px-10 py-5 rounded-2xl font-h3 text-[22px] shadow-lg hover:shadow-2xl hover:shadow-slate-900/30 hover:-translate-y-1 active:scale-95 transition-all duration-300 overflow-hidden">
+                <div class="absolute inset-0 bg-white/5 group-hover:bg-transparent transition-colors duration-300"></div>
+                <span class="material-symbols-outlined text-[28px] group-hover:-rotate-12 group-hover:scale-110 transition-transform duration-300">quiz</span>
+                <span>Take the Seminar Quiz</span>
+                <span class="material-symbols-outlined opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300">arrow_forward</span>
+            </a>
+        </div>
     </div>
 </div>
 <hr>
