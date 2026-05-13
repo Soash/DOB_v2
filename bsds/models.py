@@ -106,6 +106,7 @@ class Collaboration(models.Model):
     ]
     name = models.CharField(max_length=255)
     icon = models.CharField(max_length=100, default='school', help_text="Material Symbol icon name, e.g. 'school', 'biotech'")
+    logo = models.ImageField(upload_to='collaborations/logos/', blank=True, null=True)
     collab_type = models.CharField(max_length=20, choices=COLLAB_TYPE, default='university')
     order = models.PositiveIntegerField(default=0)
 
@@ -116,6 +117,34 @@ class Collaboration(models.Model):
 
     def __str__(self):
         return f"[{self.get_collab_type_display()}] {self.name}"
+
+    @property
+    def get_logo_url(self):
+        if self.logo and hasattr(self.logo, 'url'):
+            return self.logo.url
+        return None
+
+
+# ── Sponsored Programs ─────────────────────────────────────────────────────────
+
+class SponsoredProgram(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='sponsored_programs/', blank=True, null=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Sponsored Program"
+        verbose_name_plural = "Sponsored Programs"
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def get_image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+        return 'https://lh3.googleusercontent.com/aida-public/AB6AXuDiWcF-quF7GWu5jUEH7NjNktRs5cTuZgRAlEn7Uw-UBlOQaniCxmP-vSYmIE2t0UpPy_kN3Ob8Tb4QeRCD3HfXPoe6kLWVWMJnAJA5pr3pPGoJmQ5W-etNjPv5NdTjCE-Q_ZQOkmHVf4sjStZNe_D8vgDHzq9Iy1gt-ZwK_tjVapuGQreGnc1rYAy3hrSImgm8me1NrmteU9wP3qyq0veFcgBZ-ve7223sWf5cGenYsNk-pi-tv2UYimGf6fWtvV96hKN5H0PP8g'
 
 
 # ── Competition ────────────────────────────────────────────────────────────────
@@ -176,4 +205,3 @@ class ResearchTalk(models.Model):
         if self.thumbnail and hasattr(self.thumbnail, 'url'):
             return self.thumbnail.url
         return 'https://lh3.googleusercontent.com/aida-public/AB6AXuBu8ZCLh1POINOp6-iTOySmhEyazn1p8VHMcYepfhdEViievM_OWYUElQ1nBOJYUde-4fI3C5pc9Rb_APk6zvDKfISmdevavJygyMrIyI633royn7F7yCFcgGGIS31ynO3BxY7K8PIxaHXA4ki9mjPPaWa6d1aqfVpGCE5e043rK2Uk9RTMlGkCmUrhrI4RsuErT875rQMagl810rwuZY8QR_jhZV-J5q4tJzmayhOfzPmmn1D-AkBOZOsmhwn8Jw0ipWxYOFBi2Q'
-

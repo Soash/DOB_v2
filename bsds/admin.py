@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinator, Collaboration, Competition, ResearchTalk
+from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinator, Collaboration, SponsoredProgram, Competition, ResearchTalk
 
 
 @admin.register(BSDSEvent)
@@ -59,5 +59,12 @@ class CompetitionAdmin(admin.ModelAdmin):
 @admin.register(ResearchTalk)
 class ResearchTalkAdmin(admin.ModelAdmin):
     list_display = ('title', 'duration', 'order')
+    list_editable = ('order',)
+    search_fields = ('title',)
+
+
+@admin.register(SponsoredProgram)
+class SponsoredProgramAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order')
     list_editable = ('order',)
     search_fields = ('title',)

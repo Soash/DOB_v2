@@ -155,8 +155,12 @@ tailwind.config = {
         <div class="grid grid-cols-2 md:grid-cols-5 gap-px bg-slate-100 border border-slate-100">
             {% for u in universities %}
             <div class="bg-white p-12 flex flex-col items-center justify-center space-y-4 logo-grid-item">
-                <div class="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden">
+                    {% if u.logo %}
+                    <img src="{{ u.get_logo_url }}" alt="{{ u.name }} logo" class="w-full h-full object-contain">
+                    {% else %}
                     <span class="material-symbols-outlined text-slate-400">{{ u.icon }}</span>
+                    {% endif %}
                 </div>
                 <span class="font-label-bold text-slate-500 text-center uppercase tracking-tight">{{ u.name }}</span>
             </div>
@@ -175,8 +179,12 @@ tailwind.config = {
         <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
             {% for c in clubs %}
             <div class="bg-white p-8 rounded shadow-sm border border-slate-100 flex items-center gap-4 group hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 bg-slate-50 rounded flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
+                <div class="w-12 h-12 bg-slate-50 rounded flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors overflow-hidden">
+                    {% if c.logo %}
+                    <img src="{{ c.get_logo_url }}" alt="{{ c.name }} logo" class="w-full h-full object-contain">
+                    {% else %}
                     <span class="material-symbols-outlined">{{ c.icon }}</span>
+                    {% endif %}
                 </div>
                 <span class="font-label-bold text-primary-container">{{ c.name }}</span>
             </div>
@@ -192,14 +200,27 @@ tailwind.config = {
     </div>
     <div class="relative">
         <div class="scrolling-gallery gap-8 px-8">
-            <!-- Static gallery from dump for visual fidelity -->
+            {% for program in sponsored_programs %}
+            <div class="w-96 flex-shrink-0 group">
+                <div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="{{ program.get_image_url }}"/>
+                </div>
+                <h4 class="font-h3 text-h3 text-primary-container">{{ program.title }}</h4>
+            </div>
+            {% empty %}
             <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiWcF-quF7GWu5jUEH7NjNktRs5cTuZgRAlEn7Uw-UBlOQaniCxmP-vSYmIE2t0UpPy_kN3Ob8Tb4QeRCD3HfXPoe6kLWVWMJnAJA5pr3pPGoJmQ5W-etNjPv5NdTjCE-Q_ZQOkmHVf4sjStZNe_D8vgDHzq9Iy1gt-ZwK_tjVapuGQreGnc1rYAy3hrSImgm8me1NrmteU9wP3qyq0veFcgBZ-ve7223sWf5cGenYsNk-pi-tv2UYimGf6fWtvV96hKN5H0PP8g"/></div><h4 class="font-h3 text-h3 text-primary-container">National Biotech Summit</h4></div>
-            <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHR1NGnUTKqlBwHiebL7oRG2HR-J9Po0VDVphKehU5eVYgUUio73mgJ0kXey_G2bBeG1hKD9fhkuvWJPkxDSSpqYwsnoOn3TJEjIh9YbsGX_mcmtyFOZtC16hvJMv0Fn98U-lU1qnm4floXQLeHIUWRpHyD6URFpUjWp3v3A7U21bh-nazu1Jum9G6XEngiUFPuxEyhM4QkPd1moljuyvY_yQAyzwD5Sdm-qBROV1nJZPtf2ieOjOyWF8j-d1QjHF9smlPgFYj1Q"/></div><h4 class="font-h3 text-h3 text-primary-container">Genomics Workshop</h4></div>
-            <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgQGl0a_vpGc2pRQNW644YuT3S4v5SP1nYOCcQXs5IGNILlLf-8TtxxP_t-04lagAhFBZu8gSRVu13XdQR0G00UWLiyRVgACBVq0MBV9h1jivnqb13EJcURtekf3Fh_EZcPTVYB5E1tKNtIoBWQBc_jKePDUVEW2DiYvyVZ7HwhXGQKDF9Lxm8Qv-8W-tgMjFjw8xK-GWVZU1-23VhP7kJYJPDipcqIq_If6GijM51ZXa56GvBJY-2m8Ahdi0Xc6kGhjP5b9FJmg"/></div><h4 class="font-h3 text-h3 text-primary-container">Bio-Data Hackathon</h4></div>
-            <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_h1peNPsR0HSJWGV0AUe6RG9VlwbebxYG_ieI7Aq79S-Zq0FUTh_IOjPGR-ewpsQp5BnVxO_BEcc6s1PU94mzLLfio7eSgku3sWniNTmxTaVZ4IIJ4zRhWxJvwPL6mf1Z03voU0uTRn_R2YCsFelGIEK56kaEXiJwU71uHZDNB7X2eF6HmkTckfgkLRn9v0Ochj0NYWmVViID8IV4yews4V--VVHyw_PhEl-7aAhOoh8GW1lkbOCDNm0VWAq_PeRTZ0kVkTy1dA"/></div><h4 class="font-h3 text-h3 text-primary-container">Research Residency</h4></div>
-            <!-- Duplicates -->
-            <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtnnJ_o7PnLXChpfxSrJGp8tlbAbpi6zdngzJguwf7TXLQFEbZIn4GIACt5PPo5JrQA0X-mswQBCcfV2gXklV3SaHFFoj2chRePSTHHk5LB0LaOAHWVkGs8YojphQFiBXU-UJi6_JJiQoP7sTiLe6C7DOmbDCyHKZEFH-AR9uKoXtZalxKNefBAgHWpyExIgUSReOH9nmZcVUr_ZpVfXnIXDx6SOkwisFJIs3RovmA_UygMsq4PANwLxnrzrxPmG_XG8o8DGC13g"/></div><h4 class="font-h3 text-h3 text-primary-container">National Biotech Summit</h4></div>
-            <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYEt-tqTbnhewDyIhUDvlv-lAwY4NRg37vB6662TjUryWHTtOhBii7DhKQo14pNPeAvZ23yZwLliFZxI8YMmfCf9j6OXLUO57NeckUqNUJRMmjzQ3_I_q7D6DTN0y6_7gGtASSx-9ZoBXoUm8_ZD5DYxfLKuvWNE4afAhw5SAZcjCa4OaYr6gtJ9pc3cCXs-0NqtAImUUIcAe3sSIErwzXWI8mA93KlTEZwKJu9EfcM-Vht28RJj1hlie0Wn8KAoCPJ5N_BEao6w"/></div><h4 class="font-h3 text-h3 text-primary-container">Genomics Workshop</h4></div>
+            {% endfor %}
+            <!-- Duplicates for seamless scroll -->
+            {% for program in sponsored_programs %}
+            <div class="w-96 flex-shrink-0 group">
+                <div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="{{ program.get_image_url }}"/>
+                </div>
+                <h4 class="font-h3 text-h3 text-primary-container">{{ program.title }}</h4>
+            </div>
+            {% empty %}
+            <div class="w-96 flex-shrink-0 group"><div class="aspect-video bg-slate-200 mb-4 rounded overflow-hidden"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiWcF-quF7GWu5jUEH7NjNktRs5cTuZgRAlEn7Uw-UBlOQaniCxmP-vSYmIE2t0UpPy_kN3Ob8Tb4QeRCD3HfXPoe6kLWVWMJnAJA5pr3pPGoJmQ5W-etNjPv5NdTjCE-Q_ZQOkmHVf4sjStZNe_D8vgDHzq9Iy1gt-ZwK_tjVapuGQreGnc1rYAy3hrSImgm8me1NrmteU9wP3qyq0veFcgBZ-ve7223sWf5cGenYsNk-pi-tv2UYimGf6fWtvV96hKN5H0PP8g"/></div><h4 class="font-h3 text-h3 text-primary-container">National Biotech Summit</h4></div>
+            {% endfor %}
         </div>
     </div>
 </section>

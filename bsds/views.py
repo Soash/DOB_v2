@@ -44,11 +44,14 @@ def campus_coordinators(request):
 
 
 def collaboration(request):
+    from .models import SponsoredProgram
     universities = Collaboration.objects.filter(collab_type='university')
     clubs = Collaboration.objects.filter(collab_type='club')
+    programs = SponsoredProgram.objects.all()
     context = {
         'universities': universities,
         'clubs': clubs,
+        'sponsored_programs': programs,
     }
     return render(request, 'bsds/collaboration.html', context)
 
