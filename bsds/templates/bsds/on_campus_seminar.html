@@ -211,7 +211,7 @@ tailwind.config = {
             </div>
             <div class="w-full md:w-1/2">
                 <div class="relative rounded-xl overflow-hidden shadow-xl border-4 border-surface-container">
-                    <img alt="Training Session" class="w-full h-[400px] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkXDLCMLWvnv9wlFT_oS7Z3hTbKOS603ECvZpfXcS5927jXqjDFg4298UCBSp2e-qyOPxFIMu4MR4SaDvh3UcVqAOoOZM3vII5vdHMy6wbB-as7EaI0K5nqAaJReUN_zSnl8FPdprf1bBdN2XLFJygnJla1yjVONHPCaDV4DNXcXumJJHiXo1g43WTcAfSFIJvCHzlmDZLnWoPsEib7q_3bK-O-7ho9O_nZIyKFasYhlE5rmQ0mHPpj0DdHmcB72tv10wLkLTPWg">
+                    <img alt="Training Session" class="w-full h-[400px] object-cover" src="{% static 'images/BSDS/Bridging_the_Gap_Biology_Artificial_Intelligence.webp' %}">
                 </div>
             </div>
         </div>
@@ -228,9 +228,9 @@ tailwind.config = {
             <p class="text-slate-500 font-body-md mt-2">See our impact: bioinformatics workshops across Bangladesh's leading institutions.</p>
         </div>
         <!-- Navigation Pills -->
-        <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 mb-12 max-w-7xl mx-auto">
             {% for campus in campuses %}
-            <button class="nav-pill border border-slate-200 px-6 py-2 rounded-full text-sm font-medium hover:border-[#0F172A]{% if forloop.first %} active bg-[#0F172A] text-white{% endif %}">
+            <button class="nav-pill w-full border border-slate-200 px-2 py-2 rounded-full text-xs sm:text-sm font-medium hover:border-[#0F172A]{% if forloop.first %} active bg-[#0F172A] text-white{% endif %} truncate">
                 {{ campus.abbreviation }}
             </button>
             {% endfor %}
