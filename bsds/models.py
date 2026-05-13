@@ -63,6 +63,12 @@ class SeminarProgramConfig(models.Model):
         blank=True,
         help_text="URL for the 'Take the Seminar Quiz' button shown between the program cards and intro section."
     )
+    quiz_image = models.ImageField(
+        upload_to='seminar_configs/', 
+        blank=True, 
+        null=True, 
+        help_text="Optional banner image for the Quiz section"
+    )
 
     class Meta:
         verbose_name = "Seminar Program Config"
@@ -70,6 +76,12 @@ class SeminarProgramConfig(models.Model):
 
     def __str__(self):
         return "On-Campus Seminar Page Configuration"
+        
+    @property
+    def get_quiz_image_url(self):
+        if self.quiz_image and hasattr(self.quiz_image, 'url'):
+            return self.quiz_image.url
+        return None
 
 
 # ── Campus Coordinators ────────────────────────────────────────────────────────
@@ -95,6 +107,26 @@ class CampusCoordinator(models.Model):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
         return 'https://lh3.googleusercontent.com/aida-public/AB6AXuDhEVtwEJ4ejJwycLciWT5GaeS4V1Py4E6pQhDfxDhCkBNyinjgJDLzeW0b9YISMX2wfKfoDSB2ehkjbftGdCaY2OMSORHxfPd1CveByWj9nHWpyjRifpEqkI1JMc1Saqehpcba7d6QuAVyOh2JPXGfa46sJzBbquC075DIh48uRF-FYJGTPtBkLsPlK9wFYUv-zifgjzX-N4oxbd74x7gk-oLt7BU558YriNl21ESsHUlTUtIjnLkuqI3z1YRRnvBuV-jQUXuerA'
+
+
+class CoordinatorMemory(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True, help_text="Optional title or caption for the memory")
+    image = models.ImageField(upload_to='coordinator_memories/', blank=True, null=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Coordinator Memory"
+        verbose_name_plural = "Coordinator Memories"
+
+    def __str__(self):
+        return self.title if self.title else f"Memory {self.id}"
+
+    @property
+    def get_image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+        return 'https://lh3.googleusercontent.com/aida-public/AB6AXuBWCcs7_cKezCxqnL3lgcaSIiqCM8-GS0ylcLMjfBBqBEpffEC6t6Cf4vZ8OXkH2PrQwE-Cm_HXLCIJVqygQcCrQ_i81y7nA6ZJLUdzU3Uy4yu2H7_QjKl-2saItSu3iMS1Wlta-2vnlqqTWC7VJq7VLKM_ASITn0KXk-JVlVRzkNVK-bygqEGjHRAkxglhpUowPQPSju8XD9ouPK_k-imAakdJiOowSuDx21VSvjRqlIVeI_ltFjkWY8H-H7XnLuQze1KgRD71Uw'
 
 
 # ── Collaboration ──────────────────────────────────────────────────────────────

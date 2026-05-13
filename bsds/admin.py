@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinator, Collaboration, SponsoredProgram, Competition, ResearchTalk
+from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinator, CoordinatorMemory, Collaboration, SponsoredProgram, Competition, ResearchTalk
 
 
 @admin.register(BSDSEvent)
@@ -23,8 +23,8 @@ class SeminarProgramConfigAdmin(admin.ModelAdmin):
             'description': 'Links for the three "Request This Program" buttons on the seminar cards.',
         }),
         ('Quiz Button', {
-            'fields': ('quiz_url',),
-            'description': 'Link for the "Take the Seminar Quiz" button.',
+            'fields': ('quiz_url', 'quiz_image'),
+            'description': 'Link and banner image for the "Take the Seminar Quiz" button.',
         }),
     )
 
@@ -38,6 +38,13 @@ class CampusCoordinatorAdmin(admin.ModelAdmin):
     list_display = ('name', 'year', 'role_label', 'order')
     list_editable = ('order',)
     search_fields = ('name', 'year', 'role_label')
+
+
+@admin.register(CoordinatorMemory)
+class CoordinatorMemoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order')
+    list_editable = ('order',)
+    search_fields = ('title',)
 
 
 @admin.register(Collaboration)

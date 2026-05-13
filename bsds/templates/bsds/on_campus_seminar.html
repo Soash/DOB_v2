@@ -168,7 +168,10 @@ tailwind.config = {
 <!-- Quiz / Registration Button -->
 {% if cfg and cfg.quiz_url %}
 <div class="bg-white py-10 border-t border-slate-100">
-    <div class="max-w-[1440px] mx-auto px-8 text-center">
+    <div class="max-w-[1440px] mx-auto px-8 flex flex-col items-center justify-center gap-6 text-center">
+        {% if cfg.get_quiz_image_url %}
+        <img src="{{ cfg.get_quiz_image_url }}" alt="Quiz Banner" class="w-full max-w-4xl h-auto rounded-xl shadow-md">
+        {% endif %}
         <a href="{{ cfg.quiz_url }}" target="_blank"
            class="inline-flex items-center gap-3 bg-[#0F172A] text-white px-xl py-md rounded-xl font-bold text-lg shadow-lg hover:bg-slate-800 active:scale-95 transition-all">
             <span class="material-symbols-outlined">quiz</span>

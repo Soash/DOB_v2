@@ -36,9 +36,12 @@ def on_campus_seminar(request):
 
 
 def campus_coordinators(request):
+    from .models import CoordinatorMemory
     coordinators = CampusCoordinator.objects.all()
+    memories = CoordinatorMemory.objects.all()
     context = {
         'coordinators': coordinators,
+        'memories': memories,
     }
     return render(request, 'bsds/campus_coordinators.html', context)
 
