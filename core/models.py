@@ -111,8 +111,8 @@ class EventAndAchievement(models.Model):
     
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Event & Achievement"
-        verbose_name_plural = "Events & Achievements"
+        verbose_name = "Branch Event"
+        verbose_name_plural = "Branch Events"
 
     def __str__(self):
         return f"{self.title} ({self.get_branch_display()})"
