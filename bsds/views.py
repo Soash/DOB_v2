@@ -64,8 +64,14 @@ def competitions(request):
 
 
 def research_talks(request):
-    talks = ResearchTalk.objects.all()
+    featured_talk = ResearchTalk.objects.filter(order=0).first()
+    if featured_talk:
+        talks = ResearchTalk.objects.exclude(id=featured_talk.id)
+    else:
+        talks = ResearchTalk.objects.all()
+        
     context = {
+        'featured_talk': featured_talk,
         'talks': talks,
     }
     return render(request, 'bsds/research_talks.html', context)

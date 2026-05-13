@@ -104,30 +104,36 @@ tailwind.config = {
     </header>
 
     <!-- Upcoming Dawn-R-Talk Section -->
+    {% if featured_talk %}
     <section class="mb-20">
         <div class="bg-surface-container-lowest border border-outline-variant shadow-[0_4px_20px_-4px_rgba(19,27,46,0.08)] flex flex-col md:flex-row overflow-hidden">
             <div class="flex-1 p-xl flex flex-col justify-center">
                 <span class="font-label-bold text-label-bold text-on-tertiary-container mb-sm flex items-center gap-2">
                     <span class="material-symbols-outlined text-[16px]">sensors</span> LIVE SESSION
                 </span>
-                <h2 class="font-h2 text-h2 text-primary-container mb-md leading-tight">Dawn-R-Talk: Genomic Insights</h2>
+                <h2 class="font-h2 text-h2 text-primary-container mb-md leading-tight">{{ featured_talk.title }}</h2>
                 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-xl">
-                    Join our lead researchers as they unveil groundbreaking methodologies in comparative genomics and phylogenetic analysis. This session features exclusive data from the Recent African Origin model simulations.
+                    {{ featured_talk.description }}
                 </p>
-                <div class="flex gap-4">
-                    <button class="px-8 py-4 bg-primary-container text-white font-label-bold text-sm tracking-widest rounded hover:opacity-90 transition-all">
+                <div class="flex gap-4 flex-wrap">
+                    {% if featured_talk.apply_url %}
+                    <a href="{{ featured_talk.apply_url }}" target="_blank" class="px-8 py-4 bg-primary-container text-white font-label-bold text-sm tracking-widest rounded hover:opacity-90 transition-all text-center">
                         APPLY NOW
-                    </button>
-                    <button class="px-8 py-4 border border-primary-container text-primary-container font-label-bold text-sm tracking-widest rounded hover:bg-surface-container transition-all">
+                    </a>
+                    {% endif %}
+                    {% if featured_talk.agenda_url %}
+                    <a href="{{ featured_talk.agenda_url }}" target="_blank" class="px-8 py-4 border border-primary-container text-primary-container font-label-bold text-sm tracking-widest rounded hover:bg-surface-container transition-all text-center">
                         VIEW AGENDA
-                    </button>
+                    </a>
+                    {% endif %}
                 </div>
             </div>
             <div class="flex-1 min-h-[400px] relative">
-                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3MvFcI9I2m9E4HWzIkHV1z9s8KNftqyDQU5H8IgstsnWM4IAcaC8WxhIhlbcm1As6-mdXNLRUIO_P8UBiNjfqs5l22xv2EqBeAbSy-MoWUwpSWyp28mUSduvE8gQJnxlWFf4guNaNeCMIl-Kic3cfFKH2QJG4KFq3QRHEeTO5zW_yxZBYuC2cnPm60RtXhN7el2v2IYc_XLfQU8v2yde3ioMXlHOEmD081X7cMXRHHezvUjEh74Yh4eqVcvp9FzLv4KpWdMVrlg"/>
+                <img class="w-full h-full object-cover" src="{{ featured_talk.get_thumbnail_url }}"/>
             </div>
         </div>
     </section>
+    {% endif %}
 
     <!-- Previous Talks Section -->
     <section class="mb-20">

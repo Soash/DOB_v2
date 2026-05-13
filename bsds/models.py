@@ -158,6 +158,8 @@ class ResearchTalk(models.Model):
     description = models.TextField()
     thumbnail = models.ImageField(upload_to='research_talks/', blank=True, null=True)
     youtube_url = models.URLField(blank=True, help_text="YouTube or external video link")
+    apply_url = models.URLField(blank=True, help_text="Link to apply or register for the talk")
+    agenda_url = models.URLField(blank=True, help_text="Link to view the agenda or details")
     duration = models.CharField(max_length=20, blank=True, help_text="e.g. 45:12")
     order = models.PositiveIntegerField(default=0)
 
