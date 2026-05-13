@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -136,7 +137,7 @@ tailwind.config = {
         </div>
         <div class="w-full md:w-1/2 relative">
             <div class="aspect-square bg-surface-container-high rounded-xl overflow-hidden shadow-2xl">
-                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwApBXE-kCGftpuKRWlYmcN1s5UszL-nmw8FhWIrPUCtWgl-dqgLz2AZMwUNFQWzf--jppImONd8J-eLeBVtE_muZPkIbLp-hEd7x1Km4ULFuT6ZnNyjCO-CgZNJ3WlkfdoXjYZueHT-2BMyur_psho7pQYVqFGYEmrSgu2dGWFsHTClx1GRChs5nsGb1nE7Rrz2nJ-A5HbV92RPfmhSA6D355Z0IRM3kNswCIv2oxDN52JDjhX-YOLsabi8H29EV-yBErCGfFZA"/>
+                <img class="w-full h-full object-cover" src="{% static 'images/BSDS/Collaboration_Sponsorships.webp' %}">/>
             </div>
             <!-- Decorative Element -->
             <div class="absolute -bottom-8 -left-8 w-48 h-48 bg-secondary-fixed opacity-20 rounded-full blur-3xl"></div>
