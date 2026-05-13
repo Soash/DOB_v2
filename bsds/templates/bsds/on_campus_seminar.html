@@ -228,9 +228,9 @@ tailwind.config = {
             <p class="text-slate-500 font-body-md mt-2">See our impact: bioinformatics workshops across Bangladesh's leading institutions.</p>
         </div>
         <!-- Navigation Pills -->
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 mb-12 max-w-7xl mx-auto">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 max-w-7xl mx-auto">
             {% for campus in campuses %}
-            <button class="nav-pill w-full border border-slate-200 px-2 py-2 rounded-full text-xs sm:text-sm font-medium hover:border-[#0F172A]{% if forloop.first %} active bg-[#0F172A] text-white{% endif %} truncate">
+            <button class="nav-pill w-[30%] sm:w-[22%] md:w-[15%] lg:w-[10%] max-w-[150px] border border-slate-200 px-2 py-2 rounded-full text-xs sm:text-sm font-medium hover:border-[#0F172A]{% if forloop.first %} active bg-[#0F172A] text-white{% endif %} truncate text-center">
                 {{ campus.abbreviation }}
             </button>
             {% endfor %}
