@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinator, CoordinatorMemory, Collaboration, SponsoredProgram, Competition, ResearchTalk
+from .models import BSDSEvent, CampusSeminar, SeminarProgramConfig, CampusCoordinatorConfig, CampusCoordinator, CoordinatorMemory, Collaboration, SponsoredProgram, Competition, ResearchTalk
 
 
 @admin.register(BSDSEvent)
@@ -31,6 +31,12 @@ class SeminarProgramConfigAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         # Enforce singleton — only allow adding if none exists
         return not SeminarProgramConfig.objects.exists()
+
+
+@admin.register(CampusCoordinatorConfig)
+class CampusCoordinatorConfigAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return not CampusCoordinatorConfig.objects.exists()
 
 
 @admin.register(CampusCoordinator)

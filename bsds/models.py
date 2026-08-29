@@ -1,11 +1,13 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class BSDSEvent(models.Model):
     title = models.CharField(max_length=255)
     date_text = models.CharField(max_length=255, help_text="e.g. Oct 24 - 26, 2024")
     image = models.ImageField(upload_to='events/', blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
+    url = models.URLField(blank=True, null=True, help_text="Apply Now URL")
+    details = HTMLField(blank=True, null=True, help_text="Event Details")
 
     class Meta:
         ordering = ['-id']
@@ -85,6 +87,22 @@ class SeminarProgramConfig(models.Model):
 
 
 # ── Campus Coordinators ────────────────────────────────────────────────────────
+
+class CampusCoordinatorConfig(models.Model):
+    """
+    Singleton configuration model for the Campus Coordinators page.
+    """
+    apply_url = models.URLField(
+        blank=True,
+        help_text="URL for the 'Apply Now' button on the Campus Coordinators page."
+    )
+
+    class Meta:
+        verbose_name = "Campus Coordinator Config"
+        verbose_name_plural = "Campus Coordinator Config"
+
+    def __str__(self):
+        return "Campus Coordinator Page Configuration"
 
 class CampusCoordinator(models.Model):
     year = models.PositiveIntegerField(help_text="Award year, e.g. 2026")
@@ -192,6 +210,7 @@ class Competition(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='competitions/', blank=True, null=True)
     apply_url = models.URLField(blank=True, help_text="Application / participation link")
+    details = HTMLField(blank=True, null=True, help_text="Competition Details")
     is_active = models.BooleanField(default=True, help_text="Active contest or past winner?")
     placement = models.CharField(max_length=10, choices=PLACEMENT_CHOICES, blank=True, default='', help_text="For past winners only")
     year = models.PositiveIntegerField(blank=True, null=True, help_text="Year, for past winners")

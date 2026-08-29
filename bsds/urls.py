@@ -9,5 +9,7 @@ urlpatterns = [
     path('campus-coordinators/', views.campus_coordinators, name='campus_coordinators'),
     path('collaboration/', views.collaboration, name='collaboration'),
     path('competitions/', views.competitions, name='competitions'),
+    path('competitions/<int:pk>/', views.competition_details, name='competition_details'),
     path('research-talks/', views.research_talks, name='research_talks'),
+    path('event/<int:pk>/', views.bsds_event_details, name='event_details'),
 ]
