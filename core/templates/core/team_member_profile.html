@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ member.get_full_name|default:member.username }} - Profile & Career Progression | Dawn of Bioinformatics{% endblock %}
+
+{% block content %}
+<!-- Hero Header -->
+<div class="relative bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900 text-white pt-12 pb-24 overflow-hidden">
+    <!-- Subtle background decorative shapes -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Breadcrumb navigation -->
+        <nav class="flex items-center space-x-2 text-sm text-blue-200/80 mb-8 font-medium">
+            <a href="{% url 'core:home' %}" class="hover:text-white transition-colors">Home</a>
+            <svg class="w-4 h-4 text-blue-300/50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            <a href="{% url 'core:team' %}" class="hover:text-white transition-colors">Our Team</a>
+            <svg class="w-4 h-4 text-blue-300/50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            <span class="text-white font-semibold truncate">{{ member.get_full_name|default:member.username }}</span>
+        </nav>
+
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <!-- Profile Photo -->
+            <div class="relative shrink-0">
+                <div class="w-36 h-36 md:w-44 md:h-44 rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl bg-white/10 backdrop-blur-sm ring-4 ring-blue-500/30">
+                    <img src="{{ member.get_photo_url }}" 
+                         alt="{{ member.get_full_name|default:member.username }}" 
+                         class="w-full h-full object-cover object-center">
+                </div>
+            </div>
+
+            <!-- Profile Overview Info -->
+            <div class="flex-grow text-center md:text-left space-y-3">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+                    {% if member.role %}
+                        <span class="px-3.5 py-1 text-xs font-bold rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/30 backdrop-blur-md">
+                            {{ member.role }}
+                        </span>
+                    {% endif %}
+                    {% if member.department %}
+                        <span class="px-3.5 py-1 text-xs font-bold rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 backdrop-blur-md">
+                            {{ member.department.name }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+                    {{ member.get_full_name|default:member.username }}
+                </h1>
+
+                {% if member.bio %}
+                    <p class="max-w-3xl text-base sm:text-lg text-blue-100/90 leading-relaxed font-normal">
+                        {{ member.bio }}
+                    </p>
+                {% endif %}
+
+                <!-- Action links / buttons -->
+                {% if member.email %}
+                <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                    <a href="mailto:{{ member.email }}" 
+                       class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-all">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                        <span>Send Email</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 mb-20 relative z-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Sidebar (Metadata, Skills, Links) - 4 cols -->
+        <div class="lg:col-span-4 space-y-6">
+            
+            <!-- Quick Info Card -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-5">
+                <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider text-xs border-b border-gray-100 pb-3 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    Profile Overview
+                </h3>
+
+                <dl class="space-y-4 text-sm">
+                    {% if member.department %}
+                    <div>
+                        <dt class="text-xs font-semibold text-gray-400 uppercase">Department</dt>
+                        <dd class="mt-0.5 font-medium text-gray-800">{{ member.department.name }}</dd>
+                    </div>
+                    {% endif %}
+
+                    {% if member.role %}
+                    <div>
+                        <dt class="text-xs font-semibold text-gray-400 uppercase">Role</dt>
+                        <dd class="mt-0.5 font-medium text-gray-800">{{ member.role }}</dd>
+                    </div>
+                    {% endif %}
+
+                    {% if member.email %}
+                    <div>
+                        <dt class="text-xs font-semibold text-gray-400 uppercase">Email Address</dt>
+                        <dd class="mt-0.5 font-medium text-gray-800">
+                            <a href="mailto:{{ member.email }}" class="text-blue-600 hover:underline break-all">{{ member.email }}</a>
+                        </dd>
+                    </div>
+                    {% endif %}
+
+                    {% if member.get_education_list %}
+                    <div>
+                        <dt class="text-xs font-semibold text-gray-400 uppercase mb-2">Education</dt>
+                        <dd class="space-y-2">
+                            {% for edu in member.get_education_list %}
+                                <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100/90 text-xs">
+                                    <div class="font-bold text-gray-900 flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span>
+                                        <span>{{ edu.degree }}</span>
+                                    </div>
+                                    {% if edu.university or edu.country %}
+                                        <div class="text-gray-500 text-[11px] mt-1 pl-3 font-medium">
+                                            {% if edu.university %}{{ edu.university }}{% endif %}{% if edu.university and edu.country %}, {% endif %}{% if edu.country %}{{ edu.country }}{% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </dd>
+                    </div>
+                    {% endif %}
+                </dl>
+            </div>
+
+            <!-- Skills & Competencies -->
+            {% if skills_list %}
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-4">
+                <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider text-xs border-b border-gray-100 pb-3 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    Skills & Expertise
+                </h3>
+                <div class="flex flex-wrap gap-2 pt-1">
+                    {% for skill in skills_list %}
+                        <span class="px-3 py-1 rounded-xl bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100 hover:bg-blue-100 transition-colors">
+                            {{ skill }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Social / Professional Profiles Card -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-4">
+                <h3 class="text-base font-bold text-gray-900 uppercase tracking-wider text-xs border-b border-gray-100 pb-3 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    Professional Profiles
+                </h3>
+
+                <div class="space-y-2.5">
+                    {% if member.linkedin %}
+                    <a href="{{ member.linkedin }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <svg class="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            LinkedIn
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+
+                    {% if member.github %}
+                    <a href="{{ member.github }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <svg class="h-5 w-5 text-gray-800" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                            GitHub
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+
+                    {% if member.researchgate %}
+                    <a href="{{ member.researchgate }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <span class="font-extrabold text-xs text-emerald-600 border border-emerald-600 rounded px-1.5 py-0.5">RG</span>
+                            ResearchGate
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+
+                    {% if member.google_scholar %}
+                    <a href="{{ member.google_scholar }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <span class="font-extrabold text-xs text-blue-600 border border-blue-600 rounded px-1.5 py-0.5">GS</span>
+                            Google Scholar
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+
+                    {% if member.portfolio %}
+                    <a href="{{ member.portfolio }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <svg class="h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            Personal Website
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+
+                    {% if member.twitter %}
+                    <a href="{{ member.twitter }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-sky-50 text-gray-700 hover:text-sky-600 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <span class="font-extrabold text-xs text-sky-500 border border-sky-400 rounded px-1.5 py-0.5">X</span>
+                            Twitter / X
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+
+                    {% if member.facebook %}
+                    <a href="{{ member.facebook }}" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all group">
+                        <span class="flex items-center gap-3 text-sm font-semibold">
+                            <svg class="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            Facebook
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Main Column (Career Progression Timeline & Details) - 8 cols -->
+        <div class="lg:col-span-8 space-y-8">
+            
+            <!-- Career Progression Timeline Section -->
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-8">
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-1">
+                            Milestones
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Career Progression</h2>
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Container -->
+                {% if milestones %}
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-blue-100 space-y-10 my-4">
+                        {% for milestone in milestones %}
+                            <div class="relative group">
+                                <!-- Glowing timeline dot -->
+                                <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-4 border-white {% if milestone.is_current %}bg-blue-600 ring-4 ring-blue-100 scale-125{% else %}bg-gray-400 group-hover:bg-blue-500{% endif %} transition-all"></div>
+
+                                <div class="bg-gray-50/70 hover:bg-blue-50/40 rounded-2xl p-5 sm:p-6 border border-gray-100 transition-colors">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                        <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                            <span>{{ milestone.title }}</span>
+                                            {% if milestone.is_current %}
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+                                                    Current
+                                                </span>
+                                            {% endif %}
+                                        </h3>
+                                        
+                                        {% if milestone.date_display %}
+                                            <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-gray-200/90 shadow-xs text-xs">
+                                                <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                                </span>
+                                                <div class="inline-flex items-center gap-1.5 font-medium">
+                                                    {% if milestone.start_date %}
+                                                        <span class="text-gray-400 font-normal">from</span>
+                                                        <span class="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded-md border border-gray-200/70">{{ milestone.formatted_start_date }}</span>
+                                                        <span class="text-gray-400 font-normal">to</span>
+                                                        {% if milestone.is_current or not milestone.end_date %}
+                                                            <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/80">Present</span>
+                                                        {% else %}
+                                                            <span class="font-bold text-gray-900 bg-gray-50 px-2 py-0.5 rounded-md border border-gray-200/70">{{ milestone.formatted_end_date }}</span>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <span class="font-bold text-gray-900">{{ milestone.date_display }}</span>
+                                                    {% endif %}
+                                                </div>
+                                                {% if milestone.duration_display %}
+                                                    <span class="text-[11px] font-semibold text-gray-400 border-l border-gray-200 pl-2">
+                                                        {{ milestone.duration_display }}
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if milestone.organization %}
+                                        <div class="text-sm font-semibold text-blue-600 mb-3 flex items-center gap-1.5">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                            {{ milestone.organization }}
+                                        </div>
+                                    {% endif %}
+
+                                    {% if milestone.description %}
+                                        <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                                            {{ milestone.description }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <!-- Default timeline entry based on active user role -->
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-blue-100 my-4">
+                        <div class="relative">
+                            <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-4 border-white bg-blue-600 ring-4 ring-blue-100 scale-125"></div>
+
+                            <div class="bg-gray-50/70 rounded-2xl p-5 sm:p-6 border border-gray-100">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                    <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                        <span>{{ member.role|default:"Team Member" }}</span>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+                                            Current Position
+                                        </span>
+                                    </h3>
+                                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-gray-200/90 shadow-xs text-xs">
+                                        <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        </span>
+                                        <div class="inline-flex items-center gap-1.5 font-medium">
+                                            <span class="text-gray-400 font-normal">status</span>
+                                            <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/80">Active Member</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-sm font-semibold text-blue-600 mb-3 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    Dawn of Bioinformatics {% if member.department %} • {{ member.department.name }}{% endif %}
+                                </div>
+
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    Active team member contributing to bioinformatics research, computational analysis, and organizational initiatives at Dawn of Bioinformatics.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Detailed Career Overview / Rich Text (if provided in admin) -->
+            {% if member.career_progression_details %}
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-6">
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
+                            Overview
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Career & Research Background</h2>
+                    </div>
+                </div>
+
+                <div class="prose prose-blue prose-lg max-w-none text-gray-700 leading-relaxed">
+                    {{ member.career_progression_details|safe }}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

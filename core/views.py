@@ -3,6 +3,9 @@ from django.db import models
 from .models import BSDSItem, ResearchPaper, BlogPost, Feedback
 from service.models import ServiceCategory, Service
 from django.contrib.auth import get_user_model
+from django.db.models import Prefetch
+from django.core.paginator import Paginator
+from .models import EventAndAchievement, Carrier
 
 def home(request):
     User = get_user_model()
@@ -22,7 +25,6 @@ def home(request):
     recent_blogs = BlogPost.objects.filter(published=True)[:15]
     
     # Fetch categories and their active services for the tabbed section
-    from django.db.models import Prefetch
     active_services = Service.objects.filter(is_active=True).order_by('order')
     categories = ServiceCategory.objects.prefetch_related(
         Prefetch('services', queryset=active_services)
@@ -51,11 +53,6 @@ def home(request):
 def about(request):
     return render(request, 'core/about.html')
 
-
-from django.contrib.auth import get_user_model
-
-from .models import EventAndAchievement
-
 def dhaka_branch(request):
     photos = EventAndAchievement.objects.filter(branch='dhaka', media_type='photo')
     videos = EventAndAchievement.objects.filter(branch='dhaka', media_type='video')
@@ -65,8 +62,6 @@ def chittagong_branch(request):
     photos = EventAndAchievement.objects.filter(branch='chittagong', media_type='photo')
     videos = EventAndAchievement.objects.filter(branch='chittagong', media_type='video')
     return render(request, 'core/chittagong_branch.html', {'photos': photos, 'videos': videos})
-
-from django.db.models import Prefetch
 
 def team(request):
     User = get_user_model()
@@ -85,10 +80,25 @@ def team(request):
     }
     return render(request, 'core/team.html', context)
 
+def team_member_profile(request, username):
+    User = get_user_model()
+    member = get_object_or_404(User, username=username, is_active=True, is_staff=True)
+    
+    milestones = member.career_milestones.all().order_by('order', '-id')
+    
+    skills_list = []
+    if member.skills:
+        skills_list = [s.strip() for s in member.skills.split(',') if s.strip()]
+        
+    context = {
+        'member': member,
+        'milestones': milestones,
+        'skills_list': skills_list,
+    }
+    return render(request, 'core/team_member_profile.html', context)
+
 def coming_soon(request):
     return render(request, 'core/coming_soon.html')
-
-from django.core.paginator import Paginator
 
 def research_papers(request):
     papers_list = ResearchPaper.objects.all()
@@ -106,8 +116,6 @@ def blog(request):
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug, published=True)
     return render(request, 'core/blog_detail.html', {'post': post})
-
-from .models import Carrier
 
 def carrier_list(request):
     carriers = Carrier.objects.filter(is_active=True).order_by('-posted_date')

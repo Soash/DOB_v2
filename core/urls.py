@@ -9,6 +9,7 @@ urlpatterns = [
     path('branches/dhaka/', views.dhaka_branch, name='dhaka_branch'),
     path('branches/chittagong/', views.chittagong_branch, name='chittagong_branch'),
     path('team/', views.team, name='team'),
+    path('team/<str:username>/', views.team_member_profile, name='team_member_profile'),
     path('coming-soon/', views.coming_soon, name='coming_soon'),
     path('research/', views.research_papers, name='research_papers'),
     path('blog/', views.blog, name='blog'),
