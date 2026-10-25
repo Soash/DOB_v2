@@ -82,7 +82,7 @@ def team(request):
 
 def team_member_profile(request, username):
     User = get_user_model()
-    member = get_object_or_404(User, username=username, is_active=True, is_staff=True)
+    member = get_object_or_404(User, username__iexact=username, is_active=True)
     
     milestones = member.career_milestones.all().order_by('order', '-id')
     

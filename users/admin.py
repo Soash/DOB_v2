@@ -5,7 +5,7 @@ from .models import CustomUser, Department, CareerProgression, Education
 class EducationInline(admin.TabularInline):
     model = Education
     extra = 1
-    fields = ['degree', 'university', 'country', 'order']
+    fields = ['degree', 'department', 'university', 'country', 'order']
 
 class CareerProgressionInline(admin.TabularInline):
     model = CareerProgression
@@ -33,6 +33,7 @@ class CustomUserAdmin(UserAdmin):
             'description': 'Add degrees like BSc, MSc, or PhD below, or use the Education table at the bottom to add multiple degrees.',
             'fields': (
                 'degree',
+                'university_department',
                 'university',
                 'country',
                 'education',
@@ -68,9 +69,9 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_editable = ['order']
 
 class EducationAdmin(admin.ModelAdmin):
-    list_display = ['user', 'degree', 'university', 'country', 'order']
+    list_display = ['user', 'degree', 'department', 'university', 'country', 'order']
     list_filter = ['user', 'country']
-    search_fields = ['degree', 'university', 'country', 'user__username', 'user__first_name', 'user__last_name']
+    search_fields = ['degree', 'department', 'university', 'country', 'user__username', 'user__first_name', 'user__last_name']
     list_editable = ['order']
 
 class CareerProgressionAdmin(admin.ModelAdmin):

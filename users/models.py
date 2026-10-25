@@ -20,6 +20,7 @@ class CustomUser(AbstractUser):
     
     # Profile & Career Info
     degree = models.CharField(max_length=150, blank=True, null=True, help_text="BSc / MSc / PhD / Degree Title")
+    university_department = models.CharField(max_length=200, blank=True, null=True, help_text="University Department (e.g. Dept. of Biotechnology & Genetic Engineering)")
     university = models.CharField(max_length=255, blank=True, null=True, help_text="University Name")
     country = models.CharField(max_length=100, blank=True, null=True, help_text="Country Name")
     education = models.TextField(blank=True, null=True, help_text="Additional education notes (optional)")
@@ -48,15 +49,17 @@ class CustomUser(AbstractUser):
         records = list(self.educations.all())
         if records:
             return records
-        if self.degree or self.university or self.country:
+        if self.degree or self.university or self.country or self.university_department:
             return [{
                 'degree': self.degree or 'Degree',
+                'department': self.university_department or '',
                 'university': self.university or '',
                 'country': self.country or '',
             }]
         if self.education:
             return [{
                 'degree': self.education,
+                'department': '',
                 'university': '',
                 'country': '',
             }]
@@ -69,6 +72,7 @@ class CustomUser(AbstractUser):
 class Education(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='educations')
     degree = models.CharField(max_length=150, help_text="BSc / MSc / PhD / Degree Title")
+    department = models.CharField(max_length=200, blank=True, help_text="University Department (e.g. Dept. of Biotechnology)")
     university = models.CharField(max_length=255, help_text="University Name")
     country = models.CharField(max_length=100, blank=True, help_text="Country Name")
     order = models.PositiveIntegerField(default=0, help_text="Sort order")
