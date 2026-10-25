@@ -20,7 +20,6 @@ class CustomUser(AbstractUser):
     
     # Profile & Career Info
     degree = models.CharField(max_length=150, blank=True, null=True, help_text="BSc / MSc / PhD / Degree Title")
-    university_department = models.CharField(max_length=200, blank=True, null=True, help_text="University Department (e.g. Dept. of Biotechnology & Genetic Engineering)")
     university = models.CharField(max_length=255, blank=True, null=True, help_text="University Name")
     country = models.CharField(max_length=100, blank=True, null=True, help_text="Country Name")
     education = models.TextField(blank=True, null=True, help_text="Additional education notes (optional)")
@@ -49,17 +48,15 @@ class CustomUser(AbstractUser):
         records = list(self.educations.all())
         if records:
             return records
-        if self.degree or self.university or self.country or self.university_department:
+        if self.degree or self.university or self.country:
             return [{
                 'degree': self.degree or 'Degree',
-                'department': self.university_department or '',
                 'university': self.university or '',
                 'country': self.country or '',
             }]
         if self.education:
             return [{
                 'degree': self.education,
-                'department': '',
                 'university': '',
                 'country': '',
             }]
@@ -72,7 +69,6 @@ class CustomUser(AbstractUser):
 class Education(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='educations')
     degree = models.CharField(max_length=150, help_text="BSc / MSc / PhD / Degree Title")
-    department = models.CharField(max_length=200, blank=True, help_text="University Department (e.g. Dept. of Biotechnology)")
     university = models.CharField(max_length=255, help_text="University Name")
     country = models.CharField(max_length=100, blank=True, help_text="Country Name")
     order = models.PositiveIntegerField(default=0, help_text="Sort order")
@@ -128,10 +124,15 @@ class CareerProgression(models.Model):
         rem_months = months % 12
         parts = []
         if years > 0:
-            parts.append(f"{years} yr" if years == 1 else f"{years} yrs")
+            y_str = f"{years:02d}"
+            parts.append(f"{y_str} year" if years == 1 else f"{y_str} years")
         if rem_months > 0:
-            parts.append(f"{rem_months} mo" if rem_months == 1 else f"{rem_months} mos")
-        return " ".join(parts) if parts else f"{months} mos"
+            m_str = f"{rem_months:02d}"
+            parts.append(f"{m_str} month" if rem_months == 1 else f"{m_str} months")
+        if not parts:
+            m_str = f"{months:02d}"
+            parts.append(f"{m_str} month" if months == 1 else f"{m_str} months")
+        return " ".join(parts)
 
     @property
     def date_display(self):
