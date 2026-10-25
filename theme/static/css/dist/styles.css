@@ -2179,6 +2179,9 @@
   .pt-32 {
     padding-top: calc(var(--spacing) * 32);
   }
+  .pt-px {
+    padding-top: 1px;
+  }
   .pr-3 {
     padding-right: calc(var(--spacing) * 3);
   }
