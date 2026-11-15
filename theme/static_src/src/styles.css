@@ -15,4 +15,87 @@
   --color-dob-dark-yellow: #ECB43E; /* Warm Light Gold */
   --color-dob-dark-blue: #274A51;   /* Deep Teal / Dark Blue */
   --color-dob-light-gray: #DEE2E2;
+
+  /* DOBTools tokens */
+  --color-ink: #0F1E30;          /* headings and strong text */
+  --color-ink-soft: #243B55;
+  --color-muted: #52657D;        /* body text */
+  --color-faint: #7C8CA1;        /* labels, captions */
+
+  --color-brand: #245C98;        /* the site's accent */
+  --color-brand-700: #1A4572;
+  --color-brand-50: #EDF4FB;
+  --color-brand-100: #DCE9F7;
+  --color-dd: #0F6FC6;           /* DawnDock's logo blue: focus rings */
+
+  --color-gold: #F09000;         /* DawnDock's logo amber */
+  --color-gold-50: #FFF7E8;
+  --color-gold-100: #FFF1D6;
+  --color-gold-200: #F7DCA8;
+  --color-gold-soft: #F7C97A;    /* amber light enough to read on navy */
+  --color-gold-ink: #A35F00;     /* amber dark enough to read on white */
+  --color-gold-deep: #3A2200;
+
+  --color-ok: #1F8A54;
+  --color-ok-50: #EAF7F0;
+  --color-ok-line: #BFE3CF;
+  --color-ok-ink: #14633B;
+
+  --color-line: #E2E8F0;
+  --color-line-strong: #CBD5E1;
+  --color-surface: #F8FAFC;      /* the site's page background */
+  --color-surface-2: #F1F5F9;
+  --color-navy: #0F2238;
+  --color-navy-line: #2A3E57;
+  --color-on-navy: #C3D2E3;
+  --color-on-navy-soft: #B9C8DA;
+  --color-code: #D7E3F2;
+
+  --shadow-card: 0 1px 2px rgb(15 30 48 / .06), 0 1px 3px rgb(15 30 48 / .04);
+  --shadow-raised: 0 4px 14px rgb(15 30 48 / .07), 0 1px 3px rgb(15 30 48 / .05);
+  --shadow-lifted: 0 18px 50px rgb(15 30 48 / .13), 0 4px 12px rgb(15 30 48 / .07);
+  --shadow-float: 0 18px 42px rgb(15 30 48 / .2), 0 3px 8px rgb(15 30 48 / .08);
+  --shadow-paper: 0 14px 34px rgb(15 30 48 / .16), 0 2px 6px rgb(15 30 48 / .08);
+
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes show-fill {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+}
+
+@theme inline {
+  --animate-show-fill: show-fill 5.5s linear forwards var(--show-play, paused);
+}
+
+@layer base {
+  .dobt :where(h1, h2, h3, h4) {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+    color: var(--color-ink);
+  }
+  .dobt :where(h1) { font-weight: 900; }
+
+  .dobt :where(a) {
+    color: var(--color-brand);
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+  }
+  .dobt :where(a):hover { color: var(--color-brand-700); }
+
+  .dobt :where(svg) { flex: none; }
+
+  .dobt :focus-visible {
+    outline: 3px solid var(--color-dd);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .dobt [id] { scroll-margin-top: 88px; }
+  .dobt :where(summary)::-webkit-details-marker { display: none; }
 }
