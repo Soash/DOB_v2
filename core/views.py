@@ -124,3 +124,9 @@ def carrier_list(request):
 def carrier_detail(request, slug):
     carrier = get_object_or_404(Carrier, slug=slug, is_active=True)
     return render(request, 'core/carrier_detail.html', {'carrier': carrier})
+
+def dobtools(request):
+    return render(request, 'core/dobtools.html')
+
+def dawndock(request):
+    return render(request, 'core/dawndock.html')

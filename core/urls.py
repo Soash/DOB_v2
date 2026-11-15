@@ -16,4 +16,6 @@ urlpatterns = [
     path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
     path('carrier/', views.carrier_list, name='carrier_list'),
     path('carrier/<slug:slug>/', views.carrier_detail, name='carrier_detail'),
+    path('dobtools/', views.dobtools, name='dobtools'),
+    path('dobtools/dawndock/', views.dawndock, name='dawndock'),
 ]

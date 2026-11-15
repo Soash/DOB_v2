@@ -22,6 +22,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <title>{% block title %}Dawn of Bioinformatics | 1st Bioinformatics Company in Bangladesh{% endblock %}</title>
     {% tailwind_css %}
+    {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
 
@@ -107,6 +108,7 @@
                         </div>
                     </div>
 
+                    <a href="{% url 'core:dobtools' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">DOBTools</a>
                     <a href="{% url 'bsds:bsds_page' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">BSDS</a>
                     <a href="{% url 'core:team' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">Team</a>
                     <a href="{% url 'core:about' %}" class="text-gray-700 hover:text-dob-blue font-semibold transition duration-150 py-4">About</a>
@@ -189,6 +191,7 @@
                         <a href="{% url 'core:chittagong_branch' %}" class="block pl-6 py-2 text-sm text-gray-600 hover:text-dob-blue">> Chittagong</a>
                     </div>
                 </div>
+                <a href="{% url 'core:dobtools' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">DOBTools</a>
                 <a href="{% url 'bsds:bsds_page' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">BSDS</a>
                 <a href="{% url 'core:team' %}" class="block px-3 py-2 border-t border-dob-light-gray text-base font-medium text-gray-900 hover:text-dob-blue">Team</a>
                 <a href="{% url 'core:about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-dob-blue hover:bg-dob-light-gray">About</a>
@@ -274,6 +277,7 @@
             message: "Hello! I'm interested in your services"
         });
     </script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
 

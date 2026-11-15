@@ -1,0 +1,1183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DawnDock — molecular docking for Windows | DOBTools{% endblock %}
+{% block meta_description %}DawnDock is a free Windows application that runs five molecular docking engines behind one graphical interface, with neural-network pose scoring. Download, system requirements, user manual, benchmark results and how to cite.{% endblock %}
+
+{% block og_title %}DawnDock — molecular docking for Windows{% endblock %}
+{% block og_description %}Five docking engines in one window, with neural-network pose scoring. Free for academic, nonprofit, educational and personal research.{% endblock %}
+{% block og_image %}{% static 'dobtools/img/dawndock-results-1600.webp' %}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'dobtools/dobtools.css' %}?v=11">
+
+<!-- Structured data: helps search engines show the version and licence correctly. Every value matches the page. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DawnDock",
+  "applicationCategory": "Molecular docking and virtual screening software",
+  "operatingSystem": "Windows 10, Windows 11 (64-bit)",
+  "softwareVersion": "1.0.1",
+  "datePublished": "2026-11-13",
+  "fileSize": "298 MB",
+  "identifier": "https://doi.org/10.5281/zenodo.24198678",
+  "author": {
+    "@type": "Person",
+    "name": "Sk. Faisal Ahmed",
+    "identifier": "https://orcid.org/0000-0001-9299-1240",
+    "affiliation": { "@type": "Organization", "name": "Dawn of Bioinformatics Ltd." }
+  },
+  "publisher": { "@type": "Organization", "name": "Dawn of Bioinformatics Ltd." },
+  "installUrl": "https://dawnofbioinformatics.com/dobtools/dawndock/#download",
+  "softwareHelp": "https://dawnofbioinformatics.com/dobtools/downloads/DawnDock_User_Manual_v1.0.1.pdf",
+  "license": "https://github.com/FaisalAhmed27/DawnDock/blob/main/LICENSE.txt",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="dobt overflow-x-clip bg-white font-sans text-[16px] leading-[1.6] text-ink antialiased" id="top">
+  <a class="absolute top-0 -left-[9999px] z-[60] rounded-br-lg bg-brand px-4 py-2.5 text-white focus:left-0" href="#main">Skip to content</a>
+
+<div id="main">
+
+    <!-- ======================= HERO + DOWNLOAD ======================= -->
+    <section class="border-b border-line bg-white bg-[image:radial-gradient(1100px_420px_at_14%_-8%,var(--color-brand-50),transparent_62%),radial-gradient(760px_320px_at_92%_4%,var(--color-gold-50),transparent_60%)] pt-7 pb-14">
+      <div class="mx-auto w-full max-w-[1180px] px-8 max-sm:px-4">
+        <nav class="mb-[26px] text-[13.5px] text-faint" aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a class="no-underline hover:underline" href="{% url 'core:home' %}">Home</a></li>
+            <li class="before:mr-2 before:text-line-strong before:content-['/']"><a class="no-underline hover:underline" href="{% url 'core:dobtools' %}">DOBTools</a></li>
+            <li class="before:mr-2 before:text-line-strong before:content-['/']"><span aria-current="page">DawnDock</span></li>
+          </ol>
+        </nav>
+
+        <div class="grid grid-cols-[minmax(0,1fr)_372px] items-start gap-12 max-lg:grid-cols-1 max-lg:gap-[34px]">
+          <div>
+            <div class="flex items-center gap-4">
+              <img class="size-24 flex-none max-sm:size-[72px]" src="{% static 'dobtools/img/dawndock-logo-256.png' %}" alt="" width="96" height="96">
+              <div>
+                <h1 class="text-[clamp(36px,5vw,50px)]">DawnDock</h1>
+                <span class="mt-0.5 block text-[14px] text-muted">by Dawn of Bioinformatics Ltd.</span>
+              </div>
+            </div>
+
+            <p class="mt-[22px] text-[clamp(19px,2.3vw,23px)] font-semibold text-ink-soft">Molecular docking and virtual screening, without the command line.</p>
+            <p class="mt-3.5 max-w-[56ch] text-[16.5px] text-muted">
+              Five docking engines behind one window. Load a protein, find the pocket, dock a
+              ligand or a whole library, then read the poses, scores and contacts in a 3D view
+              and export the lot. One of the engines scores poses with a neural network trained
+              on solved crystal structures.
+            </p>
+
+            <ul class="mt-[26px] flex flex-wrap gap-2" aria-label="Release details">
+              <li class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">Version 1.0.1</li>
+              <li class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">Released 13 November 2026</li>
+              <li class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">Windows 10 / 11 · 64-bit</li>
+            </ul>
+          </div>
+
+          <div class="sticky top-[92px] rounded-[18px] border border-line bg-white p-6 shadow-lifted max-lg:static" id="download">
+            <h2 class="mb-4 text-[18px]">Download DawnDock</h2>
+
+            <!-- This button does not download anything itself. It opens the form
+                 further down (id="get-dawndock"), which asks who is downloading and
+                 carries the installer's address. See HOSTING-GUIDE.md, step 5. -->
+            <button class="flex w-full cursor-pointer items-center gap-[13px] rounded-xl border border-transparent bg-brand px-4 py-3.5 text-left text-white transition-colors hover:bg-brand-700" type="button" data-dobt-get="get-dawndock" aria-haspopup="dialog">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span class="flex min-w-0 flex-col leading-[1.35]">
+                <span class="text-[15.5px] font-bold">Download for Windows</span>
+                <span class="text-[12.5px] opacity-[.88]">DawnDock-Setup-1.0.1.exe · 298 MB</span>
+              </span>
+            </button>
+            <noscript>
+              <span class="mt-2.5 block text-[12.5px] leading-[1.5] text-gold-ink">
+                The download form needs JavaScript. Turn it on in your browser, or write to
+                <a href="mailto:dawn.of.bioinformatics@gmail.com">dawn.of.bioinformatics@gmail.com</a>.
+              </span>
+            </noscript>
+
+            <div class="mt-3.5 flex flex-wrap gap-x-[18px] gap-y-1.5 text-[13.5px]">
+              <a href="#verify">How to check your download</a>
+              <a href="#requirements">What you need</a>
+            </div>
+
+            <span class="mt-3.5 block text-[12.5px] leading-[1.5] text-faint">
+              Free for academic, nonprofit, educational and personal research.
+              Commercial use needs written permission first. DawnDock is licensed, not sold,
+              and it is not open source.
+            </span>
+            <span class="mt-2.5 block text-[12.5px] leading-[1.5] text-faint">
+              You will be asked for your name, your institute and your email first, so
+              that we can tell you when a new version is out.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= DOWNLOAD FORM =======================
+         Opened by the Download button in the card above. The form asks who is
+         downloading; its own button stays disabled until the three fields are
+         filled, then records the download and starts it.
+
+         data-dobt-file     the installer. It is here and not on a link, so
+                            that the download goes through the form.
+         data-dobt-version  written into each record.
+         data-dobt-collect  where each download is recorded: the address of the
+                            Google Sheet's web app (HOSTING-GUIDE.md, step 5).
+                            While it is empty the form still works, but
+                            NOTHING IS RECORDED. -->
+    <dialog class="group/gate m-auto max-h-[92vh] w-[min(92vw,452px)] overflow-y-auto rounded-[18px] border border-line bg-white p-0 text-ink shadow-lifted backdrop:bg-[rgb(10_20_33/.6)]" id="get-dawndock" aria-labelledby="get-dawndock-title" data-dobt-gate data-step="form" data-dobt-file="{% static 'dobtools/downloads/DawnDock-Setup-1.0.1.exe' %}" data-dobt-version="1.0.1" data-dobt-collect="https://script.google.com/macros/s/AKfycbxK2R1TKzy3CGcKJ3Ybg95wK0KX1ak-TiRLiKwY-3QKoaIdmTzYRhXkZmkQNKQyBdElkA/exec">
+      <div class="p-6 max-sm:p-5">
+        <div class="flex items-start justify-between gap-4">
+          <h2 class="text-[21px]" id="get-dawndock-title">
+            <span class="group-data-[step=done]/gate:hidden">Before you download</span>
+            <span class="hidden outline-none group-data-[step=done]/gate:inline" tabindex="-1" data-dobt-gate-done>Your download has started</span>
+          </h2>
+          <button class="-mt-1 -mr-1.5 grid size-9 flex-none cursor-pointer place-items-center rounded-full text-muted hover:bg-surface-2 hover:text-ink" type="button" data-dobt-gate-close aria-label="Close">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+          </button>
+        </div>
+
+        <!-- Step 1: who is downloading -->
+        <div class="group-data-[step=done]/gate:hidden">
+          <p class="mt-2 text-[14.5px] text-muted">
+            Tell us who is using DawnDock. We will write to you when a new version is out,
+            and may ask you how it went.
+          </p>
+
+          <form class="group/form mt-5 flex flex-col gap-3.5" novalidate>
+            <label class="flex flex-col gap-1.5 text-[13.5px] font-semibold text-ink-soft">
+              Your name
+              <input class="rounded-[10px] border border-line-strong bg-white px-3.5 py-2.5 text-[15.5px] font-normal text-ink placeholder:text-faint focus:border-dd" type="text" name="name" autocomplete="name" required maxlength="120" placeholder="e.g. Nusrat Jahan">
+            </label>
+            <label class="flex flex-col gap-1.5 text-[13.5px] font-semibold text-ink-soft">
+              University or institute
+              <input class="rounded-[10px] border border-line-strong bg-white px-3.5 py-2.5 text-[15.5px] font-normal text-ink placeholder:text-faint focus:border-dd" type="text" name="institute" autocomplete="organization" required maxlength="160" placeholder="e.g. University of Dhaka">
+            </label>
+            <label class="group/field flex flex-col gap-1.5 text-[13.5px] font-semibold text-ink-soft" data-dobt-gate-field>
+              Email
+              <input class="rounded-[10px] border border-line-strong bg-white px-3.5 py-2.5 text-[15.5px] font-normal text-ink placeholder:text-faint focus:border-dd group-data-bad/field:border-gold" type="email" name="email" autocomplete="email" inputmode="email" required maxlength="160" placeholder="name@university.edu">
+              <span class="hidden text-[12.5px] font-normal text-gold-ink group-data-bad/field:block">That does not look like an email address yet.</span>
+            </label>
+            <!-- Not for people: left empty by them, filled by scripts that fill every field. -->
+            <input class="hidden" type="text" name="hp_check" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button class="mt-1.5 flex w-full cursor-pointer items-center gap-[13px] rounded-xl border border-transparent bg-brand px-4 py-3.5 text-left text-white transition-colors enabled:hover:bg-brand-700 disabled:cursor-not-allowed disabled:border-line-strong disabled:bg-surface-2 disabled:text-faint" type="submit" disabled>
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span class="flex min-w-0 flex-col leading-[1.35]">
+                <span class="text-[15.5px] font-bold">Download for Windows</span>
+                <span class="text-[12.5px] opacity-[.88]">DawnDock-Setup-1.0.1.exe · 298 MB</span>
+              </span>
+            </button>
+            <span class="-mt-1.5 text-[12.5px] text-faint group-data-ready/form:hidden" aria-live="polite">Fill in all three and the download unlocks.</span>
+
+            <span class="text-[12.5px] leading-[1.5] text-faint">
+              We keep these three details to tell you about new versions and to ask for
+              feedback, and we do not pass them to anyone else. To have them removed, write to
+              <a href="mailto:dawn.of.bioinformatics@gmail.com?subject=DawnDock%20%E2%80%94%20remove%20my%20details">dawn.of.bioinformatics@gmail.com</a>.
+            </span>
+          </form>
+        </div>
+
+        <!-- Step 2: the download is under way -->
+        <div class="hidden group-data-[step=done]/gate:block">
+          <p class="mt-2 text-[14.5px] text-muted">
+            <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">DawnDock-Setup-1.0.1.exe</code>,
+            298 MB. If your browser did not start it,
+            <a href="#download" download data-dobt-gate-again>download it again</a>.
+          </p>
+          <ul class="mt-4 flex flex-col gap-2 text-[14.5px] text-muted">
+            <li>While it downloads: <a href="#verify" data-dobt-gate-close>how to check your download</a>.</li>
+            <li>Then: <a href="#requirements" data-dobt-gate-close>what you need to run it</a>, and the user manual further down this page.</li>
+          </ul>
+          <button class="mt-5 inline-flex cursor-pointer items-center justify-center rounded-[10px] border border-line-strong bg-white px-5 py-2.5 text-[15px] font-[650] text-ink transition-colors hover:border-faint hover:bg-surface" type="button" data-dobt-gate-close>Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- ======================= DOCS: SIDEBAR + CONTENT ======================= -->
+    <div class="mx-auto grid w-full max-w-[1180px] grid-cols-[232px_minmax(0,1fr)] items-start gap-14 px-8 py-2 max-lg:grid-cols-1 max-lg:gap-0 max-sm:px-4">
+
+      <!-- Open beside the page on a wide screen; a drop-down above it on a narrow one. -->
+      <details class="group/toc sticky top-[92px] py-6 max-lg:static max-lg:mt-5 max-lg:mb-2 max-lg:rounded-xl max-lg:border max-lg:border-line max-lg:bg-white max-lg:py-0" data-dobt-toc open>
+        <summary class="hidden cursor-pointer list-none items-center justify-between px-4 py-3.5 font-[650] max-lg:flex max-lg:group-open/toc:border-b max-lg:group-open/toc:border-line">
+          On this page
+          <svg class="group-open/toc:rotate-180" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <nav class="flex flex-col gap-[22px] max-lg:px-2.5 max-lg:pt-3.5 max-lg:pb-4" aria-label="On this page">
+          <div class="flex flex-col gap-px">
+            <span class="mb-[7px] text-[11.5px] font-bold uppercase tracking-[.09em] text-faint">The program</span>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#overview" data-dobt-spy>What it does</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#engines" data-dobt-spy>The five engines</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#accuracy" data-dobt-spy>How accurate is it</a>
+          </div>
+          <div class="flex flex-col gap-px">
+            <span class="mb-[7px] text-[11.5px] font-bold uppercase tracking-[.09em] text-faint">Getting it running</span>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#requirements" data-dobt-spy>What you need</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#install" data-dobt-spy>Installing</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#verify" data-dobt-spy>Checking your download</a>
+          </div>
+          <div class="flex flex-col gap-px">
+            <span class="mb-[7px] text-[11.5px] font-bold uppercase tracking-[.09em] text-faint">Help</span>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#manual" data-dobt-spy>User manual</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#faq" data-dobt-spy>Questions</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#cite" data-dobt-spy>How to cite</a>
+            <a class="rounded-[7px] border-l-2 border-transparent px-3 py-1.5 text-[14px] text-muted no-underline hover:bg-surface hover:text-ink aria-[current=location]:border-brand aria-[current=location]:bg-brand-50 aria-[current=location]:font-semibold aria-[current=location]:text-brand" href="#support" data-dobt-spy>Support</a>
+          </div>
+        </nav>
+      </details>
+
+      <div class="min-w-0 pb-5">
+
+        <!-- ---------------- WHAT IT DOES ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="overview">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Overview</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">What DawnDock does</h2>
+          <p class="mt-3 text-muted">
+            DawnDock takes you from a raw structure file to ranked, inspected docking poses on
+            your own computer. Everything happens in one window, in the order the work actually
+            happens: receptor, ligands, binding site, dock, results, analysis. There is no
+            command line to learn and nothing to install beside it.
+          </p>
+
+          <!-- Six steps, one after another. The slides advance by themselves while the
+               section is on screen, pause under the pointer, and stop for good once
+               the reader picks a step. Readers who ask for reduced motion still see
+               the steps fade one to the next, but nothing zooms or floats, and the
+               3D pose turns only while the pointer is on it.
+               The script sets data-auto and data-play on this element, and
+               data-active on the current slide and caption. -->
+          <div class="group/show mt-[30px] data-[play=running]:[--show-play:running]" data-dobt-show>
+            <div class="grid grid-cols-6 gap-1.5 rounded-[14px] border border-line bg-surface-2 p-1.5 max-md:grid-cols-3" role="tablist" aria-label="DawnDock, one step at a time">
+              <button class="group/tab flex cursor-pointer flex-col items-stretch gap-2 rounded-[10px] bg-transparent px-2.5 pt-2.5 pb-[9px] text-center transition-[background-color,box-shadow] duration-200 hover:bg-white/65 aria-selected:bg-white aria-selected:shadow-card" type="button" role="tab" id="dobt-show-tab-receptor" aria-controls="dobt-show-panel" aria-selected="true" tabindex="0" data-dobt-show-tab="0">
+                <span class="text-[13.5px] font-[650] whitespace-nowrap text-muted group-aria-selected/tab:text-brand max-md:text-[13px]">Receptor</span>
+                <span class="block h-[3px] overflow-hidden rounded-full bg-line" aria-hidden="true"><span class="block h-full w-0 rounded-full bg-brand group-aria-selected/tab:w-full group-data-auto/show:group-aria-selected/tab:animate-show-fill" data-dobt-show-fill></span></span>
+              </button>
+              <button class="group/tab flex cursor-pointer flex-col items-stretch gap-2 rounded-[10px] bg-transparent px-2.5 pt-2.5 pb-[9px] text-center transition-[background-color,box-shadow] duration-200 hover:bg-white/65 aria-selected:bg-white aria-selected:shadow-card" type="button" role="tab" id="dobt-show-tab-ligands" aria-controls="dobt-show-panel" aria-selected="false" tabindex="-1" data-dobt-show-tab="1">
+                <span class="text-[13.5px] font-[650] whitespace-nowrap text-muted group-aria-selected/tab:text-brand max-md:text-[13px]">Ligands</span>
+                <span class="block h-[3px] overflow-hidden rounded-full bg-line" aria-hidden="true"><span class="block h-full w-0 rounded-full bg-brand group-aria-selected/tab:w-full group-data-auto/show:group-aria-selected/tab:animate-show-fill" data-dobt-show-fill></span></span>
+              </button>
+              <button class="group/tab flex cursor-pointer flex-col items-stretch gap-2 rounded-[10px] bg-transparent px-2.5 pt-2.5 pb-[9px] text-center transition-[background-color,box-shadow] duration-200 hover:bg-white/65 aria-selected:bg-white aria-selected:shadow-card" type="button" role="tab" id="dobt-show-tab-site" aria-controls="dobt-show-panel" aria-selected="false" tabindex="-1" data-dobt-show-tab="2">
+                <span class="text-[13.5px] font-[650] whitespace-nowrap text-muted group-aria-selected/tab:text-brand max-md:text-[13px]">Binding site</span>
+                <span class="block h-[3px] overflow-hidden rounded-full bg-line" aria-hidden="true"><span class="block h-full w-0 rounded-full bg-brand group-aria-selected/tab:w-full group-data-auto/show:group-aria-selected/tab:animate-show-fill" data-dobt-show-fill></span></span>
+              </button>
+              <button class="group/tab flex cursor-pointer flex-col items-stretch gap-2 rounded-[10px] bg-transparent px-2.5 pt-2.5 pb-[9px] text-center transition-[background-color,box-shadow] duration-200 hover:bg-white/65 aria-selected:bg-white aria-selected:shadow-card" type="button" role="tab" id="dobt-show-tab-dock" aria-controls="dobt-show-panel" aria-selected="false" tabindex="-1" data-dobt-show-tab="3">
+                <span class="text-[13.5px] font-[650] whitespace-nowrap text-muted group-aria-selected/tab:text-brand max-md:text-[13px]">Dock</span>
+                <span class="block h-[3px] overflow-hidden rounded-full bg-line" aria-hidden="true"><span class="block h-full w-0 rounded-full bg-brand group-aria-selected/tab:w-full group-data-auto/show:group-aria-selected/tab:animate-show-fill" data-dobt-show-fill></span></span>
+              </button>
+              <button class="group/tab flex cursor-pointer flex-col items-stretch gap-2 rounded-[10px] bg-transparent px-2.5 pt-2.5 pb-[9px] text-center transition-[background-color,box-shadow] duration-200 hover:bg-white/65 aria-selected:bg-white aria-selected:shadow-card" type="button" role="tab" id="dobt-show-tab-results" aria-controls="dobt-show-panel" aria-selected="false" tabindex="-1" data-dobt-show-tab="4">
+                <span class="text-[13.5px] font-[650] whitespace-nowrap text-muted group-aria-selected/tab:text-brand max-md:text-[13px]">Results</span>
+                <span class="block h-[3px] overflow-hidden rounded-full bg-line" aria-hidden="true"><span class="block h-full w-0 rounded-full bg-brand group-aria-selected/tab:w-full group-data-auto/show:group-aria-selected/tab:animate-show-fill" data-dobt-show-fill></span></span>
+              </button>
+              <button class="group/tab flex cursor-pointer flex-col items-stretch gap-2 rounded-[10px] bg-transparent px-2.5 pt-2.5 pb-[9px] text-center transition-[background-color,box-shadow] duration-200 hover:bg-white/65 aria-selected:bg-white aria-selected:shadow-card" type="button" role="tab" id="dobt-show-tab-analysis" aria-controls="dobt-show-panel" aria-selected="false" tabindex="-1" data-dobt-show-tab="5">
+                <span class="text-[13.5px] font-[650] whitespace-nowrap text-muted group-aria-selected/tab:text-brand max-md:text-[13px]">Analysis</span>
+                <span class="block h-[3px] overflow-hidden rounded-full bg-line" aria-hidden="true"><span class="block h-full w-0 rounded-full bg-brand group-aria-selected/tab:w-full group-data-auto/show:group-aria-selected/tab:animate-show-fill" data-dobt-show-fill></span></span>
+              </button>
+            </div>
+
+            <div class="mt-3.5" role="tabpanel" id="dobt-show-panel" aria-labelledby="dobt-show-tab-receptor">
+              <div class="relative">
+                <div class="grid aspect-[1000/611] overflow-hidden rounded-[14px] border border-line-strong bg-surface shadow-lifted">
+                  <a class="group/slide invisible relative col-start-1 row-start-1 block overflow-hidden no-underline opacity-0 transition-[opacity,visibility] duration-700 data-active:visible data-active:z-10 data-active:opacity-100" href="{% static 'dobtools/img/dawndock-step-receptor-1600.webp' %}" data-dobt-lightbox data-dobt-show-slide="0" data-active>
+                    <img class="block size-full scale-[1.035] object-cover transition-transform duration-[6000ms] ease-[cubic-bezier(.2,.6,.2,1)] group-data-active/slide:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+                         src="{% static 'dobtools/img/dawndock-step-receptor-1000.webp' %}"
+                         srcset="{% static 'dobtools/img/dawndock-step-receptor-640.webp' %} 640w, {% static 'dobtools/img/dawndock-step-receptor-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-step-receptor-1600.webp' %} 1600w"
+                         sizes="(max-width: 1024px) 100vw, 780px" width="1000" height="611"
+                         alt="The Receptor step: Abl kinase (PDB 1IEP) loaded, with its chains, the bound molecules table, and the whole protein in the 3D view.">
+                    <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/slide:bg-white group-hover/slide:text-brand max-sm:right-2 max-sm:bottom-2 max-sm:gap-[5px] max-sm:px-[9px] max-sm:py-1 max-sm:text-[11px]"><svg class="max-sm:size-3" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>View full size</span>
+                  </a>
+                  <a class="group/slide invisible relative col-start-1 row-start-1 block overflow-hidden no-underline opacity-0 transition-[opacity,visibility] duration-700 data-active:visible data-active:z-10 data-active:opacity-100" href="{% static 'dobtools/img/dawndock-step-ligands-1600.webp' %}" data-dobt-lightbox data-dobt-show-slide="1" aria-hidden="true" tabindex="-1">
+                    <img class="block size-full scale-[1.035] object-cover transition-transform duration-[6000ms] ease-[cubic-bezier(.2,.6,.2,1)] group-data-active/slide:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+                         src="{% static 'dobtools/img/dawndock-step-ligands-1000.webp' %}"
+                         srcset="{% static 'dobtools/img/dawndock-step-ligands-640.webp' %} 640w, {% static 'dobtools/img/dawndock-step-ligands-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-step-ligands-1600.webp' %} 1600w"
+                         sizes="(max-width: 1024px) 100vw, 780px" width="1000" height="611" loading="lazy"
+                         alt="The Ligands step: imatinib added from its SMILES, with its properties and the Lipinski check underneath.">
+                    <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/slide:bg-white group-hover/slide:text-brand max-sm:right-2 max-sm:bottom-2 max-sm:gap-[5px] max-sm:px-[9px] max-sm:py-1 max-sm:text-[11px]"><svg class="max-sm:size-3" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>View full size</span>
+                  </a>
+                  <a class="group/slide invisible relative col-start-1 row-start-1 block overflow-hidden no-underline opacity-0 transition-[opacity,visibility] duration-700 data-active:visible data-active:z-10 data-active:opacity-100" href="{% static 'dobtools/img/dawndock-step-site-1600.webp' %}" data-dobt-lightbox data-dobt-show-slide="2" aria-hidden="true" tabindex="-1">
+                    <img class="block size-full scale-[1.035] object-cover transition-transform duration-[6000ms] ease-[cubic-bezier(.2,.6,.2,1)] group-data-active/slide:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+                         src="{% static 'dobtools/img/dawndock-step-site-1000.webp' %}"
+                         srcset="{% static 'dobtools/img/dawndock-step-site-640.webp' %} 640w, {% static 'dobtools/img/dawndock-step-site-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-step-site-1600.webp' %} 1600w"
+                         sizes="(max-width: 1024px) 100vw, 780px" width="1000" height="611" loading="lazy"
+                         alt="The Binding site step: the box fitted around the bound ligand, with its centre and size, and drawn into the 3D view.">
+                    <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/slide:bg-white group-hover/slide:text-brand max-sm:right-2 max-sm:bottom-2 max-sm:gap-[5px] max-sm:px-[9px] max-sm:py-1 max-sm:text-[11px]"><svg class="max-sm:size-3" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>View full size</span>
+                  </a>
+                  <a class="group/slide invisible relative col-start-1 row-start-1 block overflow-hidden no-underline opacity-0 transition-[opacity,visibility] duration-700 data-active:visible data-active:z-10 data-active:opacity-100" href="{% static 'dobtools/img/dawndock-engines-1600.webp' %}" data-dobt-lightbox data-dobt-show-slide="3" aria-hidden="true" tabindex="-1">
+                    <img class="block size-full scale-[1.035] object-cover transition-transform duration-[6000ms] ease-[cubic-bezier(.2,.6,.2,1)] group-data-active/slide:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+                         src="{% static 'dobtools/img/dawndock-engines-1000.webp' %}"
+                         srcset="{% static 'dobtools/img/dawndock-engines-640.webp' %} 640w, {% static 'dobtools/img/dawndock-engines-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-engines-1600.webp' %} 1600w"
+                         sizes="(max-width: 1024px) 100vw, 780px" width="1000" height="611" loading="lazy"
+                         alt="The Dock step: the AI engine and the four standard engines as cards, each marked ready.">
+                    <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/slide:bg-white group-hover/slide:text-brand max-sm:right-2 max-sm:bottom-2 max-sm:gap-[5px] max-sm:px-[9px] max-sm:py-1 max-sm:text-[11px]"><svg class="max-sm:size-3" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>View full size</span>
+                  </a>
+                  <a class="group/slide invisible relative col-start-1 row-start-1 block overflow-hidden no-underline opacity-0 transition-[opacity,visibility] duration-700 data-active:visible data-active:z-10 data-active:opacity-100" href="{% static 'dobtools/img/dawndock-results-1600.webp' %}" data-dobt-lightbox data-dobt-show-slide="4" aria-hidden="true" tabindex="-1">
+                    <img class="block size-full scale-[1.035] object-cover transition-transform duration-[6000ms] ease-[cubic-bezier(.2,.6,.2,1)] group-data-active/slide:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+                         src="{% static 'dobtools/img/dawndock-results-1000.webp' %}"
+                         srcset="{% static 'dobtools/img/dawndock-results-640.webp' %} 640w, {% static 'dobtools/img/dawndock-results-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-results-1600.webp' %} 1600w"
+                         sizes="(max-width: 1024px) 100vw, 780px" width="1000" height="611" loading="lazy"
+                         alt="Imatinib docked back into Abl kinase with GNINA: the pose in the pocket, and the scores, poses and contacts on the right.">
+                    <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/slide:bg-white group-hover/slide:text-brand max-sm:right-2 max-sm:bottom-2 max-sm:gap-[5px] max-sm:px-[9px] max-sm:py-1 max-sm:text-[11px]"><svg class="max-sm:size-3" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>View full size</span>
+                  </a>
+                  <a class="group/slide invisible relative col-start-1 row-start-1 block overflow-hidden no-underline opacity-0 transition-[opacity,visibility] duration-700 data-active:visible data-active:z-10 data-active:opacity-100" href="{% static 'dobtools/img/dawndock-step-analysis-1600.webp' %}" data-dobt-lightbox data-dobt-show-slide="5" aria-hidden="true" tabindex="-1">
+                    <img class="block size-full scale-[1.035] object-cover transition-transform duration-[6000ms] ease-[cubic-bezier(.2,.6,.2,1)] group-data-active/slide:scale-100 motion-reduce:scale-100 motion-reduce:transition-none"
+                         src="{% static 'dobtools/img/dawndock-step-analysis-1000.webp' %}"
+                         srcset="{% static 'dobtools/img/dawndock-step-analysis-640.webp' %} 640w, {% static 'dobtools/img/dawndock-step-analysis-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-step-analysis-1600.webp' %} 1600w"
+                         sizes="(max-width: 1024px) 100vw, 780px" width="1000" height="611" loading="lazy"
+                         alt="The Analysis step: the contact types with their counts, the labels and figure style on the left, and the 3D view widened for the figure.">
+                    <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/slide:bg-white group-hover/slide:text-brand max-sm:right-2 max-sm:bottom-2 max-sm:gap-[5px] max-sm:px-[9px] max-sm:py-1 max-sm:text-[11px]"><svg class="max-sm:size-3" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>View full size</span>
+                  </a>
+                </div>
+
+                <!-- The docked pose turning in DawnDock's own 3D view: 36 frames
+                     exported by the program, ten degrees apart. Loaded only when
+                     the section comes into view, and never on a phone. -->
+                <div class="absolute bottom-[34px] -left-7 z-30 w-[188px] animate-float rounded-[14px] border border-line bg-white px-2 pt-2 pb-2.5 shadow-float motion-reduce:animate-none max-lg:bottom-3 max-lg:left-3 max-lg:w-[156px] max-sm:hidden" aria-hidden="true" data-dobt-show-pose>
+                  <video class="block h-auto w-full rounded-[9px] bg-white" muted loop playsinline disablepictureinpicture preload="none"
+                         poster="{% static 'dobtools/img/dawndock-pose-still.webp' %}"
+                         data-src="{% static 'dobtools/img/dawndock-pose-spin.mp4' %}"
+                         width="320" height="304"></video>
+                  <span class="mt-2 flex items-center gap-1.5 px-1 text-[12px] font-[650] text-ink-soft">
+                    <svg class="text-gold" aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 4v5h-5"/></svg>
+                    Docked pose, in 3D
+                  </span>
+                </div>
+              </div>
+
+              <div class="mt-[18px] grid" aria-live="polite">
+                <p class="invisible col-start-1 row-start-1 translate-y-[5px] text-[16px] leading-[1.65] text-muted opacity-0 transition-[opacity,translate,visibility] duration-[450ms] data-active:visible data-active:translate-y-0 data-active:opacity-100 data-active:delay-150 motion-reduce:translate-y-0" data-dobt-show-cap="0" data-active><strong class="font-bold text-ink">Receptor.</strong> Open a PDB or mmCIF file, or fetch one from the RCSB by its ID. Chains, amino acids, waters and bound molecules are counted and listed, and before anything is prepared DawnDock spells out what will be removed and what will stay.</p>
+                <p class="invisible col-start-1 row-start-1 translate-y-[5px] text-[16px] leading-[1.65] text-muted opacity-0 transition-[opacity,translate,visibility] duration-[450ms] data-active:visible data-active:translate-y-0 data-active:opacity-100 data-active:delay-150 motion-reduce:translate-y-0" data-dobt-show-cap="1" aria-hidden="true"><strong class="font-bold text-ink">Ligands.</strong> Add ligands from SDF, MOL, MOL2, PDB or SMILES files, a CSV table, or a SMILES string typed straight in. Each one is built in 3D, with its molecular weight, LogP, TPSA and Lipinski check worked out for you.</p>
+                <p class="invisible col-start-1 row-start-1 translate-y-[5px] text-[16px] leading-[1.65] text-muted opacity-0 transition-[opacity,translate,visibility] duration-[450ms] data-active:visible data-active:translate-y-0 data-active:opacity-100 data-active:delay-150 motion-reduce:translate-y-0" data-dobt-show-cap="2" aria-hidden="true"><strong class="font-bold text-ink">Binding site.</strong> Put the search box around a bound ligand, around named residues, on an atom you click, or let DawnDock find the pockets for you. The centre and size are shown as numbers you can edit.</p>
+                <p class="invisible col-start-1 row-start-1 translate-y-[5px] text-[16px] leading-[1.65] text-muted opacity-0 transition-[opacity,translate,visibility] duration-[450ms] data-active:visible data-active:translate-y-0 data-active:opacity-100 data-active:delay-150 motion-reduce:translate-y-0" data-dobt-show-cap="3" aria-hidden="true"><strong class="font-bold text-ink">Dock.</strong> Choose one of the five engines, set how hard it should search, from Quick look to Thorough, and dock. Progress is live, and any run can be stopped at once.</p>
+                <p class="invisible col-start-1 row-start-1 translate-y-[5px] text-[16px] leading-[1.65] text-muted opacity-0 transition-[opacity,translate,visibility] duration-[450ms] data-active:visible data-active:translate-y-0 data-active:opacity-100 data-active:delay-150 motion-reduce:translate-y-0" data-dobt-show-cap="4" aria-hidden="true"><strong class="font-bold text-ink">Results.</strong> Poses are listed best first. GNINA's CNN pose score sits beside the engine's affinity, and every hydrogen bond, pi-stacking and hydrophobic contact is listed by residue and distance.</p>
+                <p class="invisible col-start-1 row-start-1 translate-y-[5px] text-[16px] leading-[1.65] text-muted opacity-0 transition-[opacity,translate,visibility] duration-[450ms] data-active:visible data-active:translate-y-0 data-active:opacity-100 data-active:delay-150 motion-reduce:translate-y-0" data-dobt-show-cap="5" aria-hidden="true"><strong class="font-bold text-ink">Analysis.</strong> The figure step. Choose which contacts and labels to draw, switch to a white background for a journal, and save the picture at the size it is drawn.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 grid grid-cols-3 gap-[18px] max-lg:grid-cols-2 max-sm:grid-cols-1">
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7c4 0 4 10 8 10"/><path d="M19 7c-4 0-4 10-8 10"/></svg></span>
+              <h3 class="text-[16.5px]">Receptor preparation</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">
+                Open PDB or mmCIF, or fetch a structure from the RCSB by its four-letter ID.
+                Remove waters, choose which bound molecules to keep, add hydrogens at a pH you
+                pick, and write the PDBQT. Nothing is removed without saying so first.
+              </p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="12" r="3"/><circle cx="8" cy="18" r="3"/><path d="M9.7 8.5l4.6 2.3"/><path d="M14.7 14l-4.4 2.6"/></svg></span>
+              <h3 class="text-[16.5px]">Ligand preparation</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">
+                SDF, MOL, MOL2, PDB, SMILES files and CSV tables, or a SMILES string typed in.
+                3D coordinates from RDKit, a force-field clean-up, and molecular weight, LogP,
+                TPSA and Lipinski violations shown for whichever ligand you pick.
+              </p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 011-1h3"/><path d="M16 4h3a1 1 0 011 1v3"/><path d="M20 16v3a1 1 0 01-1 1h-3"/><path d="M8 20H5a1 1 0 01-1-1v-3"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+              <h3 class="text-[16.5px]">Finding the binding site</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">
+                Set the box around named residues, around a bound ligand, by clicking an atom,
+                or let DawnDock find the pockets for you. On six test structures the pocket
+                search put the box on the right site every time.
+              </p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10"/><path d="M7 13h7"/><path d="M7 17h4"/></svg></span>
+              <h3 class="text-[16.5px]">Batch screening</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">
+                Load a library, press start, and come back to a ranked table. A score
+                distribution above it tells you whether anything in the library is actually
+                good, or whether everything scored the same and the run says nothing.
+              </p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V9"/><path d="M10 18V5"/><path d="M16 18v-7"/><path d="M3 21h18"/></svg></span>
+              <h3 class="text-[16.5px]">Interactions, measured</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">
+                Hydrogen bonds, salt bridges, metal coordination, pi-stacking, pi-cation,
+                halogen bonds and hydrophobic contacts, each listed with its residue and
+                distance and drawn into the 3D view.
+              </p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></span>
+              <h3 class="text-[16.5px]">Figures and exports</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">
+                A dedicated step for the figure, with a white background for journals. One
+                button writes a ZIP holding every pose, the scores as CSV, the receptor-plus-pose
+                complexes ready for PyMOL, and the log and config of every run.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------- ENGINES ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="engines">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Docking engines</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">Five engines, one window</h2>
+          <p class="mt-3 text-muted">
+            Pick an engine on the Dock step, or run the same target through several and compare.
+            They are listed best first, by how often each one puts the ligand where the crystal
+            structure says it goes. Speed runs almost exactly the other way, so the one at the
+            top is also the slowest.
+          </p>
+
+          <div class="mt-6 rounded-xl border border-line bg-surface px-5 py-[18px]">
+            <h3 class="mb-3 text-[15.5px]">Two of the five are ready the moment you install</h3>
+            <p class="text-[14.5px] text-ink-soft">
+              <strong class="font-[650] text-ink">AutoDock Vina and AutoDock 4 are included</strong> and work immediately
+              — open a structure, dock, make a figure. <strong class="font-[650] text-ink">Smina, GNINA and LeDock are
+              Linux-only programs</strong>: they run through WSL, and DawnDock fetches and sets
+              them up for you from inside the program when you ask for them. If WSL is missing
+              it offers to install it, and says plainly that the two bundled engines work
+              without it.
+            </p>
+          </div>
+
+          <div class="mt-[34px]">
+            <h3 class="text-[12.5px] font-bold uppercase tracking-[.09em] text-faint">AI docking engine</h3>
+            <p class="mt-2 text-[14.5px] text-muted">Learns what a correct pose looks like from thousands of solved structures, and scores poses with that network.</p>
+
+            <!-- GNINA is the reason to choose DawnDock over a plain Vina front end, so it
+                 gets a card of its own with the headline figure set large beside it. -->
+            <article class="mt-4 grid grid-cols-[minmax(0,1fr)_260px] overflow-hidden rounded-[18px] border border-gold-200 bg-linear-to-b from-gold-50 to-white to-[62%] shadow-raised max-md:grid-cols-1">
+              <div class="p-[26px]">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="text-[19px] font-extrabold tracking-[-.01em]">GNINA</span>
+                  <span class="inline-flex items-center gap-[5px] rounded-full bg-gold px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-gold-deep">Neural network</span>
+                  <span class="inline-flex items-center gap-[5px] rounded-full border border-brand-100 bg-brand-50 px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-brand-700">Needs WSL</span>
+                </div>
+                <p class="mt-3 text-[15px] text-muted">
+                  Smina plus a convolutional neural network that rescores every pose it
+                  generates, reported as a CNN pose score and a CNN affinity. It is the slowest
+                  engine here, and the one to reach for when getting the pose right matters more
+                  than finishing quickly. It always runs on the processor, so no graphics card
+                  is needed.
+                </p>
+                <dl class="mt-4 flex flex-wrap gap-x-[26px] gap-y-2.5 border-t border-dashed border-line-strong pt-[15px]" data-dobt-eng-stats>
+                  <div class="flex flex-col"><dt class="text-[11.5px] font-bold uppercase tracking-[.06em] text-faint">Right pocket</dt><dd class="mt-0.5 text-[17px] font-extrabold tabular-nums text-gold-ink">98.8%</dd></div>
+                  <div class="flex flex-col"><dt class="text-[11.5px] font-bold uppercase tracking-[.06em] text-faint">Median error</dt><dd class="mt-0.5 text-[17px] font-extrabold tabular-nums text-gold-ink">0.94 Å</dd></div>
+                  <div class="flex flex-col"><dt class="text-[11.5px] font-bold uppercase tracking-[.06em] text-faint">Version</dt><dd class="mt-0.5 text-[15px] font-extrabold tabular-nums text-gold-ink">1.3.2</dd></div>
+                </dl>
+              </div>
+
+              <div class="flex flex-col justify-center gap-1.5 bg-navy px-6 py-[26px] text-white max-md:px-[26px] max-md:py-[22px]">
+                <span class="text-[11.5px] font-bold uppercase tracking-[.09em] text-gold-soft">Best of the five</span>
+                <span class="text-[54px] leading-none font-black tracking-[-.03em] tabular-nums">80.5<span class="ml-0.5 text-[28px] font-extrabold">%</span></span>
+                <span class="mt-1 text-[13px] leading-[1.5] text-on-navy-soft">of top poses within 2 Å of the crystal pose, on the Astex Diverse Set</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="mt-[34px]">
+            <h3 class="text-[12.5px] font-bold uppercase tracking-[.09em] text-faint">Standard docking engines</h3>
+            <p class="mt-2 text-[14.5px] text-muted">Add up physical terms — sterics, hydrogen bonds, hydrophobic contact, torsional strain — with weights fitted to measured data. Far faster, and directly comparable with the published literature.</p>
+
+            <!-- A grid rather than a column: as a stack they are four near-identical
+                 blocks and the eye stops reading after the second. -->
+            <div class="mt-4 grid grid-cols-2 gap-4 max-md:grid-cols-1">
+              <article class="flex flex-col rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="grid size-[26px] flex-none place-items-center rounded-[7px] bg-surface-2 text-[13px] font-bold text-muted" aria-hidden="true">2</span>
+                  <span class="text-[19px] font-extrabold tracking-[-.01em]">Smina</span>
+                  <span class="inline-flex items-center gap-[5px] rounded-full border border-brand-100 bg-brand-50 px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-brand-700">Needs WSL</span>
+                </div>
+                <p class="mt-[11px] flex-1 text-[15px] text-muted">
+                  A fork of AutoDock Vina with extra scoring functions and far finer control over
+                  minimisation. Its Vinardo function poses better than stock Vina.
+                </p>
+              </article>
+
+              <article class="flex flex-col rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="grid size-[26px] flex-none place-items-center rounded-[7px] bg-surface-2 text-[13px] font-bold text-muted" aria-hidden="true">3</span>
+                  <span class="text-[19px] font-extrabold tracking-[-.01em]">AutoDock Vina</span>
+                  <span class="rounded-md bg-surface-2 px-[7px] py-0.5 font-mono text-[12px] text-faint">v1.2.7</span>
+                  <span class="inline-flex items-center gap-[5px] rounded-full border border-ok-line bg-ok-50 px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-ok-ink">Included</span>
+                </div>
+                <p class="mt-[11px] flex-1 text-[15px] text-muted">
+                  The standard engine, and the baseline the others are measured against. Fast,
+                  well validated, the one most papers cite, and the quickest of the five.
+                </p>
+              </article>
+
+              <article class="flex flex-col rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="grid size-[26px] flex-none place-items-center rounded-[7px] bg-surface-2 text-[13px] font-bold text-muted" aria-hidden="true">4</span>
+                  <span class="text-[19px] font-extrabold tracking-[-.01em]">AutoDock 4</span>
+                  <span class="rounded-md bg-surface-2 px-[7px] py-0.5 font-mono text-[12px] text-faint">v4.2.6</span>
+                  <span class="inline-flex items-center gap-[5px] rounded-full border border-ok-line bg-ok-50 px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-ok-ink">Included</span>
+                </div>
+                <p class="mt-[11px] flex-1 text-[15px] text-muted">
+                  The classic. Precomputed energy grids searched by a genetic algorithm, so it is
+                  much slower, but it reports a clustering of its runs that tells you how
+                  reproducible a pose was — something none of the others can.
+                </p>
+              </article>
+
+              <article class="flex flex-col rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="grid size-[26px] flex-none place-items-center rounded-[7px] bg-surface-2 text-[13px] font-bold text-muted" aria-hidden="true">5</span>
+                  <span class="text-[19px] font-extrabold tracking-[-.01em]">LeDock</span>
+                  <span class="rounded-md bg-surface-2 px-[7px] py-0.5 font-mono text-[12px] text-faint">v1.0</span>
+                  <span class="inline-flex items-center gap-[5px] rounded-full border border-brand-100 bg-brand-50 px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-brand-700">Needs WSL</span>
+                </div>
+                <p class="mt-[11px] flex-1 text-[15px] text-muted">
+                  A different lineage entirely: simulated annealing with an evolutionary search,
+                  and a scoring function fitted to crystal poses rather than affinities. When it
+                  agrees with Vina you have two independent opinions. Academic use only.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-xl border border-brand-100 bg-brand-50 px-5 py-[18px]">
+            <h3 class="mb-3 text-[15.5px]">Not sure which to pick?</h3>
+            <p class="text-[14.5px] text-ink-soft">
+              Dock with AutoDock Vina for a fast answer, then press <strong class="font-[650] text-ink">Rescore with
+              GNINA</strong> on the poses worth a closer look. Rescoring takes the poses already
+              found and scores them again with the network, without searching the box a second
+              time — about nine seconds for five poses, against seventy for a full GNINA run. You
+              get the speed of one engine and the judgement of the other, and both sets of
+              numbers appear side by side rather than one quietly replacing the other.
+            </p>
+          </div>
+
+          <figure class="mt-[30px]">
+            <a class="group/shot relative block overflow-hidden rounded-[14px] border border-line-strong bg-surface no-underline shadow-lifted" href="{% static 'dobtools/img/dawndock-engines-1600.webp' %}" data-dobt-lightbox>
+              <img class="block w-full" src="{% static 'dobtools/img/dawndock-engines-1000.webp' %}"
+                   srcset="{% static 'dobtools/img/dawndock-engines-640.webp' %} 640w, {% static 'dobtools/img/dawndock-engines-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-engines-1600.webp' %} 1600w"
+                   sizes="(max-width: 1024px) 100vw, 760px"
+                   width="1000" height="611" loading="lazy"
+                   alt="The Dock step: the AI engine and the four standard engines as cards, each marked ready, with the chosen engine highlighted.">
+              <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/shot:bg-white group-hover/shot:text-brand">
+                <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                View full size
+              </span>
+            </a>
+            <figcaption class="mt-[13px] text-[14px] text-muted">The Dock step. Each engine says whether it is ready, and the two groups are kept apart because the distinction is a real one.</figcaption>
+          </figure>
+        </section>
+
+        <!-- ---------------- ACCURACY ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="accuracy">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Validation</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">How accurate is it</h2>
+          <p class="mt-3 text-muted">
+            Every engine was run over the whole <strong class="font-[650] text-ink">Astex Diverse Set</strong> — 85 crystal
+            structures, each ligand rebuilt from its published SMILES, one box rule for all of
+            them, and DawnDock's own default settings. A redocking error under 2 Å is the usual
+            criterion for a correct result.
+          </p>
+
+          <div class="mt-6 overflow-x-auto rounded-[14px] border border-line bg-white">
+            <table class="w-full min-w-[520px] border-collapse text-[14.5px] [&_:is(th,td)]:border-b [&_:is(th,td)]:border-line [&_:is(th,td)]:px-4 [&_:is(th,td)]:py-[11px] [&_tbody>tr:last-child>*]:border-b-0 [&_tbody_th]:font-[650] [&_tbody_th]:text-ink [&_thead_th]:bg-surface [&_thead_th]:text-[11.5px] [&_thead_th]:font-bold [&_thead_th]:tracking-[.06em] [&_thead_th]:whitespace-nowrap [&_thead_th]:text-faint [&_thead_th]:uppercase">
+              <caption class="px-[18px] pt-4 text-left text-[13.5px] text-muted [caption-side:top]">Astex Diverse Set, run in this project. "Right pocket" means the pose landed on the correct site even when the orientation was off.</caption>
+              <thead>
+                <tr>
+                  <th class="text-left" scope="col">Engine</th>
+                  <th class="text-right" scope="col">Top pose under 2 Å</th>
+                  <th class="text-right" scope="col">Best of 3</th>
+                  <th class="text-right" scope="col">Right pocket</th>
+                  <th class="text-right" scope="col">Median error</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-gold-50 hover:bg-gold-100">
+                  <th class="text-left" scope="row">GNINA <span class="sr-only">(neural network)</span></th>
+                  <td class="text-right whitespace-nowrap tabular-nums"><span class="flex items-center justify-end gap-2.5"><span class="h-[7px] w-[92px] flex-none overflow-hidden rounded-full bg-surface-2"><span class="block h-full w-[80.5%] rounded-full bg-gold"></span></span><span class="min-w-[54px] text-right font-bold tabular-nums">80.5%</span></span></td>
+                  <td class="text-right whitespace-nowrap tabular-nums">90.2%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">98.8%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">0.94 Å</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">Smina</th>
+                  <td class="text-right whitespace-nowrap tabular-nums"><span class="flex items-center justify-end gap-2.5"><span class="h-[7px] w-[92px] flex-none overflow-hidden rounded-full bg-surface-2"><span class="block h-full w-[56.1%] rounded-full bg-brand"></span></span><span class="min-w-[54px] text-right font-bold tabular-nums">56.1%</span></span></td>
+                  <td class="text-right whitespace-nowrap tabular-nums">72.0%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">87.8%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">1.71 Å</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">AutoDock Vina</th>
+                  <td class="text-right whitespace-nowrap tabular-nums"><span class="flex items-center justify-end gap-2.5"><span class="h-[7px] w-[92px] flex-none overflow-hidden rounded-full bg-surface-2"><span class="block h-full w-[52.4%] rounded-full bg-brand"></span></span><span class="min-w-[54px] text-right font-bold tabular-nums">52.4%</span></span></td>
+                  <td class="text-right whitespace-nowrap tabular-nums">72.6%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">88.1%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">1.75 Å</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">AutoDock 4</th>
+                  <td class="text-right whitespace-nowrap tabular-nums"><span class="flex items-center justify-end gap-2.5"><span class="h-[7px] w-[92px] flex-none overflow-hidden rounded-full bg-surface-2"><span class="block h-full w-[52.4%] rounded-full bg-brand"></span></span><span class="min-w-[54px] text-right font-bold tabular-nums">52.4%</span></span></td>
+                  <td class="text-right whitespace-nowrap tabular-nums">62.2%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">84.1%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">1.83 Å</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">LeDock</th>
+                  <td class="text-right whitespace-nowrap tabular-nums"><span class="flex items-center justify-end gap-2.5"><span class="h-[7px] w-[92px] flex-none overflow-hidden rounded-full bg-surface-2"><span class="block h-full w-1/2 rounded-full bg-brand"></span></span><span class="min-w-[54px] text-right font-bold tabular-nums">50.0%</span></span></td>
+                  <td class="text-right whitespace-nowrap tabular-nums">63.1%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">79.8%</td>
+                  <td class="text-right whitespace-nowrap tabular-nums">1.99 Å</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mt-[18px] text-muted">
+            Neural-network scoring placed <strong class="font-[650] text-ink">80.5%</strong> of ligands within 2 Å of the
+            crystal pose, against <strong class="font-[650] text-ink">52.4%</strong> for a classical scoring function on the
+            same structures, with the same boxes and the same ligand preparation. More than half
+            of GNINA's answers land under 1 Å.
+          </p>
+
+          <div class="mt-6 rounded-xl border border-gold-200 bg-gold-50 px-5 py-[18px]">
+            <h3 class="mb-3 text-[15.5px]">Read it as a starting point, not a verdict</h3>
+            <p class="text-[14.5px] text-ink-soft">
+              This compares the engines DawnDock ships against each other. It is not a comparison
+              with any other docking program. On your own target the order can differ, and
+              running two engines and comparing them is worth more than trusting any one of them.
+            </p>
+            <p class="mt-[9px] text-[14.5px] text-ink-soft">
+              An engine's affinity is a scoring-function estimate, not a measured binding free
+              energy. These functions rank and pose reasonably well; they do not predict potency
+              reliably. Virtual screening has not been benchmarked here — the figures above are
+              redocking accuracy, which is a different question from ranking actives against
+              decoys.
+            </p>
+          </div>
+
+          <p class="mt-[18px] text-muted">
+            Every pose, score and RMSD behind this table is published, one file per engine, so
+            the numbers can be recomputed rather than taken on trust:
+            <a href="https://github.com/FaisalAhmed27/DawnDock/tree/main/docs/benchmark-data">the per-complex data on GitHub</a>,
+            and the full write-up in the <a href="https://doi.org/10.5281/zenodo.24198678">archived record on Zenodo</a>.
+          </p>
+        </section>
+
+        <!-- ---------------- REQUIREMENTS ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="requirements">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Before you start</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">What you need</h2>
+
+          <!-- Each row stays on one line; on a phone the table scrolls inside its own
+               box instead of wrapping. -->
+          <div class="mt-6 overflow-x-auto rounded-[14px] border border-line bg-white">
+            <table class="w-full min-w-[520px] border-collapse text-[14.5px] [&_:is(th,td)]:border-b [&_:is(th,td)]:border-line [&_:is(th,td)]:px-4 [&_:is(th,td)]:py-[11px] [&_:is(th,td)]:whitespace-nowrap [&_tbody>tr:last-child>*]:border-b-0 [&_tbody_th]:w-[34%] [&_tbody_th]:font-[650] [&_tbody_th]:text-ink [&_thead_th]:bg-surface [&_thead_th]:text-[11.5px] [&_thead_th]:font-bold [&_thead_th]:tracking-[.06em] [&_thead_th]:text-faint [&_thead_th]:uppercase" data-dobt-requirements>
+              <thead>
+                <tr>
+                  <th class="text-left" scope="col">Requirement</th>
+                  <th class="text-left" scope="col">Minimum</th>
+                  <th class="text-left" scope="col">Recommended</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">Operating system</th>
+                  <td>Windows 10, 64-bit</td>
+                  <td>Windows 11, 64-bit</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">Processor</th>
+                  <td>4-core CPU</td>
+                  <td>8-core CPU (for GNINA)</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">Memory</th>
+                  <td>4 GB RAM</td>
+                  <td>8 GB RAM</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">Disk</th>
+                  <td>128 GB</td>
+                  <td>256 GB SSD</td>
+                </tr>
+                <tr class="hover:bg-surface">
+                  <th class="text-left" scope="row">Graphics card</th>
+                  <td>Not needed</td>
+                  <td>Not needed</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 rounded-xl border border-line bg-surface px-5 py-[18px]">
+            <h3 class="mb-3 text-[15.5px]">How much space DawnDock itself takes</h3>
+            <p class="text-[14.5px] text-ink-soft">
+              About <strong class="font-[650] text-ink">1 GB</strong>: the installer is 298 MB and unpacks to roughly
+              740 MB. Adding the three optional engines through WSL needs several GB more,
+              most of it GNINA, so the drive sizes above leave room for that and for your own
+              structures and results.
+            </p>
+          </div>
+
+          <div class="mt-[22px] grid grid-cols-3 gap-[18px] max-lg:grid-cols-2 max-sm:grid-cols-1">
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <h3 class="text-[16.5px]">No administrator rights</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">DawnDock installs for you alone, into your own user folder, so Windows never asks for a password.</p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <h3 class="text-[16.5px]">Nothing else to install</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">No Python, no compiler, no separate toolkit. Everything the program needs is inside the installer.</p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <h3 class="text-[16.5px]">No internet needed to dock</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">Only to download the installer, to fetch a structure from the RCSB by ID, to check for updates, or to add the optional engines.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------- INSTALL ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="install">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Installing</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">Four steps, and an optional fifth</h2>
+
+          <ol class="mt-[26px] flex flex-col gap-0.5">
+            <li class="grid grid-cols-[38px_minmax(0,1fr)] gap-4 border-b border-line py-4">
+              <span class="grid size-8 place-items-center rounded-[9px] bg-brand text-[14px] font-extrabold text-white" aria-hidden="true">1</span>
+              <div>
+                <h3 class="mt-[3px] text-[16.5px]">Download the installer</h3>
+                <p class="mt-3 text-[15px] text-muted">Use the <a href="#download">Download for Windows</a> button. You will get <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">DawnDock-Setup-1.0.1.exe</code>, about 298 MB.</p>
+              </div>
+            </li>
+            <li class="grid grid-cols-[38px_minmax(0,1fr)] gap-4 border-b border-line py-4">
+              <span class="grid size-8 place-items-center rounded-[9px] bg-brand text-[14px] font-extrabold text-white" aria-hidden="true">2</span>
+              <div>
+                <h3 class="mt-[3px] text-[16.5px]">Run it</h3>
+                <p class="mt-3 text-[15px] text-muted">Double-click the file. Windows will not ask for an administrator password, because DawnDock installs into your own user folder.</p>
+              </div>
+            </li>
+            <li class="grid grid-cols-[38px_minmax(0,1fr)] gap-4 border-b border-line py-4">
+              <span class="grid size-8 place-items-center rounded-[9px] bg-brand text-[14px] font-extrabold text-white" aria-hidden="true">3</span>
+              <div>
+                <h3 class="mt-[3px] text-[16.5px]">If Windows warns you about the publisher</h3>
+                <p class="mt-3 text-[15px] text-muted">You will probably see <strong class="font-[650] text-ink">“Windows protected your PC”</strong>. Choose <strong class="font-[650] text-ink">More info</strong>, then <strong class="font-[650] text-ink">Run anyway</strong>. This appears because DawnDock is not yet signed with a paid code-signing certificate, not because anything is wrong with the file. If you would rather check the download first, the next section shows you how.</p>
+              </div>
+            </li>
+            <li class="grid grid-cols-[38px_minmax(0,1fr)] gap-4 border-b border-line py-4">
+              <span class="grid size-8 place-items-center rounded-[9px] bg-brand text-[14px] font-extrabold text-white" aria-hidden="true">4</span>
+              <div>
+                <h3 class="mt-[3px] text-[16.5px]">Open DawnDock</h3>
+                <p class="mt-3 text-[15px] text-muted">A Start-menu entry and an optional desktop shortcut are created, and an uninstaller is registered, so removing it later works from Settings → Apps like any other program. The first launch shows a splash screen while the 3D view and the chemistry toolkits load.</p>
+                <p class="mt-[13px] text-[15px] text-muted">At this point AutoDock Vina and AutoDock 4 are ready. You can open a structure, prepare it, dock and make your figure without doing anything else.</p>
+              </div>
+            </li>
+            <!-- The optional step is marked rather than numbered like the rest, so
+                 nobody thinks the install is unfinished without it. -->
+            <li class="grid grid-cols-[38px_minmax(0,1fr)] gap-4 py-4">
+              <span class="grid size-8 place-items-center rounded-[9px] border-2 border-dashed border-gold-200 bg-white text-[14px] font-extrabold text-gold" aria-hidden="true">5</span>
+              <div>
+                <h3 class="mt-[3px] text-[16.5px]">Optional: add GNINA, Smina and LeDock</h3>
+                <p class="mt-3 text-[15px] text-muted">
+                  These three are published only as Linux programs, so they run through
+                  <strong class="font-[650] text-ink">WSL</strong> (Windows Subsystem for Linux). You need this step only if
+                  you want them — and GNINA, the neural-network engine, is one of them.
+                </p>
+                <p class="mt-[13px] text-[15px] text-muted">
+                  Open <strong class="font-[650] text-ink">Run → Docking engines</strong> (Ctrl+E). The dialog says what WSL
+                  is, shows what your machine already has, and fetches and sets up each engine
+                  for you, then runs it once to prove it works. Nothing needs
+                  <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">pip</code>, <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">curl</code> or a password.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="mt-6 rounded-xl border border-gold-200 bg-gold-50 px-5 py-[18px]">
+            <h3 class="mb-3 text-[15.5px]">If WSL is not installed yet</h3>
+            <p class="text-[14.5px] text-ink-soft">
+              The same dialog offers to run it for you. Doing it by hand instead is one command
+              in an administrator PowerShell, followed by a restart:
+            </p>
+            <div class="mt-3.5 overflow-x-auto rounded-[10px] bg-navy px-[15px] py-[13px] font-mono text-[13px] leading-[1.6] whitespace-pre text-code"><code>wsl --install</code></div>
+            <p class="mt-3 text-[14.5px] text-ink-soft">
+              It needs administrator rights, a restart, and virtualisation switched on in your
+              machine's BIOS or UEFI. If that setting is off, no program can turn it on, and the
+              dialog tells you so rather than failing quietly.
+            </p>
+            <p class="mt-[9px] text-[14.5px] text-ink-soft">
+              GNINA is a CUDA build, so its download is large — the binary and the libraries it
+              names come to several GB, fetched in one step. It still runs on the processor
+              afterwards, with no graphics card needed.
+            </p>
+          </div>
+        </section>
+
+        <!-- ---------------- VERIFY ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="verify">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Trust</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">Checking your download</h2>
+          <p class="mt-3 text-muted">
+            Every release is published with two small files beside the installer: a SHA-256
+            checksum, and an Ed25519 signature over that checksum made with the author's private
+            key. A matching checksum tells you the download is intact. A valid signature tells
+            you who made it. Both are independent of Windows' own publisher check.
+          </p>
+
+          <h3 class="mt-[26px] text-[18.5px]">The checksum</h3>
+          <p class="mt-3 text-muted">In PowerShell, in your Downloads folder:</p>
+          <div class="mt-3.5 overflow-x-auto rounded-[10px] bg-navy px-[15px] py-[13px] font-mono text-[13px] leading-[1.6] whitespace-pre text-code"><code>Get-FileHash .\DawnDock-Setup-1.0.1.exe -Algorithm SHA256</code></div>
+          <p class="mt-3 text-muted">It should read:</p>
+          <div class="mt-3.5 overflow-x-auto rounded-[10px] bg-navy px-[15px] py-[13px] font-mono text-[13px] leading-[1.6] whitespace-pre text-code"><code>6ac85686171fa845533adbd487482977bcc01a7821cb6fce1707fcabed27dd8f</code></div>
+
+          <h3 class="mt-[26px] text-[18.5px]">The signature</h3>
+          <p class="mt-3 text-muted">
+            Download <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">verify_authorship.py</code> and the installer's <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">.sig</code> from
+            the same release, then:
+          </p>
+          <div class="mt-3.5 overflow-x-auto rounded-[10px] bg-navy px-[15px] py-[13px] font-mono text-[13px] leading-[1.6] whitespace-pre text-code"><code>pip install cryptography
+python verify_authorship.py --installer DawnDock-Setup-1.0.1.exe</code></div>
+          <p class="mt-3 text-muted">
+            The script carries the public key, so it needs nothing else. It prints the key's
+            fingerprint on every run so you can compare it against the copy published in the
+            repository:
+          </p>
+          <div class="mt-3.5 overflow-x-auto rounded-[10px] bg-navy px-[15px] py-[13px] font-mono text-[13px] leading-[1.6] whitespace-pre text-code"><code>SHA256:g7QtjQ1qYTFPg4735rpfVcUnLau1sb+nRvl58Fvh76g</code></div>
+          <p class="mt-3 text-muted">
+            Download them from this site:
+            <a href="{% static 'dobtools/downloads/verify_authorship.py' %}" download>the script</a>,
+            <a href="{% static 'dobtools/downloads/DawnDock-Setup-1.0.1.exe.sig' %}" download>the signature</a>,
+            <a href="{% static 'dobtools/downloads/DawnDock-Setup-1.0.1.exe.sha256' %}" download>the checksum file</a> and
+            <a href="{% static 'dobtools/downloads/dawndock-public-key.pem' %}" download>the public key</a>.
+            The same set is published in the
+            <a href="https://github.com/FaisalAhmed27/DawnDock">GitHub repository</a> and the
+            <a href="https://doi.org/10.5281/zenodo.24198678">Zenodo record</a>, so you can
+            compare the key against a copy that did not come from this site.
+          </p>
+        </section>
+
+        <!-- ---------------- MANUAL ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="manual">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Documentation</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">The user manual</h2>
+          <p class="mt-3 text-muted">
+            Everything from installing to reading a result, in one PDF. Its screenshots come from
+            the running program rather than a mock-up, so what you see on the page is what you
+            will see on your screen.
+          </p>
+
+          <div class="mt-[30px] grid grid-cols-[290px_minmax(0,1fr)] items-center gap-[46px] rounded-[20px] border border-line bg-linear-135 from-brand-50 via-white via-[52%] to-gold-50 px-[38px] py-9 max-md:grid-cols-1 max-md:gap-[26px] max-md:px-[22px] max-md:py-[26px]">
+            <!-- The real first three pages of the manual, rendered from the PDF itself,
+                 fanned like a document on a desk. -->
+            <a class="group/stack relative block h-[362px] no-underline max-md:mx-auto max-md:h-[300px] max-md:w-[260px]" href="{% static 'dobtools/downloads/DawnDock_User_Manual_v1.0.1.pdf' %}" download aria-label="Download the user manual (PDF)">
+              <img class="absolute top-4 left-14 w-[226px] rotate-[7deg] rounded-[3px] bg-white shadow-paper transition-transform duration-[280ms] ease-out motion-reduce:transition-none group-hover/stack:translate-x-3.5 group-hover/stack:rotate-[10deg] max-md:left-[52px] max-md:w-[188px]" src="{% static 'dobtools/img/manual-p3-360.webp' %}" alt="" width="360" height="509" loading="lazy">
+              <img class="absolute top-2 left-8 w-[226px] rotate-[3deg] rounded-[3px] bg-white shadow-paper transition-transform duration-[280ms] ease-out motion-reduce:transition-none group-hover/stack:translate-x-[7px] group-hover/stack:rotate-[4.5deg] max-md:left-[30px] max-md:w-[188px]" src="{% static 'dobtools/img/manual-p2-360.webp' %}" alt="" width="360" height="509" loading="lazy">
+              <img class="absolute top-0 left-1.5 w-[226px] -rotate-3 rounded-[3px] bg-white shadow-paper transition-transform duration-[280ms] ease-out motion-reduce:transition-none group-hover/stack:-translate-y-[5px] group-hover/stack:-rotate-5 max-md:w-[188px]"
+                   src="{% static 'dobtools/img/manual-p1-360.webp' %}"
+                   srcset="{% static 'dobtools/img/manual-p1-360.webp' %} 360w, {% static 'dobtools/img/manual-p1-720.webp' %} 720w"
+                   sizes="260px" width="360" height="509" loading="lazy"
+                   alt="The cover of the DawnDock User Manual and Tutorial, version 1.0.1.">
+            </a>
+
+            <div>
+              <ul class="flex flex-wrap gap-2" aria-label="About the manual">
+                <li class="rounded-full border border-line-strong bg-white px-3 py-[5px] text-[13px] text-muted"><strong class="font-bold text-ink">34</strong> pages</li>
+                <li class="rounded-full border border-line-strong bg-white px-3 py-[5px] text-[13px] text-muted"><strong class="font-bold text-ink">PDF</strong> · about 10 MB</li>
+                <li class="rounded-full border border-line-strong bg-white px-3 py-[5px] text-[13px] text-muted"><strong class="font-bold text-ink">English</strong></li>
+                <li class="rounded-full border border-line-strong bg-white px-3 py-[5px] text-[13px] text-muted">Version <strong class="font-bold text-ink">1.0.1</strong></li>
+              </ul>
+
+              <ol class="mt-6 grid gap-4">
+                <li class="grid grid-cols-[34px_minmax(0,1fr)] items-start gap-3.5">
+                  <span class="grid size-[30px] place-items-center rounded-lg bg-brand text-[13.5px] font-extrabold text-white" aria-hidden="true">1</span>
+                  <div><strong class="block text-[15.5px] leading-[1.35] font-[650] text-ink">Before you start</strong><span class="mt-[3px] block text-[14.5px] leading-[1.55] text-muted">Requirements, installing, and the file formats you can use.</span></div>
+                </li>
+                <li class="grid grid-cols-[34px_minmax(0,1fr)] items-start gap-3.5">
+                  <span class="grid size-[30px] place-items-center rounded-lg bg-brand text-[13.5px] font-extrabold text-white" aria-hidden="true">2</span>
+                  <div><strong class="block text-[15.5px] leading-[1.35] font-[650] text-ink">Part 1 · Quick Run</strong><span class="mt-[3px] block text-[14.5px] leading-[1.55] text-muted">Ten steps from opening the program to saving a result, one action and one picture per step.</span></div>
+                </li>
+                <li class="grid grid-cols-[34px_minmax(0,1fr)] items-start gap-3.5">
+                  <span class="grid size-[30px] place-items-center rounded-lg bg-brand text-[13.5px] font-extrabold text-white" aria-hidden="true">3</span>
+                  <div><strong class="block text-[15.5px] leading-[1.35] font-[650] text-ink">Part 2 · Detailed Guide</strong><span class="mt-[3px] block text-[14.5px] leading-[1.55] text-muted">Every panel and setting, from the receptor to the figure, with numbered call-outs on each screenshot.</span></div>
+                </li>
+                <li class="grid grid-cols-[34px_minmax(0,1fr)] items-start gap-3.5">
+                  <span class="grid size-[30px] place-items-center rounded-lg bg-brand text-[13.5px] font-extrabold text-white" aria-hidden="true">4</span>
+                  <div><strong class="block text-[15.5px] leading-[1.35] font-[650] text-ink">Troubleshooting</strong><span class="mt-[3px] block text-[14.5px] leading-[1.55] text-muted">What a message means, and what to do when an answer looks wrong.</span></div>
+                </li>
+              </ol>
+
+              <div class="mt-7 flex flex-wrap items-center gap-x-[18px] gap-y-3">
+                <a class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-transparent bg-brand px-6 py-3.5 text-[16px] font-[650] text-white no-underline transition-colors hover:bg-brand-700 active:translate-y-px" href="{% static 'dobtools/downloads/DawnDock_User_Manual_v1.0.1.pdf' %}" download>
+                  <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+                  Download the manual
+                </a>
+                <span class="text-[14.5px] text-muted">or <a href="{% static 'dobtools/downloads/DawnDock_User_Manual_v1.0.1.pdf' %}" target="_blank" rel="noopener">read it in your browser</a>. Also archived with the release on <a href="https://doi.org/10.5281/zenodo.24198678">Zenodo</a>.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------- FAQ ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="faq">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Questions</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">Questions people ask</h2>
+
+          <div class="mt-[26px] overflow-hidden rounded-[14px] border border-line bg-white">
+            <details class="group/faq">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Is DawnDock free?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  Yes, for <strong class="font-[650] text-ink">academic, nonprofit, educational and personal research</strong>.
+                  There is nothing to pay and no account to make.
+                </p>
+                <p class="mt-2.5 text-[15px] text-muted">
+                  <strong class="font-[650] text-ink">Commercial use</strong> — by companies, or for paid services, consulting
+                  or commercial R&amp;D — needs written permission first. Write to
+                  <a href="mailto:dawn.of.bioinformatics@gmail.com">dawn.of.bioinformatics@gmail.com</a>.
+                  DawnDock is licensed rather than sold, and it is not open source. You may publish
+                  what you find; please cite it.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Windows blocked the installer. What do I do?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  Choose <strong class="font-[650] text-ink">More info</strong>, then <strong class="font-[650] text-ink">Run anyway</strong>. Windows shows
+                  this for any installer that is not signed with a paid code-signing certificate,
+                  which DawnDock is not yet.
+                </p>
+                <p class="mt-2.5 text-[15px] text-muted">
+                  If you would rather not take that on trust, <a href="#verify">check the checksum
+                  and the signature</a> first. That is exactly what they are published for.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Do I need WSL?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  <strong class="font-[650] text-ink">Not to use DawnDock.</strong> AutoDock Vina and AutoDock 4 are included as
+                  Windows programs, and everything around them — preparation, the 3D view,
+                  interaction analysis, batch docking, the figures and every export — is part of
+                  DawnDock itself. On a machine that has never heard of WSL you can open a
+                  structure, prepare it, dock and make your figure.
+                </p>
+                <p class="mt-2.5 text-[15px] text-muted">
+                  WSL is only needed for the three Linux-only engines: Smina, GNINA and LeDock. The
+                  engine dialog explains what WSL is, offers to install it for you, and says
+                  plainly that the bundled engines work right now without it.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Do I need an NVIDIA graphics card for the AI engine?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  No. GNINA always runs on the processor in DawnDock, deliberately, so there is no
+                  CUDA driver to get wrong and no class of failure that only appears on some
+                  machines. It costs speed: measured on a laptop with no CUDA at all, GNINA docked
+                  imatinib into Abl kinase in about 70 seconds, and rescoring five existing poses
+                  took 9 seconds.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Which file formats does it read?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  <strong class="font-[650] text-ink">Receptors:</strong> PDB and mmCIF, gzipped or not, or fetched from the
+                  RCSB by its four-character ID.
+                </p>
+                <p class="mt-2.5 text-[15px] text-muted">
+                  <strong class="font-[650] text-ink">Ligands:</strong> SDF, MOL, MOL2, PDB, SMILES files and CSV tables with a
+                  SMILES column, or a SMILES string typed straight in.
+                </p>
+                <p class="mt-2.5 text-[15px] text-muted">
+                  <strong class="font-[650] text-ink">What comes out:</strong> poses as SDF and in the engine's own format,
+                  receptor-plus-pose complexes as PDB ready for PyMOL, every score as CSV, PNG
+                  figures, and one ZIP holding all of it with the logs and configs.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Does my structure get uploaded anywhere?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  No. Docking runs on your own computer, and your structures and ligands are never
+                  sent anywhere. DawnDock uses the network for three things only, all of them at
+                  your request: downloading a structure <em>from</em> the RCSB when you type a PDB
+                  ID, downloading the optional engines, and checking whether a newer version has
+                  been published.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Does it run on macOS or Linux?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  Not yet. Version 1.0.1 is a Windows application, built and tested on Windows 10
+                  and 11, 64-bit.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Why does the same ligand sometimes score differently?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  Docking engines search at random, so in general they can. DawnDock pins the
+                  random seed, so docking the same ligand twice with the same settings gives
+                  exactly the same answer. The one exception is LeDock, which exposes no seed at
+                  all; across five repeats of the same run its scores spanned about 0.25 kcal/mol,
+                  and the Dock step says so on its card rather than leaving you to discover it.
+                </p>
+              </div>
+            </details>
+
+            <details class="group/faq border-t border-line">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[17px] text-[15.5px] font-[650] hover:bg-surface">Something went wrong. What should I send?
+                <svg class="flex-none text-faint transition-transform duration-[180ms] group-open/faq:rotate-180 motion-reduce:transition-none" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="px-5 pb-[19px]">
+                <p class="text-[15px] text-muted">
+                  Open <strong class="font-[650] text-ink">Help → Copy diagnostics</strong>. It puts the version, your results
+                  folder, every engine it found with its version, and anything that would not
+                  start onto the clipboard. Paste that into your message.
+                </p>
+                <p class="mt-2.5 text-[15px] text-muted">
+                  If the program closed unexpectedly there is also a log at
+                  <code class="rounded-md border border-line bg-surface-2 px-1.5 py-px font-mono text-[.875em] [overflow-wrap:anywhere]">%APPDATA%\DawnDock\crash.log</code>. Attach it, say what you were doing,
+                  and share the structure and ligand if you are able to — that helps most of all.
+                </p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- ---------------- CITE ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="cite">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Citing</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">How to cite DawnDock</h2>
+          <p class="mt-3 text-muted">If DawnDock helped with work you publish, please cite it:</p>
+
+          <div class="mt-6 rounded-[14px] border border-line bg-surface p-[22px]">
+            <p class="text-[16px] leading-[1.7] text-muted" id="dobt-citation">
+              Ahmed, S. F. (2026). <em>DawnDock: a multi-engine GUI application for molecular
+              docking with deep learning scoring</em> (Version 1.0.1) [Computer software].
+              Zenodo. https://doi.org/10.5281/zenodo.24198678
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-2.5">
+              <button class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-transparent bg-brand px-5 py-3 text-[15px] font-[650] text-white transition-colors hover:bg-brand-700 active:translate-y-px" type="button" data-dobt-copy="dobt-citation">
+                <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+                <span data-dobt-copy-label>Copy citation</span>
+              </button>
+              <a class="inline-flex items-center gap-2 rounded-full border border-line-strong bg-white px-[13px] py-[7px] font-mono text-[13.5px] no-underline" href="https://doi.org/10.5281/zenodo.24198678">10.5281/zenodo.24198678</a>
+            </div>
+          </div>
+
+          <p class="mt-[18px] text-muted">
+            That DOI belongs to this exact version and never moves, so a paper points at the
+            code that produced its results. Cite the version you actually ran. This is the
+            wording Zenodo gives for the record itself. The program's own
+            <strong class="font-[650] text-ink">About</strong> window, where the citation can be copied
+            straight out, and
+            <a href="https://github.com/FaisalAhmed27/DawnDock/blob/main/CITATION.cff">CITATION.cff</a>
+            name <em>Dawn of Bioinformatics Ltd.</em> as the publisher instead of Zenodo.
+            Both forms are accepted; use whichever your journal prefers.
+          </p>
+
+          <!-- The concept DOI. Worth stating once: it is the link to keep, and the one
+               not to put in a paper. -->
+          <div class="mt-6 rounded-xl border border-line bg-surface px-5 py-[18px]">
+            <h3 class="mb-3 text-[15.5px]">A link that stays current</h3>
+            <p class="text-[14.5px] text-ink-soft">
+              Zenodo also gives DawnDock one DOI that covers every version and always resolves
+              to the newest:
+              <a class="font-mono" href="https://doi.org/10.5281/zenodo.24185576">10.5281/zenodo.24185576</a>.
+              Use it where you mean the software in general — a bookmark, a link from a website,
+              a software list — because it will not go stale when the next version comes out. In
+              a paper, use the version DOI above instead: a reader needs to know which version
+              produced the results, and this one will point at a later release than the one you
+              ran.
+            </p>
+          </div>
+
+          <h3 class="mt-[26px] text-[18.5px]">Please also cite the engine you used</h3>
+          <p class="mt-3 text-muted">
+            DawnDock runs these programs; it does not replace them, and their authors deserve the
+            credit. The manual lists the full references, and so does the program's About window.
+          </p>
+          <div class="mt-6 overflow-x-auto rounded-[14px] border border-line bg-white">
+            <table class="w-full min-w-[520px] border-collapse text-[14.5px] [&_:is(th,td)]:border-b [&_:is(th,td)]:border-line [&_:is(th,td)]:px-4 [&_:is(th,td)]:py-[11px] [&_tbody>tr:last-child>*]:border-b-0 [&_tbody_th]:font-[650] [&_tbody_th]:whitespace-nowrap [&_tbody_th]:text-ink">
+              <tbody>
+                <tr class="hover:bg-surface"><th class="text-left align-top" scope="row">AutoDock Vina</th><td>Eberhardt, J., Santos-Martins, D., Tillack, A. F. &amp; Forli, S. <em>J. Chem. Inf. Model.</em> <strong class="font-[650]">61</strong>, 3891–3898 (2021). Trott, O. &amp; Olson, A. J. <em>J. Comput. Chem.</em> <strong class="font-[650]">31</strong>, 455–461 (2010).</td></tr>
+                <tr class="hover:bg-surface"><th class="text-left align-top" scope="row">AutoDock 4</th><td>Morris, G. M. <em>et al. J. Comput. Chem.</em> <strong class="font-[650]">30</strong>, 2785–2791 (2009).</td></tr>
+                <tr class="hover:bg-surface"><th class="text-left align-top" scope="row">Smina</th><td>Koes, D. R., Baumgartner, M. P. &amp; Camacho, C. J. <em>J. Chem. Inf. Model.</em> <strong class="font-[650]">53</strong>, 1893–1904 (2013).</td></tr>
+                <tr class="hover:bg-surface"><th class="text-left align-top" scope="row">GNINA</th><td>McNutt, A. T. <em>et al. J. Cheminform.</em> <strong class="font-[650]">13</strong>, 43 (2021).</td></tr>
+                <tr class="hover:bg-surface"><th class="text-left align-top" scope="row">LeDock</th><td>Zhao, H. &amp; Caflisch, A. <em>Bioorg. Med. Chem. Lett.</em> <strong class="font-[650]">23</strong>, 5721–5726 (2013). Wang, Z. <em>et al. Phys. Chem. Chem. Phys.</em> <strong class="font-[650]">18</strong>, 12964–12975 (2016).</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ---------------- SUPPORT ---------------- -->
+        <section class="border-t border-line py-11 first:border-t-0 first:pt-[34px]" id="support">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Help</span>
+          <h2 class="text-[clamp(24px,3vw,31px)]">Support</h2>
+          <p class="mt-3 text-muted">
+            DawnDock is made in Bangladesh by Dawn of Bioinformatics Ltd. Questions about using
+            it, problems, and commercial licence enquiries all go to the same address.
+          </p>
+
+          <div class="mt-[26px] grid grid-cols-2 gap-[18px] max-sm:grid-cols-1">
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <h3 class="text-[16.5px]">Write to us</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">Include the diagnostics text from <strong class="font-[650] text-ink">Help → Copy diagnostics</strong> if you are reporting a problem.</p>
+              <p class="mt-3.5">
+                <a class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-line-strong bg-white px-5 py-3 text-[15px] font-[650] text-ink no-underline transition-colors hover:border-faint hover:bg-surface active:translate-y-px" href="mailto:dawn.of.bioinformatics@gmail.com?subject=DawnDock%201.0.1">
+                  <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+                  <!-- The break point lets the address wrap before "@" in a narrow card. -->
+                  dawn.of.bioinformatics<wbr>@gmail.com
+                </a>
+              </p>
+            </div>
+            <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+              <h3 class="text-[16.5px]">Report a bug publicly</h3>
+              <p class="mt-3 text-[14.5px] leading-[1.6] text-muted">Problem reports and questions can also be opened on GitHub, where other users can see the answer.</p>
+              <p class="mt-3.5">
+                <a class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-line-strong bg-white px-5 py-3 text-[15px] font-[650] text-ink no-underline transition-colors hover:border-faint hover:bg-surface active:translate-y-px" href="https://github.com/FaisalAhmed27/DawnDock/issues">
+                  <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.5"/></svg>
+                  Open an issue
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'dobtools/dobtools.js' %}?v=11" defer></script>
+{% endblock %}

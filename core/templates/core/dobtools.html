@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DOBTools — software from Dawn of Bioinformatics Ltd.{% endblock %}
+{% block meta_description %}DOBTools is the software Dawn of Bioinformatics Ltd. builds and gives away for academic research. The first is DawnDock, a free Windows application for molecular docking with neural-network pose scoring.{% endblock %}
+
+{% block og_title %}DOBTools — software from Dawn of Bioinformatics Ltd.{% endblock %}
+{% block og_description %}Bioinformatics software built in Bangladesh, free for academic use. Starting with DawnDock, molecular docking for Windows.{% endblock %}
+{% block og_image %}{% static 'dobtools/img/dawndock-results-1600.webp' %}{% endblock %}
+
+{% block extra_head %}
+<!-- Built by Tailwind from the classes on this page; see assets/dobtools.src.css. -->
+<link rel="stylesheet" href="{% static 'dobtools/dobtools.css' %}?v=11">
+{% endblock %}
+
+{% block content %}
+<div class="dobt overflow-x-clip bg-white font-sans text-[16px] leading-[1.6] text-ink antialiased" id="top">
+  <a class="absolute top-0 -left-[9999px] z-[60] rounded-br-lg bg-brand px-4 py-2.5 text-white focus:left-0" href="#main">Skip to content</a>
+
+  <div id="main">
+
+    <!-- ======================= HERO ======================= -->
+    <section class="border-b border-line bg-white bg-[image:radial-gradient(900px_420px_at_10%_-10%,var(--color-brand-50),transparent_60%),radial-gradient(700px_340px_at_95%_0%,var(--color-gold-50),transparent_58%)] pt-[68px] pb-[72px]">
+      <div class="mx-auto grid w-full max-w-[1180px] grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] items-center gap-[52px] px-8 max-lg:grid-cols-1 max-lg:gap-9 max-sm:px-4">
+        <div>
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">DOBTools</span>
+          <h1 class="text-[clamp(34px,5.2vw,54px)]">Bioinformatics Software, <span class="text-brand">Built in Bangladesh</span>.</h1>
+          <p class="mt-5 max-w-[54ch] text-[17.5px] text-muted">
+            The tools we build for our own work, given away for academic research. Desktop
+            software that runs on your own computer, with the methods written down and the
+            numbers published so you can check them.
+          </p>
+          <div class="mt-[30px] flex flex-wrap gap-3">
+            <a class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-transparent bg-brand px-5 py-3 text-[15px] font-[650] text-white no-underline transition-colors hover:bg-brand-700 active:translate-y-px" href="{% url 'core:dawndock' %}">
+              Explore DawnDock
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-line-strong bg-white px-5 py-3 text-[15px] font-[650] text-ink no-underline transition-colors hover:border-faint hover:bg-surface active:translate-y-px" href="{% url 'core:dawndock' %}#download">Download for Windows</a>
+          </div>
+        </div>
+
+        <figure>
+          <a class="group/shot relative block overflow-hidden rounded-[14px] border border-line-strong bg-surface no-underline shadow-lifted" href="{% static 'dobtools/img/dawndock-results-1600.webp' %}" data-dobt-lightbox>
+            <img class="block w-full" src="{% static 'dobtools/img/dawndock-results-1000.webp' %}"
+                 srcset="{% static 'dobtools/img/dawndock-results-640.webp' %} 640w, {% static 'dobtools/img/dawndock-results-1000.webp' %} 1000w, {% static 'dobtools/img/dawndock-results-1600.webp' %} 1600w"
+                 sizes="(max-width: 1024px) 100vw, 560px"
+                 width="1000" height="611"
+                 alt="DawnDock showing a docked pose in its binding pocket, with the engine's scores and the measured contacts beside it.">
+            <span class="absolute right-3 bottom-3 inline-flex items-center gap-[7px] rounded-full border border-line-strong bg-white/95 px-[13px] py-[7px] text-[12.5px] font-semibold text-ink-soft shadow-card group-hover/shot:bg-white group-hover/shot:text-brand">
+              <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+              View full size
+            </span>
+          </a>
+          <figcaption class="mt-[13px] text-[14px] text-muted">DawnDock 1.0.1, docking imatinib into Abl kinase.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======================= WHAT YOU GET ======================= -->
+    <section class="py-[72px] max-sm:py-[52px]">
+      <div class="mx-auto w-full max-w-[1180px] px-8 max-sm:px-4">
+        <div class="mb-9 max-w-[760px]">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">What to expect</span>
+          <h2 class="text-[clamp(26px,3.4vw,36px)]">How we build these</h2>
+        </div>
+
+        <div class="grid grid-cols-3 gap-[18px] max-lg:grid-cols-2 max-sm:grid-cols-1">
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
+            <h3 class="text-[16.5px]">It runs on your computer</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Desktop software, not a web service. Your structures and results stay on your own machine, and nothing stops working when a server goes down or a subscription lapses.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V9"/><path d="M10 18V5"/><path d="M16 18v-7"/><path d="M3 21h18"/></svg></span>
+            <h3 class="text-[16.5px]">The numbers are published</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Where we claim an accuracy, the benchmark that produced it is published with the per-case data, so the figure can be recomputed rather than taken on trust.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 4.2-3.3 7-8 8-4.7-1-8-3.8-8-8V7z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <h3 class="text-[16.5px]">Free for academic work</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Free for academic, nonprofit, educational and personal research, with no account to make. Commercial use needs written permission first.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= THE TOOLS ======================= -->
+    <section class="border-y border-line bg-surface py-[72px] max-sm:py-[52px]" id="tools">
+      <div class="mx-auto w-full max-w-[1180px] px-8 max-sm:px-4">
+        <div class="mb-9 max-w-[760px]">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Our tools</span>
+          <h2 class="text-[clamp(26px,3.4vw,36px)]">Available now</h2>
+        </div>
+
+        <a class="group/tool grid grid-cols-[84px_minmax(0,1fr)] items-start gap-5 rounded-[18px] border border-line bg-white p-[26px] text-inherit no-underline shadow-raised hover:border-line-strong hover:shadow-lifted max-sm:grid-cols-1" href="{% url 'core:dawndock' %}">
+          <img class="size-[84px]" src="{% static 'dobtools/img/dawndock-logo-256.png' %}" alt="" width="84" height="84">
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h3 class="text-[22px]">DawnDock</h3>
+              <span class="inline-flex items-center gap-[5px] rounded-full border border-ok-line bg-ok-50 px-[9px] py-[3px] text-[11.5px] font-bold tracking-[.02em] text-ok-ink">Version 1.0.1</span>
+            </div>
+            <p class="mt-2.5 text-[15px] text-muted">
+              Molecular docking and virtual screening, without the command line. Five docking
+              engines behind one window — GNINA, Smina, AutoDock Vina, AutoDock 4 and LeDock —
+              with poses scored by a neural network trained on solved crystal structures, not
+              only by a classical scoring function. Receptor and ligand preparation, pocket
+              finding, batch screening, interaction analysis and publication figures are all
+              part of it.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">Windows 10 / 11</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">298 MB</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">80.5% top-pose accuracy</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-ok-line bg-ok-50 px-3 py-1.5 text-[13px] font-semibold text-ok-ink">Free for academic use</span>
+            </div>
+            <span class="mt-[18px] inline-flex items-center gap-[7px] text-[15px] font-[650] text-brand group-hover/tool:gap-[11px]">
+              Download, manual and benchmarks
+              <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <div class="mt-[18px] rounded-[18px] border border-dashed border-line-strong bg-surface p-6 text-center">
+          <h3 class="text-[17px]">More tools are coming</h3>
+          <p class="mt-2 text-[14.5px] text-muted">DawnDock is the first. If there is something you need for your own work, tell us what it is.</p>
+          <a class="mt-4 inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-line-strong bg-white px-5 py-3 text-[15px] font-[650] text-ink no-underline transition-colors hover:border-faint hover:bg-surface active:translate-y-px" href="mailto:dawn.of.bioinformatics@gmail.com?subject=DOBTools%20%E2%80%94%20tool%20suggestion">Suggest a tool</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= WHY DAWNDOCK ======================= -->
+    <section class="py-[72px] max-sm:py-[52px]" id="why">
+      <div class="mx-auto w-full max-w-[1180px] px-8 max-sm:px-4">
+        <div class="mb-9 max-w-[760px]">
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">DawnDock</span>
+          <h2 class="text-[clamp(26px,3.4vw,36px)]">Why we built it</h2>
+          <p class="mt-3.5 text-[17px] text-muted">
+            Docking is routine work, but the tooling is not. The engines are Linux command-line
+            programs, the preparation steps are scattered across half a dozen utilities, and the
+            answer arrives as a text file. That is a day of setup before a student runs anything.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-[18px] max-lg:grid-cols-2 max-sm:grid-cols-1">
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h10"/><path d="M4 17h7"/></svg></span>
+            <h3 class="text-[16.5px]">One window, in work order</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Receptor, ligands, binding site, dock, results, analysis — the six steps run down the side and tick off as you go, so it is always clear what is still missing.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><circle cx="12" cy="12" r="4.5"/></svg></span>
+            <h3 class="text-[16.5px]">Nothing to set up</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Two engines are bundled and work the moment you install. No Python, no compiler, no toolkit, and no administrator password.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg></span>
+            <h3 class="text-[16.5px]">Dock fast, then rescore</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Dock with a fast classical engine, then rescore the promising poses with the neural network — about nine seconds for five poses, and both sets of numbers stay on screen.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 4.2-3.3 7-8 8-4.7-1-8-3.8-8-8V7z"/></svg></span>
+            <h3 class="text-[16.5px]">Your files stay with you</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Docking runs on your machine and your structures are never uploaded. The network is used only to fetch a PDB you asked for, to add an optional engine, or to check for an update.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span>
+            <h3 class="text-[16.5px]">It shows its working</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">Every run writes its config and the exact command line beside the results, so the same calculation can be repeated outside DawnDock, or by a reviewer.</p>
+          </div>
+          <div class="rounded-[14px] border border-line bg-white p-[22px] shadow-card">
+            <span class="mb-3.5 grid size-10 place-items-center rounded-[10px] bg-brand-50 text-brand" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a1 1 0 011-1h11l4 4v11a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M8 13h8"/><path d="M8 17h5"/></svg></span>
+            <h3 class="text-[16.5px]">Citable</h3>
+            <p class="mt-2 text-[14.5px] leading-[1.6] text-muted">The release is archived with a DOI, so a paper can point at the exact version its results came from, and the citation is inside the program.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CITE + HELP ======================= -->
+    <section class="border-y border-line bg-surface py-[72px] max-sm:py-[52px]" id="help">
+      <div class="mx-auto grid w-full max-w-[1180px] grid-cols-2 gap-[18px] px-8 max-sm:grid-cols-1 max-sm:px-4">
+        <div>
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Citing</span>
+          <h2 class="text-[26px]">Using a DOBTool in your research</h2>
+          <p class="mt-3.5 text-[14.5px] text-muted">
+            Each release is archived with its own DOI, so you can cite the exact version you
+            ran. DawnDock 1.0.1:
+          </p>
+          <div class="mt-4 rounded-[14px] border border-line bg-surface p-[22px]">
+            <p class="text-[15px] leading-[1.7] text-ink-soft" id="dobt-citation-hub">
+              Ahmed, S. F. (2026). <em>DawnDock: a multi-engine GUI application for molecular
+              docking with deep learning scoring</em> (Version 1.0.1) [Computer software].
+              Zenodo. https://doi.org/10.5281/zenodo.24198678
+            </p>
+            <div class="mt-4 flex flex-wrap items-center gap-2.5">
+              <button class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-transparent bg-brand px-5 py-3 text-[15px] font-[650] text-white transition-colors hover:bg-brand-700 active:translate-y-px" type="button" data-dobt-copy="dobt-citation-hub">
+                <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+                <span data-dobt-copy-label>Copy citation</span>
+              </button>
+              <a class="inline-flex items-center gap-2 rounded-full border border-line-strong bg-white px-[13px] py-[7px] font-mono text-[13.5px] no-underline" href="https://doi.org/10.5281/zenodo.24198678" target="_blank" rel="noopener">10.5281/zenodo.24198678</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <span class="mb-3 inline-block text-[12.5px] font-bold uppercase tracking-[.09em] text-brand">Help</span>
+          <h2 class="text-[26px]">Need a hand?</h2>
+          <p class="mt-3.5 text-[14.5px] text-muted">
+            Questions about using our tools, problems, and commercial licence enquiries all go
+            to the same address. For DawnDock, the
+            <a href="{% url 'core:dawndock' %}#manual">user manual</a> and the
+            <a href="{% url 'core:dawndock' %}#faq">questions people ask</a> cover most of it already.
+          </p>
+          <p class="mt-[18px]">
+            <a class="inline-flex cursor-pointer items-center justify-center gap-[9px] rounded-[10px] border border-line-strong bg-white px-5 py-3 text-[15px] font-[650] text-ink no-underline transition-colors hover:border-faint hover:bg-surface active:translate-y-px" href="mailto:dawn.of.bioinformatics@gmail.com">
+              <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+              <!-- The break point lets the address wrap before "@" in a narrow column. -->
+              dawn.of.bioinformatics<wbr>@gmail.com
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'dobtools/dobtools.js' %}?v=11" defer></script>
+{% endblock %}
